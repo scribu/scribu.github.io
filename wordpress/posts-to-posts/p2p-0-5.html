@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Posts 2 Posts: Version 0.5</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-5.html">Posts 2 Posts: Version 0.5</a></h2>
+
+	<time datetime="2010-11-22 00:00:00 +0200" id="top_time">November 22, 2010</time>
+
+	<p class="entry-content">
+	<p>This release is focused on enhancing the API, making it easier to leverage the p2pmeta table.</p>
+
+<p>First of all, a new variable for WP_Query is now available: <code class="highlighter-rouge">connected_meta</code>. It allows you to restrict connections based on what meta data they have. Here’s an example:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$my_query = new WP_Query( array(
+    'post_type' =&gt; 'book',
+    'connected_to' =&gt; 'any',
+    'connected_meta' =&gt; array(
+        'connection_date' =&gt; 'long ago',
+    )
+) );
+</code></pre></div></div>
+
+<p>This will retrieve any book that has a connection to any other post. Also, the connections have to have a custom field with the key <code class="highlighter-rouge">connection_date</code> and the value <code class="highlighter-rouge">long ago</code>.</p>
+
+<p>And, if that’s not enough, you can use the <a href="http://scribu.net/wordpress/advanced-metadata-queries.html" title="Advanced Metadata Queries">advanced meta query syntax</a>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$my_query = new WP_Query( array(
+    'post_type' =&gt; 'book',
+    'connected_to' =&gt; 'any'
+    'connected_meta' =&gt; array(
+        array(
+            'key' =&gt; 'connection_date',
+            'value' =&gt; array( 'long ago', 'yesterday' ),
+            'compare' =&gt; 'IN'
+        )
+    )
+) );
+</code></pre></div></div>
+
+<p>Also, after you do the query, you can access the rest of the connection meta data via the p2p_id property, assigned to each found post:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while ( $my_query-&gt;have_posts() ) : $my_query-&gt;the_post();
+
+    $connection_type = p2p_get_meta( $post-&gt;p2p_id, 'connection_type', true );
+
+endwhile;
+</code></pre></div></div>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

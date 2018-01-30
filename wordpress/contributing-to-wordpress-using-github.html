@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Contributing To WordPress (Using Git)</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/contributing-to-wordpress-using-github.html">Contributing To WordPress (Using Git)</a></h2>
+
+	<time datetime="2012-12-10 00:00:00 +0200" id="top_time">December 10, 2012</time>
+
+	<p class="entry-content">
+	<p>More and more people are realizing that <a href="http://planetozh.com/blog/2012/11/efficient-git-setup-on-windows/">git is awesome</a>. Although the official WordPress source code still lives in an <a href="http://core.svn.wordpress.org">svn repository</a>, you can contribute patches without having to touch svn ever again.</p>
+
+<p>So, without further ado, here’s how you can generate and manage patches for WordPress Core (it assumes you’re comfortable with the command line).</p>
+
+<h3 id="1-find-a-ticket-to-work-on">1. Find a ticket to work on.</h3>
+
+<p>Patches need to be attached to tickets. You can browse through <a href="https://core.trac.wordpress.org/report">existing tickets</a> in trac or create a new one. The Contributor Handbook has more details on the <a href="http://make.wordpress.org/core/handbook/trac/">bug tracking workflow</a>.</p>
+
+<h3 id="2-clone-the-official-mirror">2. Clone the official mirror.</h3>
+
+<p><del>There’s an <a href="https://github.com/WordPress/WordPress">official mirror</a> of WordPress on github, so let’s use that:</del></p>
+
+<p>WordPress has an <a href="http://make.wordpress.org/core/2014/01/15/git-mirrors-for-wordpress/">official git mirror</a> which we can use:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git://develop.git.wordpress.org/ wordpress
+cd wordpress
+</code></pre></div></div>
+
+<h3 id="3-make-a-feature-branch">3. Make a feature branch.</h3>
+
+<p>Once you’ve got the ticket number, create a branch:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master -b some-feature/123
+</code></pre></div></div>
+
+<p>where 123 is the ticket number.</p>
+
+<p>Now, make the code changes you need to make and commit them (you can do several commits; it doesn’t matter):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>... edit some files...
+
+git commit -am "fixed the bug"
+
+... edit some more files
+
+git commit -am "fixed edge case"
+</code></pre></div></div>
+
+<h3 id="3-generate-the-patch">3. Generate the patch.</h3>
+
+<p>Here’s the clever part: you can generate an <a href="http://scribu.net/wordpress/svn-patches-from-git.html" title="svn patches from git">svn-compatible patch</a> directly from git:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff master... --no-prefix &gt; some-feature.123.diff
+</code></pre></div></div>
+
+<p>If you want to skip the <code class="highlighter-rouge">--no-prefix</code> arg, you can update your gitconfig:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global diff.noprefix true
+</code></pre></div></div>
+
+<p>All you have to now is upload <code class="highlighter-rouge">some-feature.123.diff</code> to the trac ticket. Done.</p>
+
+<h3 id="optional-publish-your-feature-branch">Optional: Publish your feature branch.</h3>
+
+<p>If it’s a big feature and you want to get feedback on it – without having to upload a new patch each time you make a change – you can publish your branch to <a href="http://github.com">Github</a>, <a href="https://bitbucket.org/">Bitbucket</a> or even your own server.</p>
+
+<p>So, for example, if I went ahead and created the scribu/WordPress repository on Github, all I’d have to do is tell my local clone about it:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add scribu git@github.com:scribu/WordPress.git
+</code></pre></div></div>
+
+<p>After that initial step is done, to publish my branch, I can just do:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push -u scribu some-feature/123
+</code></pre></div></div>
+
+<h3 id="4-test-other-peoples-patches">4. Test other people’s patches.</h3>
+
+<p>It’s very likely that at some point you’ll encounter a ticket which already has a patch uploaded by someone else.</p>
+
+<p>First thing you need is an utility that makes it dead simple to download an attachment and apply it as a patch. Just add the following code to your <code class="highlighter-rouge">~/.bash_aliases</code> file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Apply a Trac patch.
+function tp() {
+	curl "$1?format=raw" | patch -p0
+}
+</code></pre></div></div>
+
+<p>And run <code class="highlighter-rouge">source ~/.bash_aliases</code>.</p>
+
+<p>Now, here’s how you use it:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master -b revisions/23497
+
+tp http://core.trac.wordpress.org/attachment/ticket/23497/23497.4.diff
+
+git add -A
+git commit -m "apply http://core.trac.wordpress.org/attachment/ticket/23497/23497.4.diff"
+</code></pre></div></div>
+
+<p>It gets tricky when a new version of the patch is uploaded and you have some additional commits in your feature branch. I’ll leave that as an excercise for the reader. :)</p>
+
+<p><strong>PS:</strong> You might also be interested in my <a href="http://scribu.net/blog/deploying-from-git-to-svn.html">plugin development workflow</a>.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

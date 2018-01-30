@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Easier category theme templates</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/easier-category-theme-templates.html">Easier category theme templates</a></h2>
+
+	<time datetime="2009-08-14 00:00:00 +0300" id="top_time">August 14, 2009</time>
+
+	<p class="entry-content">
+	<p>If you’re a theme developer, you’re probably familiar with the category.php and category-{id}.php template files. The later lets you display a single category differently.</p>
+
+<p>But using <code class="highlighter-rouge">category-{id}.php</code> in practice is not that fun: firstly, you have to leave a comment in the theme file so that you know what it’s for. Secondly, you have to rename the file for each site that you use the theme on, because the category id isn’t constant.</p>
+
+<p>No more: in WordPress 2.9, you’ll be able to <em>use the category slug</em> instead. For example: say you have a <em>News</em> category on your site. If you want to display it differently, you can just create this file:</p>
+
+<p><code class="highlighter-rouge">category-news.php</code></p>
+
+<p>and when a site visitor goes to /category/news, that file will be loaded.</p>
+
+<!--more-->
+
+<p>If you don’t want to wait until 2.9 ships to use this feature, you can add this code to your theme’s <code class="highlighter-rouge">functions.php</code> file and you’re good to go:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>add_filter('category_template', 'category_slug_template');
+function category_slug_template($template) {
+	$cat_ID = absint( get_query_var('cat') );
+	$category = get_category( $cat_ID );
+
+	if ( is_wp_error( $category ) )
+ 		return false;
+
+	$new_template = locate_template(array("category-" . $category-&amp;gt;slug . '.php'));
+
+	if ( $new_template )
+		return $new_template;
+
+	return $template;
+}
+</code></pre></div></div>
+
+<p>This feature was brought to you courtesy of:</p>
+
+<ul>
+  <li>Tim Schoffelman, who started the discussion on the wp-hackers mailing list</li>
+  <li>myself, who opened a <a href="http://core.trac.wordpress.org/attachment/ticket/10614/">ticket</a> with a patch</li>
+  <li>Peter Westwood, who <a href="http://core.trac.wordpress.org/changeset/11814">commited</a> the patch</li>
+</ul>
+
+<p>Happy theming!</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

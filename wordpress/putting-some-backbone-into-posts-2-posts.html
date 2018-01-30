@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Putting Some Backbone Into Posts 2 Posts</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/putting-some-backbone-into-posts-2-posts.html">Putting Some Backbone Into Posts 2 Posts</a></h2>
+
+	<time datetime="2013-02-02 00:00:00 +0200" id="top_time">February 02, 2013</time>
+
+	<p class="entry-content">
+	<p>The last major release of WordPress (3.5) got the first dose of <a href="http://backbonejs.org/">Backbone.js</a> in the form of the revamped media manager.</p>
+
+<p>Since I’ve been itching to play around with it for a while, I decided to backboneify the javascript-heavy metabox from the <a href="http://wordpress.org/extend/plugins/posts-to-posts/">Posts 2 Posts</a> plugin, following <a href="https://github.com/kjbekkelund/writings/blob/master/published/understanding-backbone.md">this guide</a>.</p>
+
+<p>In the <a href="https://github.com/scribu/wp-posts-to-posts/pull/303">first part</a>, I organized everything into Backbone Views. Even though there were some awkward parts, I already felt this was a big improvement.</p>
+
+<p>In the <a href="https://github.com/scribu/wp-posts-to-posts/pull/306">second part</a>, I started using proper Backbone Models, successfully separating AJAX logic from DOM manipulation.</p>
+
+<p>After this little experience, I think <a href="http://trek.github.com/advice_on_and_instruction_in_the_use_of_emberjs/">Trek’s summary</a> is spot on:</p>
+
+<blockquote>Backbone is approachable if you've spent some time writing applications with jQuery and are familiar with callback-style evented architectures. Backbone's DNA is basically jQuery custom events on steroids.</blockquote>
+
+<p>P2P 1.5 isn’t ready yet, but if you want to play around with it, you can get it straight <a href="https://github.com/scribu/wp-posts-to-posts">from github</a>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone --recursive git://github.com/scribu/wp-posts-to-posts.git
+</code></pre></div></div>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

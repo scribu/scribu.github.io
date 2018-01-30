@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Smart Archives Reloaded: Advanced Tweaking</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/advanced-tweaking.html">Smart Archives Reloaded: Advanced Tweaking</a></h2>
+
+	<time datetime="2010-01-13 00:00:00 +0200" id="top_time">January 13, 2010</time>
+
+	<p class="entry-content">
+	<p>Since version 1.9, you can make modifications to the plugin output, without having to modify the plugin code. This way, your tweaks won’t be lost when you upgrade the plugin.</p>
+
+<h3 id="custom-styling">Custom styling</h3>
+
+<p>If you want to customize the appearance of the archives using your own CSS, here’s how you do it:</p>
+
+<ol>
+  <li>
+    <p>Add this code to your theme’s <code class="highlighter-rouge">functions.php</code> file:</p>
+
+    <p>add_filter(‘smart_archives_load_default_styles’, ‘__return_false’);</p>
+  </li>
+  <li>Copy everything from <code class="highlighter-rouge">smart-archives-reloaded/inc/styles.dev.css</code> into your theme’s <code class="highlighter-rouge">style.css</code> file.</li>
+  <li>Change the CSS in your theme’s <code class="highlighter-rouge">style.css</code> file, as needed.</li>
+</ol>
+
+<h3 id="custom-markup">Custom markup</h3>
+
+<p>If you want to go one step further and change the generated HTML markup, you can do that too (understanding of <a href="http://www.php.net/manual/en/language.oop5.inheritance.php">object inheritance</a> is required).</p>
+
+<p>First, take a look at the <code class="highlighter-rouge">SAR_Generator</code> class (in <code class="highlighter-rouge">smart-archives-reloaded/generator.php</code>).</p>
+
+<p>In your theme’s <code class="highlighter-rouge">functions.php</code> file, you can extend that class, like so:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class SAR_Custom_Generator extends SAR_Generator {
+
+	protected function generate_fancy() {
+		// your custom code here
+	}
+
+	protected function generate_block() {
+		// more of your custom code here
+	}
+
+	...
+}
+</code></pre></div></div>
+
+<p>Then, all you have to do is add the ‘generator’ argument to the template tag:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">smart_archives</span><span class="p">(</span><span class="s1">'generator=SAR_Custom_Generator'</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

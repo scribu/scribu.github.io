@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Front-end Editor: Version 1.1</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/front-end-editor/fee-1-1.html">Front-end Editor: Version 1.1</a></h2>
+
+	<time datetime="2009-08-15 00:00:00 +0300" id="top_time">August 15, 2009</time>
+
+	<p class="entry-content">
+	<p>Version 1.1 adds a few usability improvements:</p>
+
+<ul>
+  <li>a spinner is displayed while loading and saving data</li>
+  <li>pressing escape while editing will remove the form</li>
+  <li>pressing enter while editing a text input will submit the form</li>
+</ul>
+
+<p>Also, it allows you to edit custom taxonomies, just like you would edit post tags. I recommend the <a href="http://yoast.com/wordpress/simple-taxonomies/">Simple Taxonomies</a> plugin for creating custom taxonomies.</p>
+
+<p>Here is a code example:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">the_terms</span><span class="p">(</span><span class="nv">$post</span><span class="o">-&gt;</span><span class="na">ID</span><span class="p">,</span> <span class="s1">'mytax'</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>To make it work in WP 2.8 *, you have to open <code class="highlighter-rouge">wp-includes/category-template.php</code> and find the_terms() function. Then, you have to make it look like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function the_terms( $id, $taxonomy, $before = '', $sep = ', ', $after = '' ) {
+    $term_list = get_the_term_list( $id, $taxonomy, $before, $sep, $after );
+
+    if ( is_wp_error( $term_list ) )
+        return false;
+
+    echo apply_filters('the_terms', $term_list, $taxonomy, $before, $sep, $after);
+}
+</code></pre></div></div>
+
+<p>___|_</p>
+<ul>
+  <li>You don’t have to do this if you’re using WordPress 2.9 or newer (see <a href="http://core.trac.wordpress.org/ticket/10600">#10600</a>).</li>
+</ul>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

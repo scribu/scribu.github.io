@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+	<title>scribu</title>
+	<link href="http://scribu.net"/>
+	<link type="application/atom+xml" rel="self" href="http://scribu.net/feed/"/>
+	<updated>2018-01-30T16:05:16+02:00</updated>
+	<id>http://scribu.net</id>
+	<author>
+		<name>scribu</name>
+		<email>mail@scribu.net</email>
+	</author>
+
+	
+	<entry>
+		<id>http://scribu.net/blog/asynchronous-http-requests-in-python-3.5</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/blog/asynchronous-http-requests-in-python-3.5.html"/>
+		<title>Asynchronous HTTP Requests in Python 3.5+</title>
+		<updated>2016-11-11T00:00:00+02:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;So you’ve heard that Python now supports that fancy &lt;code class=&quot;highlighter-rouge&quot;&gt;async/await&lt;/code&gt; syntax. You want to play with it, but &lt;a href=&quot;http://lucumr.pocoo.org/2016/10/30/i-dont-understand-asyncio/&quot;&gt;asyncio seems intimidating&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Well, someone wrote a simpler alternative to asyncio. It’s called &lt;a href=&quot;https://curio.readthedocs.io/&quot;&gt;Curio&lt;/a&gt; and people are saying good things &lt;a href=&quot;https://vorpus.org/blog/some-thoughts-on-asynchronous-api-design-in-a-post-asyncawait-world/&quot;&gt;about it&lt;/a&gt;. &lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;In this tutorial, I’m going to show you how to make non-blocking HTTP requests using Curio.&lt;/p&gt;
+
+&lt;p&gt;Since it doesn’t have a high-level HTTP client yet, I whipped up a small library called &lt;a href=&quot;https://github.com/scribu/curio-http&quot;&gt;curio-http&lt;/a&gt; &lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;, so you’ll need to install that as well.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-syntax&quot;&gt;The syntax&lt;/h3&gt;
+
+&lt;p&gt;Let’s start with a single request:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;curio&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;curio_http&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curio_http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClientSession&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'https://httpbin.org/get'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Status code:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status_code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Content:'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;curio&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You use &lt;code class=&quot;highlighter-rouge&quot;&gt;async def&lt;/code&gt; to declare what’s called a &lt;em&gt;coroutine&lt;/em&gt;. The last line — &lt;code class=&quot;highlighter-rouge&quot;&gt;curio.run(main())&lt;/code&gt; — kicks off the coroutine.&lt;/p&gt;
+
+&lt;p&gt;What’s inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;main&lt;/code&gt; coroutine should look familiar, if you’ve ever used the &lt;a href=&quot;http://python-requests.org&quot;&gt;requests&lt;/a&gt; library.&lt;/p&gt;
+
+&lt;p&gt;At each point where &lt;code class=&quot;highlighter-rouge&quot;&gt;await&lt;/code&gt; is called, the coroutine could theoretically yield control to a different coroutine. However, since there are no other coroutines here, the script behaves roughly like a synchronous program:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Create an HTTP session.&lt;/li&gt;
+  &lt;li&gt;Make an HTTP request.&lt;/li&gt;
+  &lt;li&gt;Wait for the response headers.&lt;/li&gt;
+  &lt;li&gt;Print the response status code.&lt;/li&gt;
+  &lt;li&gt;Wait for the response content.&lt;/li&gt;
+  &lt;li&gt;Print the content.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;achieving-concurrency&quot;&gt;Achieving concurrency&lt;/h3&gt;
+
+&lt;p&gt;To reap the benefits of asynchronous I/O, it’s not enough to sprinkle our programs with the &lt;code class=&quot;highlighter-rouge&quot;&gt;async&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;await&lt;/code&gt; keywords. We need to encode which operations can be executed independently (concurrent) and which need to happen one after the other (sequential).&lt;/p&gt;
+
+&lt;p&gt;Sequential execution:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;response1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'https://foo.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;response2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'https://bar.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Concurrent execution:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;taks1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curio&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spawn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'https://foo.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;task2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curio&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spawn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'https://bar.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;curio.spawn()&lt;/code&gt; is how you express the idea “I want this coroutine to be executed in the background”. The thing that’s spawned is what Curio calls a &lt;em&gt;task&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s look at an example that fetches a list of URLs concurrently by spawning a task for each one:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;curio&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;curio_http&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fetch_one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curio_http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClientSession&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tasks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curio&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spawn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fetch_one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tasks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'GET &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;url_list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;'http://httpbin.org/delay/1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;'http://httpbin.org/delay/2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;'http://httpbin.org/delay/3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;'http://httpbin.org/delay/4'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;curio&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Each URL in the list takes a number of seconds to fetch.&lt;/p&gt;
+
+&lt;p&gt;If we were to fetch them sequentially, it would take 1+2+3+4=10 seconds in total.&lt;/p&gt;
+
+&lt;p&gt;Since we’re using tasks, the run time will only be around 4 seconds.&lt;/p&gt;
+
+&lt;h3 id=&quot;controlling-concurrency&quot;&gt;Controlling concurrency&lt;/h3&gt;
+
+&lt;p&gt;What if we want to scrape a site, but we don’t want to hammer it with too many concurrent connections?&lt;/p&gt;
+
+&lt;p&gt;The simplest approach is to use what’s called a bounded semaphore.&lt;/p&gt;
+
+&lt;p&gt;Let’s see what changes we would need to make to the above example:&lt;/p&gt;
+
+&lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; import curio
+ import curio_http
+
+&lt;span class=&quot;gi&quot;&gt;+MAX_CONNECTIONS_PER_HOST = 2
++
++sema = curio.BoundedSemaphore(MAX_CONNECTIONS_PER_HOST)
++
+&lt;/span&gt; async def fetch_one(url):
+&lt;span class=&quot;gd&quot;&gt;-    async with curio_http.ClientSession() as session:
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+    async with sema, curio_http.ClientSession() as session:
+&lt;/span&gt;         response = await session.get(url)
+         content = await response.json()
+         return response, content
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here, we’re using not one, but two context managers: the semaphore and the HTTP session.&lt;/p&gt;
+
+&lt;p&gt;The semaphore is &lt;em&gt;aquired&lt;/em&gt; each time a task is started. It’s &lt;em&gt;released&lt;/em&gt; right after the URL has finished being fetched.&lt;/p&gt;
+
+&lt;p&gt;If more than &lt;code class=&quot;highlighter-rouge&quot;&gt;MAX_CONNECTIONS&lt;/code&gt; tasks have already aquired the semaphore, the next task that tries to aquire it will wait until a release happens.&lt;/p&gt;
+
+&lt;p&gt;To learn about more neat features of Curio, such as timeout handling and events, check out the excellent introductory &lt;a href=&quot;http://curio.readthedocs.io/en/latest/tutorial.html&quot;&gt;tutorial&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I hope this has given you a glimpse of what modern async I/O can look like in Python. All of the libraries used in this tutorial are in a very early state right now, but I think they have a lot of potential.&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;The downside is that it doesn’t work on Windows right now or with older versions of Python. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;Under the hood, it leverages this new thing called a &lt;a href=&quot;https://sans-io.readthedocs.io/&quot;&gt;sans I/O network protocol&lt;/a&gt;. &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<id>http://scribu.net/blog/3d-maps-using-d3-and-three.js</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/blog/3d-maps-using-d3-and-three.js.html"/>
+		<title>3D maps using D3 and three.js</title>
+		<updated>2015-02-23T00:00:00+02:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;Last weekend I participated in the &lt;a href=&quot;http://odd15.datedeschise.ro/cluj/&quot;&gt;Open Data Day Hackathon&lt;/a&gt; in Cluj-Napoca. I was glad to see that there were other people nearby interested in open data.&lt;/p&gt;
+
+&lt;p&gt;My idea was to make a 3D map of Romania, with each county elevated according to its population. It was really satisfying to go from this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/census-data.png&quot; alt=&quot;census data&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;to this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/3d-map.png&quot; alt=&quot;3D map&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here’s a &lt;a href=&quot;http://scribu.github.io/romania-3d/&quot;&gt;live demo&lt;/a&gt; (requires a browser with WebGL support).&lt;/p&gt;
+
+&lt;p&gt;The main advantage of this visualization mode is that you can see all the counties at once, so you get a holistic sense of population distribution, as well as population density.&lt;/p&gt;
+
+&lt;h3 id=&quot;features&quot;&gt;Features&lt;/h3&gt;
+
+&lt;p&gt;You can select the census year to view data from. If you hover over a county with the mouse (or tap on it on a touchscreen), you can see the county name and population count in the upper-right corner.&lt;/p&gt;
+
+&lt;p&gt;The map can be tilted by dragging and zoomed by scrolling, so you can get the best view of a particular area.&lt;/p&gt;
+
+&lt;h3 id=&quot;implementation&quot;&gt;Implementation&lt;/h3&gt;
+
+&lt;p&gt;From a &lt;a href=&quot;https://github.com/mbostock/topojson&quot;&gt;topojson&lt;/a&gt; file, the geographic data for each county is projected to a 2D path using &lt;a href=&quot;http://d3js.org/&quot;&gt;D3&lt;/a&gt;. This path is then converted to 3D geometry using &lt;a href=&quot;https://github.com/asutherland/d3-threeD&quot;&gt;d3-threeD&lt;/a&gt; and extruded based on the census data. Finally, the geometry is rendered using &lt;a href=&quot;http://threejs.org/&quot;&gt;three.js&lt;/a&gt;. The approach was inspired by &lt;a href=&quot;http://www.smartjava.org/content/render-geographic-information-3d-threejs-and-d3js&quot;&gt;Jos Dirksen’s post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;One thing I learned is that d3-threeD chokes on shapes with holes in them, so I had to &lt;a href=&quot;https://github.com/scribu/romania-3d/commit/e4fa4600cd2e9df8632217f632f0f47248cb8f84&quot;&gt;remove them&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To detect hovering over a particular county, a raycaster is used to find if there’s an interesection between the cursor position and any of the county meshes.&lt;/p&gt;
+
+&lt;p&gt;For UI rendering I used &lt;a href=&quot;http://facebook.github.io/react/&quot;&gt;React&lt;/a&gt;, mostly because I wanted to play with it.&lt;/p&gt;
+
+&lt;p&gt;For more details about the implementation, check out the &lt;a href=&quot;https://github.com/scribu/romania-3d/&quot;&gt;source code&lt;/a&gt;.&lt;/p&gt;
+
+</content>
+	</entry>
+	
+	<entry>
+		<id>http://scribu.net/blog/properly-forwarding-email-to-gmail</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/blog/properly-forwarding-email-to-gmail.html"/>
+		<title>Properly forwarding email to Gmail</title>
+		<updated>2014-11-18T00:00:00+02:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;So I have a custom email address, &lt;em&gt;mail@example.com&lt;/em&gt;, which I want to forward to &lt;em&gt;example@gmail.com&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Since I use NameCheap as my registrar, I had the option of setting up email forwarding via their UI. Very easy, but with drawbacks: sometimes email just wouldn’t arrive and I had no way of figuring out what the problem was.&lt;/p&gt;
+
+&lt;p&gt;Then, while moving my hosting to &lt;a href=&quot;https://www.digitalocean.com/?refcode=e785d2574328&quot;&gt;DigitalOcean&lt;/a&gt;, I decided to do the forwarding on my own server. So I configured the MX records and added virtual aliases in Postfix and pretty soon got a strange error from Google’s SMTP servers:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Our system has detected an unusual rate of 421-4.7.0 unsolicited mail originating from your IP address. To protect our 421-4.7.0 users from spam, mail sent from your IP address has been temporarily 421-4.7.0 rate limited. Please visit 421-4.7.0 http://www.google.com/mail/help/bulk_mail.html to review our Bulk 421 4.7.0 Email Senders Guidelines. f14si1032016icj.42 - gsmtp (in reply to end of DATA command))&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;After a bit of Googling, it seems somebody had the &lt;a href=&quot;https://www.digitalocean.com/community/questions/temporarily-rate-limited-from-google-in-mail-relay&quot;&gt;same problem&lt;/a&gt; and one suggested fix went like this: instead of pushing email to Gmail, make Gmail fetch it via POP3, so that’s what I did:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Enabled POP3 access by installing Courier.&lt;/li&gt;
+  &lt;li&gt;Created a separate &lt;code class=&quot;highlighter-rouge&quot;&gt;postmaster&lt;/code&gt; user (which doesn’t have &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt;).&lt;/li&gt;
+  &lt;li&gt;Routed all incoming mail to the &lt;code class=&quot;highlighter-rouge&quot;&gt;postmater&lt;/code&gt; user.&lt;/li&gt;
+  &lt;li&gt;Added the credentials in Gmail (&lt;em&gt;Settings → Accounts and Import&lt;/em&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;and it seems to work great. Gmail fetches mail from my server at its own pace, while leaving malicious email in place. I should probably set up a cron job to delete messages left in &lt;code class=&quot;highlighter-rouge&quot;&gt;Maildir/cur/&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Basically, everything you need to know is in this &lt;a href=&quot;https://help.ubuntu.com/community/PostfixBasicSetupHowto&quot;&gt;excellent tutorial&lt;/a&gt; on the Ubuntu Wiki.&lt;/p&gt;
+
+&lt;p&gt;For a long time, for me Postfix was that thing that never works right, but after reading a few clear tutorials, it actually sort of makes sense. So, drop me a line anytime. :)&lt;/p&gt;
+
+</content>
+	</entry>
+	
+	<entry>
+		<id>http://scribu.net/blog/left-wordpress</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/blog/left-wordpress.html"/>
+		<title>Left WordPress</title>
+		<updated>2014-11-18T00:00:00+02:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;It seems like most people that follow me on Twitter still think that I’m involved with WordPress. I haven’t done any WordPress-related work in over 6 months and I don’t intend to do any WordPress-related work in the future.&lt;/p&gt;
+
+&lt;p&gt;I &lt;a href=&quot;http://scribu.net/blog/switched-to-jekyll.html&quot;&gt;stopped using&lt;/a&gt; WordPress at the end of 2012. I stopped contributing to WordPress completely more than a year ago. All my plugins have been &lt;a href=&quot;http://scribu.net/wordpress/plugin-help-wanted.html&quot;&gt;up for adoption&lt;/a&gt; for quite a while. Six months ago, I &lt;a href=&quot;http://wp-cli.org/blog/new-maintainer-daniel-bachhuber.html&quot;&gt;gave the reign&lt;/a&gt; of WP-CLI to Daniel Bachhuber and it seems to be going well. I don’t blog about WordPress anymore and I don’t go to WordCamps either.&lt;/p&gt;
+
+&lt;p&gt;Ok, but why? A couple of reasons:&lt;/p&gt;
+
+&lt;p&gt;Firstly, technical aspects: crappy language (PHP, an ancient version to boot) and crappy architecture (everything touches &lt;code class=&quot;highlighter-rouge&quot;&gt;WP_Query&lt;/code&gt;, a &lt;a href=&quot;https://en.wikipedia.org/wiki/God_object&quot;&gt;god object&lt;/a&gt; if I ever saw one).&lt;/p&gt;
+
+&lt;p&gt;Secondly, slow development process: I think one of the required ingredients for the success of the WordPress platform is its commitment to backwards compatibility. The downside is that WordPress is stuck with its crappy architecture forever and improvements take a lot more effort to land.&lt;/p&gt;
+
+&lt;p&gt;Lastly, I realized that there’s a whole world out there beyond web content management systems that I wanted to explore.&lt;/p&gt;
+
+&lt;p&gt;Having said all that, I will miss the WordPress community. It’s hard to leave behind all the friendly faces I’ve spent so much time with online (and sometimes even offline), but it’s something I have to do.&lt;/p&gt;
+
+&lt;p&gt;Onward!&lt;/p&gt;
+
+</content>
+	</entry>
+	
+	<entry>
+		<id>http://scribu.net/blog/high-tech-folly</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/blog/high-tech-folly.html"/>
+		<title>High Tech's Folly</title>
+		<updated>2014-06-28T00:00:00+03:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;I am afflicted with this disease:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In large measure the high casualty rate of knowledge-based industry is the fault of the knowledge-based, and especially the high-tech, entrepreneurs themselves. They tend to be contemptuous of anything that is not “advanced knowledge”, and particularly of anyone who is not a specialist in their own area. They tend to be infatuated by their own technology, often believing that “quality” means what is technically sophisticated rather than what gives value to the user.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.amazon.com/gp/product/0060851139/ref=as_li_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=9325&amp;amp;creativeASIN=0060851139&amp;amp;linkCode=as2&amp;amp;tag=scribunet-20&amp;amp;linkId=52W3WVXXBHX7SNFP&quot;&gt;Peter F. Drucker - Innovation and Entrepreneurship&lt;/a&gt;&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<id>http://scribu.net/blog/travis-ci-build-stats</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/blog/travis-ci-build-stats.html"/>
+		<title>Travis CI Build Statistics</title>
+		<updated>2014-04-10T00:00:00+03:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;I don’t know about you, but I think &lt;a href=&quot;https://travis-ci.org&quot;&gt;Travis CI&lt;/a&gt; is the best thing that happened to open-source development since Github.&lt;/p&gt;
+
+&lt;p&gt;I noticed that my builds seemed to be getting slower lately. Looking at the build history in the regular Travis CI interface wasn’t very conclusive, because you can only see 10 or 20 builds at a time:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/travis-org.png&quot; alt=&quot;travis site screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Even after pressing the “Show more” button repeadetly, I still wasn’t sure that it wasn’t just a random fluctuation. What I needed was to see all the builds at the same time.&lt;/p&gt;
+
+&lt;p&gt;After a few hours of reading the &lt;a href=&quot;https://api.travis-ci.org/docs/&quot;&gt;Travis API docs&lt;/a&gt; and fiddling with &lt;a href=&quot;http://d3js.org/&quot;&gt;D3&lt;/a&gt;, this is what I came up with:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/travis-charts.png&quot; alt=&quot;travis chart screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It incrementally loads the most recent ~500 builds and plots them individually and again grouped by day. Clicking on one of the thin bars sends you to that build’s page on travis-ci.org where you can see all the available information about it.&lt;/p&gt;
+
+&lt;p&gt;Looking at the build durations bar chart on the left, you can see that builds have indeed gotten slower, from 15-20 minutes per build, to about 20-25 minutes.&lt;/p&gt;
+
+&lt;p&gt;You can inspect the build times for your own projects as well: &lt;a href=&quot;http://scribu.github.io/travis-stats/&quot;&gt;http://scribu.github.io/travis-stats/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you have other neat visualization ideas, open an issue on Github: &lt;a href=&quot;https://github.com/scribu/travis-stats&quot;&gt;https://github.com/scribu/travis-stats&lt;/a&gt;&lt;/p&gt;
+
+</content>
+	</entry>
+	
+	<entry>
+		<id>http://scribu.net/blog/cross-browser-uploads-ember-moxie</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/blog/cross-browser-uploads-ember-moxie.html"/>
+		<title>Cross-browser AJAX uploads with Ember.js and mOxie</title>
+		<updated>2014-02-24T00:00:00+02:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;Implementing single-page web applications that work on all browsers remains a challenge. For the basic task of uploading files, you still need some sort of polyfill or library that adds &lt;a href=&quot;http://caniuse.com/#search=FileReader&quot;&gt;support&lt;/a&gt; for older browsers (read IE 8 and 9, which are still in wide use).&lt;/p&gt;
+
+&lt;p&gt;In this tutorial I’m going to describe how to integrate one such library, called &lt;a href=&quot;https://github.com/moxiecode/moxie&quot;&gt;mOxie&lt;/a&gt;, with one client-side MVC framework, called &lt;a href=&quot;http://emberjs.com/&quot;&gt;Ember.js&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;0-getting-the-moxie-library&quot;&gt;0. Getting the mOxie library&lt;/h3&gt;
+
+&lt;p&gt;I’m going to assume you already have an Ember app going, so the first step is acquiring the mOxie files. You can either use the &lt;a href=&quot;https://github.com/moxiecode/moxie/blob/master/bin/&quot;&gt;pre-built files&lt;/a&gt; or &lt;a href=&quot;https://github.com/moxiecode/moxie#build-instructions&quot;&gt;compile your own&lt;/a&gt;. For example, we won’t need XHR2 support in this tutorial, so we can leave it out.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-defining-the-template&quot;&gt;1. Defining the template&lt;/h3&gt;
+
+&lt;p&gt;The next thing we have to do is write the Handlebars template that will contain all the UI elements we need:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/scribu/e8cc6dcaeddb9df07d27.js?file=template.hbs&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The UI has several components:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;error and progress notifications&lt;/li&gt;
+  &lt;li&gt;the list of selected files&lt;/li&gt;
+  &lt;li&gt;the button for selecting more files&lt;/li&gt;
+  &lt;li&gt;the button for initiating the upload&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-initializing-the-file-picker&quot;&gt;2. Initializing the file picker&lt;/h3&gt;
+
+&lt;p&gt;In the template above we placed the button inside a view. We can use that view to convert the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;button&amp;gt;&lt;/code&gt; into a file picker:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/scribu/e8cc6dcaeddb9df07d27.js?file=view.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Here we create a &lt;code class=&quot;highlighter-rouge&quot;&gt;mOxie.FileInput&lt;/code&gt; instance once the template containing the button is rendered.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-addingremoving-files&quot;&gt;3. Adding/removing files&lt;/h3&gt;
+
+&lt;p&gt;The view we defined in the previous step will send events up to the controller, which has to respond to them:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/scribu/e8cc6dcaeddb9df07d27.js?file=controller-1.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The neat thing about Ember.js is that it will automatically re-render the template whenever the &lt;code class=&quot;highlighter-rouge&quot;&gt;attachments&lt;/code&gt; property is modified.&lt;/p&gt;
+
+&lt;h3 id=&quot;4-uploading-the-files&quot;&gt;4. Uploading the files&lt;/h3&gt;
+
+&lt;p&gt;Finally, when the user wants to submit the form, we have to actually send the files to the server:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/scribu/e8cc6dcaeddb9df07d27.js?file=controller-2.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;We start uploading all the files concurrently. When one is done, we increment a counter. When all of them are done, we clear the queue. Did I mention &lt;a href=&quot;http://domenic.me/2012/10/14/youre-missing-the-point-of-promises/&quot;&gt;promises&lt;/a&gt; are great?&lt;/p&gt;
+
+&lt;p&gt;And here are the helper functions used in the controller above:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/scribu/e8cc6dcaeddb9df07d27.js?file=helpers.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;I wrapped both the &lt;code class=&quot;highlighter-rouge&quot;&gt;mOxie.FileReader&lt;/code&gt; process and the AJAX request in RSVP promises so that chaining and utility methods such as &lt;code class=&quot;highlighter-rouge&quot;&gt;.catch()&lt;/code&gt; always work as expected.&lt;/p&gt;
+
+&lt;h3 id=&quot;demo&quot;&gt;Demo&lt;/h3&gt;
+
+&lt;p&gt;I’ve set up a quick &lt;a href=&quot;http://scribu.github.io/ember-moxie-demo/&quot;&gt;demo&lt;/a&gt; so that you can see it in action.&lt;/p&gt;
+
+&lt;p&gt;This is just a starting point, of course. You can add all sorts of usability enhancements, such as progress bars, image previews etc. Happy hacking!&lt;/p&gt;
+
+</content>
+	</entry>
+	
+	<entry>
+		<id>http://scribu.net/plugin-dependencies/new-maintainer-x-team</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/plugin-dependencies/new-maintainer-x-team.html"/>
+		<title>New Maintainer for Plugin Dependencies: X-Team</title>
+		<updated>2014-01-27T00:00:00+02:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;I handed off development of the &lt;a href=&quot;http://wordpress.org/plugins/plugin-dependencies/&quot;&gt;Plugin Dependencies&lt;/a&gt; plugin to &lt;a href=&quot;https://github.com/x-team&quot;&gt;X-Team&lt;/a&gt;. They have released all sorts of interesting tools; check them out.&lt;/p&gt;
+
+&lt;p&gt;The official Github repository is now &lt;a href=&quot;https://github.com/x-team/wp-plugin-dependencies&quot;&gt;https://github.com/x-team/wp-plugin-dependencies&lt;/a&gt;.&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<id>http://scribu.net/blog/the-wind-blows-them-away</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/blog/the-wind-blows-them-away.html"/>
+		<title>Quote From &quot;The Little Prince&quot;</title>
+		<updated>2013-11-24T00:00:00+02:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;“Where are the people?” the little prince asked, politely.&lt;/p&gt;
+
+&lt;p&gt;The flower had once seen a caravan passing.&lt;/p&gt;
+
+&lt;p&gt;“People?” she echoed. “I think there are six or seven of them in existence. I saw them, several years ago. But one never knows where to find them. The wind blows them away. They have no roots, and that makes their life very difficult.”&lt;/p&gt;
+</content>
+	</entry>
+	
+	<entry>
+		<id>http://scribu.net/blog/test-doubles-in-pure-php</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/blog/test-doubles-in-pure-php.html"/>
+		<title>Creating test doubles in pure PHP</title>
+		<updated>2013-09-20T00:00:00+03:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;The PHP world is not known for good unit test coverage. It’s mostly a cultural issue, but there is a technical aspect to it as well.&lt;/p&gt;
+
+&lt;p&gt;PHPUnit allows you to create &lt;a href=&quot;http://phpunit.de/manual/3.7/en/test-doubles.html&quot;&gt;mock objects&lt;/a&gt;, but that assumes your codebase uses the Depedency Injection pattern. If not, it’s very hard to add unit tests without doing major refactorings, because the language doesn’t support monkey patching (i.e. redefining functions and methods at runtime).&lt;/p&gt;
+
+&lt;p&gt;You could install the &lt;a href=&quot;http://php.net/manual/en/book.runkit.php&quot;&gt;runkit&lt;/a&gt; extension, which allows you to replace everything, including constants. However, that means that anyone who wants to run the tests needs to re-compile their PHP.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://github.com/antecedent/patchwork&quot;&gt;Patchwork&lt;/a&gt; is a PHP library that makes it possible to redefine user-defined functions and methods at runtime, replicating the functionality of &lt;code class=&quot;highlighter-rouge&quot;&gt;runkit_function_redefine&lt;/code&gt; in pure PHP 5.3 code.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I started using it to create mocks and it’s great, but I had this nagging thought: how the hell does it work?&lt;/p&gt;
+
+&lt;p&gt;I set out to figure out what black magic the author uses, only to find that he already wrote a very easy to understand description of the &lt;a href=&quot;http://antecedent.github.io/patchwork/docs/implementation.html&quot;&gt;implementation&lt;/a&gt;, like any responsible developer would. Neat!&lt;/p&gt;
+
+&lt;p&gt;Gems like these are few and far between in the PHP ecosystem, but they do exist.&lt;/p&gt;
+
+</content>
+	</entry>
+	
+
+</feed>
+

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Scb Framework</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+<h2 class="plugin-title"><a class="no-link" href="#">Scb Framework</a></h2>
+
+<ul class="resources">
+	<li><a class="button" href="http://wordpress.org/extend/plugins/scb-framework/">Homepage</a></li>
+	<li><a class="button" href="http://wordpress.org/support/plugin/scb-framework/">Support</a></li>
+</ul>
+
+<article style="min-height: initial"><strong>Alert:</strong> This plugin is no longer under active development, because I <a href="/blog/left-wordpress.html">left WordPress.</a></article>
+
+
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/scb-framework/revision-24.html">scbFramework: Revision 24</a></h2>
+
+	<time datetime="2010-09-09 00:00:00 +0300" id="top_time">September 09, 2010</time>
+
+	<p class="entry-content">
+		<p>My little framework continues to evolve along with the plugins that use it.</p>
+
+<p>I’ve dropped the traditional X.Y versioning method and opted to use the internal revision number instead.</p>
+
+<h3 id="loading">Loading</h3>
+
+<p>The most important change since the last release (1.6) is that there’s a new method through which the framework loads its files.</p>
+
+<ol>
+  <li>The <code class="highlighter-rouge">scbLoad4</code> class is loaded immediately and registers its path in a global.</li>
+  <li>When the <code class="highlighter-rouge">plugins_loaded</code> action fires, the framework loads the most recent version of its files.</li>
+</ol>
+
+<p>At first, only the <code class="highlighter-rouge">scbLoad4</code> class is loaded. Then, after all plugins are loaded (<code class="highlighter-rouge">plugins_init</code> action), and then loads the most recent versions of the framework files available, according to the revision number. The tricky part was getting the activation hooks to fire in these conditions.</p>
+
+<h3 id="other-changes">Other changes</h3>
+
+<p>The scbQuery class was replaced with scbQueryManipulation. More on that soon.</p>
+
+<p>The scbRewrite class was removed, since it didn’t really do anything useful.</p>
+
+<p>Also, required WP version was bumped to 3.0.</p>
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/scb-framework/sf-1-6.html">scbFramework: Version 1.6</a></h2>
+
+	<time datetime="2010-05-03 00:00:00 +0300" id="top_time">May 03, 2010</time>
+
+	<p class="entry-content">
+		<p>If you want to develop a plugin using scbFramework, just download it, open <code class="highlighter-rouge">plugin.php</code> and start hacking. This is all it contains:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="cm">/*
+Plugin Name: scbFramework
+Version: 1.6
+Description: Useful classes for plugin developers
+Author: scribu
+Author URI: &lt;a href="http://scribu.net" rel="nofollow"&gt;http://scribu.net&amp;lt;/a&gt;
+Plugin URI: 
+
+&lt;a href="http://scribu.net/wordpress/scb-framework" rel="nofollow"&gt;http://scribu.net/wordpress/scb-framework&lt;/a&gt;
+*/</span>
+
+<span class="k">require</span> <span class="nb">dirname</span><span class="p">(</span><span class="k">__FILE__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">'/scb/load.php'</span><span class="p">;</span>
+
+<span class="c1">// The rest of your plugin code goes here</span>
+</code></pre></div></div>
+
+<p>If you don’t want to bundle scbFramework with your plugin, you can use the updated <code class="highlighter-rouge">scb-check.php</code> file instead.</p>
+
+<h3 id="debugging">Debugging</h3>
+
+<p>I’ve moved the <code class="highlighter-rouge">debug()</code> function and related code to a separate file to avoid errors with the Magpie RSS library. If you release your plugin, you should leave out the <code class="highlighter-rouge">scb/Debug.php</code> file.</p>
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/scb-framework/sf-1-5.html">scbFramework: Version 1.5</a></h2>
+
+	<time datetime="2010-03-17 00:00:00 +0200" id="top_time">March 17, 2010</time>
+
+	<p class="entry-content">
+		<p>I’ve recently learned that <code class="highlighter-rouge">register_uninstall_hook()</code> allows a single callback per plugin. This meant that if you were using both <code class="highlighter-rouge">scbOptions</code> and <code class="highlighter-rouge">scbTable</code>, for example, when a user uninstalled that plugin, either the option wasn’t deleted or the table wasn’t dropped.</p>
+
+<p>This is now fixed by using a new method, <code class="highlighter-rouge">scbUtil::add_uninstall_hook()</code>. It also prevents multiple UPDATE queries to execute on each page load.</p>
+
+<p>This also means that <code class="highlighter-rouge">scbOptions</code>, <code class="highlighter-rouge">scbTable</code> and <code class="highlighter-rouge">scbBoxesPage</code> now require <code class="highlighter-rouge">scbUtil</code> to work.</p>
+
+<p>Other improvements:</p>
+
+<ul>
+  <li>new methods for <code class="highlighter-rouge">scbOptions</code>: <code class="highlighter-rouge">get_defaults()</code>; <code class="highlighter-rouge">cleanup()</code>; <code class="highlighter-rouge">__isset()</code>;</li>
+  <li>new method for <code class="highlighter-rouge">scbAdminPage</code>: <code class="highlighter-rouge">page_help()</code>;</li>
+  <li><code class="highlighter-rouge">scbAdminPage::submit_button() </code>accepts an array of arguments</li>
+  <li><code class="highlighter-rouge">scbAdminPage</code> can create top level menus</li>
+  <li><code class="highlighter-rouge">scbBoxesPage</code> can assign the same handler to multiple boxes, with different arguments</li>
+  <li><code class="highlighter-rouge">debug()</code> outputs at the end of the page, only for administrators</li>
+</ul>
+
+<p>Here is the full <a href="http://plugins.trac.wordpress.org/changeset?new=218502%40scb-framework&amp;old=184274%40scb-framework">changeset</a>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/scb-framework/sf-1-4.html">scbFramework: Version 1.4</a></h2>
+
+	<time datetime="2009-12-17 00:00:00 +0200" id="top_time">December 17, 2009</time>
+
+	<p class="entry-content">
+		<p>The plugin toolkit has been getting a lot of useful classes recently, so I though a version bump was in order.</p>
+
+<h3 id="scbutil">scbUtil</h3>
+
+<p>scbUtil is a collection of useful little functions that I was using in a lot of my plugins. My favourite is the <code class="highlighter-rouge">debug()</code> function. Then there’s <code class="highlighter-rouge">html()</code> and <code class="highlighter-rouge">html_link()</code> for HTML generation. There are several other useful bits in there, but you’ll have to discover them yourself.</p>
+
+<h3 id="scbrewrite">scbRewrite</h3>
+
+<p>One of the areas I wasn’t comfortable working with was the Rewrite API. The scbRewrite class was distilled from a <a href="http://lists.automattic.com/pipermail/wp-hackers/2009-December/029164.html">discussion</a> on wp-hackers. It’s only job is to take the rewrite rules you specify and hook them in all the right places.</p>
+
+<p>If you would like to “try before you buy”, you can browse the source <a href="http://plugins.trac.wordpress.org/browser/scb-framework/tags/1.4/classes">here</a>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/scb-framework/sf-1-3.html">scbFramework: Version 1.3</a></h2>
+
+	<time datetime="2009-10-13 00:00:00 +0300" id="top_time">October 13, 2009</time>
+
+	<p class="entry-content">
+		<p>Here are the changes from the earlier version:</p>
+
+<p>Admin pages generated with AdminPage or BoxesPage will be slightly faster because data is sent through AJAX.</p>
+
+<p>The scbCron class has two new methods:</p>
+
+<ul>
+  <li>do_now() – executes the callback immediately</li>
+  <li>do_once() – executes the callback once, using wp_cron (with optional delay)</li>
+</ul>
+
+<p>The scbOptions class has a new method set() that replaces update_part(). It also has a new <a href="https://github.com/scribu/wp-scb-framework/wiki/scbOptions">documentation page</a>.</p>
+
+<p>Finally, version 1.3 of scbFramework only works with WordPress 2.8 or older.</p>
+
+<p>Here is the <a href="http://plugins.trac.wordpress.org/changeset?new=163017%40scb-framework&amp;old=146242%40scb-framework">list of changes</a>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/scb-framework/sf-1-2.html">scbFramework: Version 1.2</a></h2>
+
+	<time datetime="2009-08-12 00:00:00 +0300" id="top_time">August 12, 2009</time>
+
+	<p class="entry-content">
+		<p>When you need to create a new database table, all you should be thinking about are the table columns, right? Well, with the new <a href="http://plugins.trac.wordpress.org/browser/scb-framework/trunk/classes/Table.php">scbTable</a> class added in version 1.2, you can.</p>
+
+<p>Creating a table is as easy as:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>new scbTable('my_table', __FILE__, "
+	id bigint(20) unsigned NOT NULL default 0,
+	foobar varchar(100) NOT NULL,
+	PRIMARY KEY  (id),
+");
+</code></pre></div></div>
+
+<p>The class takes care of creating or updating the table structure, as necessary.</p>
+
+<p>Also, you can access it with <code class="highlighter-rouge">$wpdb-&gt;my_table</code>, just like you would any other WordPress table.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/scb-framework/sf-1-1.html">scbFramework: Version 1.1</a></h2>
+
+	<time datetime="2009-06-18 00:00:00 +0300" id="top_time">June 18, 2009</time>
+
+	<p class="entry-content">
+		<p>The first update for scbFramework has an important bugfix in the scbOptions class.</p>
+
+<p>The scbBoxesPage now creates perfect WP 2.8 style dashboard-like admin pages.</p>
+
+<p>Also, several methods have been added and revised in scbAdminPage. Because of this, version 1.1 is not fully backwards compatible.</p>
+
+<p>You can see all the changes from version 1.0.1 <a href="http://plugins.trac.wordpress.org/changeset?new=127017%40scb-framework&amp;old=123826%40scb-framework">here</a>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/scb-framework/introducing-scbframework.html">scbFramework: Introducing scbFramework</a></h2>
+
+	<time datetime="2009-05-31 00:00:00 +0300" id="top_time">May 31, 2009</time>
+
+	<p class="entry-content">
+		<p>While developing plugins for WordPress, I found that one of the most time-consuming and error prone tasks was creating user-friendly settings pages.</p>
+
+<p>That is how this framework was born. It’s basically a set of extensible classes that make plugin development faster. I already use it in most of my plugins.</p>
+
+<p>It requires PHP5 and WordPress 2.5 or newer.</p>
+
+<h4 id="scbforms">scbForms</h4>
+
+<p>This by far the most useful class. With it, you can create any type of form element without writing a single line of HTML.</p>
+
+<h4 id="scboptions">scbOptions</h4>
+
+<p>This is a class that handles storing and updating plugin settings in a single field in the wp_options table.</p>
+
+<h4 id="scbadminpage">scbAdminPage</h4>
+
+<p>This class extends scbForms to provide an easy way to create custom admin pages.</p>
+
+<h4 id="scbboxespage">scbBoxesPage</h4>
+
+<p>This is an extension to the scbOptionsPage class that lets you easily create dashboard-like pages with collapsible boxes.</p>
+
+<h4 id="scbcron">scbCron</h4>
+
+<p>This is a class that lets you create wp-cron schedules easier.</p>
+
+<h4 id="scbwidget">scbWidget</h4>
+
+<p>This class makes scbForms work with the new WP_widget class in WP 2.8.</p>
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/scb-framework/how-to-use-scbframework-in-your-plugins.html">scbFramework: How to use scbFramework in your plugins</a></h2>
+
+	<time datetime="2009-05-31 00:00:00 +0300" id="top_time">May 31, 2009</time>
+
+	<p class="entry-content">
+		<p>Before making this framework public, I used to include the files with each plugin. As the number of plugins increased, I had to update each one every time I modified the framework.</p>
+
+<p>After a while, I found a way to make all plugins on an instalation use the most recent framework version installed. This didn’t help much.</p>
+
+<p>Finally, I made it a standalone plugin which you only need to install once.</p>
+
+<p>So, currently, there are two possibilities:</p>
+
+<p>**Standalone plugin<br />
+**</p>
+
+<p>As long as the scbFramework plugin is activated, your plugin will work perfectly. If you want to spare users from ugly error messages, you can include a small file, called <a href="http://plugins.trac.wordpress.org/browser/scb-framework/trunk/scb-check.php">scb-check.php</a>. It will check that scbFramework is installed and if not, it will deactivate your plugin and display a friendly notice with an install link.</p>
+
+<p><strong>Including class files</strong></p>
+
+<p>If you don’t want to require users to install the standalone plugin, you can include all the class files with your plugin. You will also want to include another file, called <a href="http://plugins.trac.wordpress.org/browser/scb-framework/trunk/load.php">load.php</a> that takes care of autoloading classes as needed. (It will have to be placed in the same directory as the class files)</p>
+
+<p>You can see a usage example by looking at the <a href="http://scribu.net/wordpress/front-end-editor">Front-end Editor</a> plugin.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

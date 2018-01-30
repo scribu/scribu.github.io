@@ -1,0 +1,114 @@
+/* Logo */
+aside#my-logo a {
+	clear: both;
+	display: block;
+	width: 60px;
+	height: 51px;
+	margin-top: 20px;
+	margin-left: 30px;
+	background-image: url("../img/logo.png");
+}
+
+@media (max-width: 630px) {
+	aside#my-logo a {
+		margin: 0 auto;
+		position: relative;
+		left: auto;
+		right: auto;
+		margin-top: 20px;
+		margin-bottom: 0;
+	}
+}
+
+/* Quotes */
+.post blockquote {
+	max-width: 472px;
+	border-left: 0;
+	font-style: italic;
+	padding-left: 0;
+}
+
+.post .source {
+	margin-bottom: 0;
+}
+
+.quote q {
+	color: #000;
+	font-size: 16px;
+}
+
+/* Article */
+
+article.post.archive ul {
+	max-width: 700px;
+}
+
+article.post time {
+	color: #999;
+	display: block;
+	margin-top: -20px;
+}
+
+@media (max-width: 630px) {
+	article.post time {
+		padding-left: 20px;
+		padding-right: 15px;
+	}
+}
+
+.footnotes {
+	border-top: 1px dotted gray;
+}
+
+/* Plugin pages */
+
+.plugin-title {
+	margin-top: 0;
+	padding: 20px 0 0 50px;
+}
+
+ul.resources {
+	margin-left: 45px;
+	margin-bottom: 20px;
+}
+
+ul.resources li {
+	display: inline;
+}
+
+ul.resources li + li {
+	margin-left: 20px;
+}
+
+@media all and (min-width:631px) {
+	.post .gist {
+		margin-right: 50px;
+	}
+}
+
+/* Home page */
+article.post.home h3 {
+	margin-bottom: 10px;
+}
+
+article.home li.starred:before {
+	content: "⭐";
+	margin-right: 4px;
+}
+
+article.home li.starred {
+	list-style: none;
+	margin-left: -23px;
+}
+
+/* About page */
+ul#social-links {
+	list-style: none;
+	margin-left: 0;
+}
+
+ul#social-links i {
+	color: #000;
+	font-size: 120%;
+	margin-right: 5px;
+}

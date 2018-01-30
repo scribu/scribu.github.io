@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>GSoC Proposal: Enhanced Admin Pages</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/gsoc-proposal-enhanced-admin-pages.html">GSoC Proposal: Enhanced Admin Pages</a></h2>
+
+	<time datetime="2010-04-04 00:00:00 +0300" id="top_time">April 04, 2010</time>
+
+	<p class="entry-content">
+	<p>I’m planning on applying as a <a href="http://codex.wordpress.org/GSoC2010">GSoC 2010</a> volunteer for WordPress. This is a working draft of my proposal.</p>
+
+<h3 id="introduction">Introduction</h3>
+
+<p>One of the key features missing from the list-type administration screens is the ability to view items sorted by a certain column. For example, on the posts screen, you should be able to view posts sorted by number of comments, in descending or ascending order.</p>
+
+<p>Besides this, when you view the next page of items, the entire page is reloaded, when the list of items could be updated via AJAX.</p>
+
+<p>So, my proposal has two parts:</p>
+
+<h3 id="sorting-by-column">Sorting by column</h3>
+
+<p>All list-type screens in WordPress are paginated. In other words, only a small subset of all the items are loaded at a time. This throws JavaScript sorting scripts <del>like DataTable</del> out the window. The sorting has to be done on the server-side.</p>
+
+<p>This is not a big problem, since WordPress already has support for sorting most types of items.</p>
+
+<p>In terms of UI, I <em>won’t</em> go with the regular clickable column headers approach because it has a 3-click cycle:</p>
+
+<ol>
+  <li>sorted-ascending</li>
+  <li>sorted descending</li>
+  <li>unsorted</li>
+</ol>
+
+<p>Unlike with JavaScript sorting, each click would be expensive, since it would require a new request to the server.</p>
+
+<p>Instead, I plan on adding a dropdown to the Screen Options section, where the user could select the column to sort by. There would also be two radio buttons for the order: ASC / DESC. This way, the user can choose the sorting <em>and</em> the order in one request.</p>
+
+<p>Either that, or add <em>two</em> buttons on each column, one for ASC and one for DESC sorting (hidden until the user hovers over that column).</p>
+
+<h3 id="ajax-loading">AJAX Loading</h3>
+
+<p>After sorting is done, I can concentrate on speeding things up with AJAX. Whenever a user wants to see a different page of items, they will be fetched via an AJAX request and be inserted in place of the old items.</p>
+
+<p>This should also work when: changing the sorting, changing the number of items per page.</p>
+
+<h3 id="feedback">Feedback</h3>
+
+<p>What do you think? Thoughts, ideas, suggestions etc. are very welcome. Use the comment form bellow.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

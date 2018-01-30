@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Posts 2 Posts: Version 1.4</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-1-4.html">Posts 2 Posts: Version 1.4</a></h2>
+
+	<time datetime="2012-08-17 00:00:00 +0300" id="top_time">August 17, 2012</time>
+
+	<p class="entry-content">
+	<h3 id="improved-ui">Improved UI</h3>
+
+<p><img src="/files/screenshot-24.png" alt="" title="screenshot-2" width="491" height="228" class="alignnone size-full wp-image-9954" /></p>
+
+<p>When you need to create connections, there’s now a link that reveals the connection candidates. This saves vertical space when you’re doing something else in the post editing screen.</p>
+
+<p>When you found the item you want to connect to, you can now click anywhere in the row, instead of just on the ‘+’ icon. This makes it both easier to target and less confusing. After the connection is created, you can click on the connected post’s title to edit it, as before.</p>
+
+<!--more-->
+
+<h3 id="revamped-connection-querying">Revamped connection querying</h3>
+
+<p>The SQL generated for querying connections is now more precise, so that trashed and auto-draft posts are ignored by default.</p>
+
+<p>Also, you can now filter both ends of the connection. For example, you can find all pages connected to any posts in the ‘Tutorials’ category:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$pages = new WP_Query( array(
+  'post_type' =&gt; 'page',
+  'connected_type' =&gt; 'pages_to_posts',
+  'connected_to' =&gt; 'any',
+  'connected_query' =&gt; array(
+    'category_name' =&gt; 'tutorials',
+  ),
+  'nopaging' =&gt; true
+) );
+</code></pre></div></div>
+
+<p>The arguments in the ‘connected_query’ array are used to restrict the other end of the connection. All normal arguments for WP_Query – and for WP_User_Query, respectively – are supported.</p>
+
+<h3 id="new-hooks">New Hooks</h3>
+
+<ul>
+  <li>‘p2p_init’ – use it instead of ‘init’ to register connection types</li>
+  <li>‘p2p_created_connection’ – fired after a connection is created</li>
+  <li>‘p2p_delete_connections’ – fired before connections are deleted</li>
+</ul>
+
+<h3 id="squashed-bugs">Squashed Bugs</h3>
+
+<p>As with every release, there are numerous little things that get fixed along the way, which can be seen <a href="https://github.com/scribu/wp-posts-to-posts/issues?milestone=13&amp;state=closed">here</a>.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Posts 2 Posts: Version 0.9.5</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-9-5.html">Posts 2 Posts: Version 0.9.5</a></h2>
+
+	<time datetime="2011-10-21 00:00:00 +0300" id="top_time">October 21, 2011</time>
+
+	<p class="entry-content">
+	<p>In short, this version improves the connection type based API introduced in 0.9 and removes the old API.</p>
+
+<h3 id="connection-type-ids">Connection Type IDs</h3>
+
+<p>Previously, you had to keep track of connection type instances yourself, making it hard to work with more than one connection type.</p>
+
+<p>Old:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>global $my_connection_type;
+
+$my_connection_type = p2p_register_connection_type( array(
+	'from' =&gt; 'post',
+	'to' =&gt; 'page'
+) );
+</code></pre></div></div>
+
+<p>New:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'id' =&gt; 'posts_to_pages',
+	'from' =&gt; 'post',
+	'to' =&gt; 'page'
+) );
+</code></pre></div></div>
+
+<p>And, to get a list of connected items, instead of:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>global $my_connection_type;
+
+$connected = $my_connection_type-&gt;get_connected( get_queried_object_id() );
+</code></pre></div></div>
+
+<p>you can now do it in one line:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$connected = p2p_type( 'posts_to_pages' )-&gt;get_connected( get_queried_object_id() );
+</code></pre></div></div>
+
+<h3 id="one-to-many-connections">One-To-Many Connections</h3>
+
+<p>There’s a new ‘cardinality’ argument:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+  'from' =&gt; 'post',
+  'to' =&gt; 'page',
+  'cardinality' =&gt; 'one-to-many',
+  'reciprocal' =&gt; true
+) );
+</code></pre></div></div>
+
+<p>When editing a page, you will only be able to connect it to a single post and only to a post that doesn’t have a connected page yet.</p>
+
+<p><code class="highlighter-rouge">'cardinality' =&gt; 'many-to-one'</code> has the same effect, in reverse.</p>
+
+<h3 id="arbitrary-query-variables">Arbitrary query variables</h3>
+
+<p>You can now distinguish between connection types based on any query variable, not just ‘post_type’:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$types = array(
+    'bug' =&gt; 'Bug',
+    'feature' =&gt; 'Feature'
+);
+
+foreach ( $types as $type =&gt; $title ) {
+    p2p_register_connection_type( array(
+        'from' =&gt; 'contact',
+        'to' =&gt; 'ticket',
+        'to_query_vars' =&gt; array(
+            'meta_key' =&gt; 'type',
+            'meta_value' =&gt; $type
+        ),
+        'title' =&gt; array( 'from' =&gt; $title ),
+    );
+}
+</code></pre></div></div>
+
+<p>The above code will create two meta boxes: in one, contacts will only be able to create connections to ‘bug’-type tickets and in the other only to ‘feature’-type tickets.</p>
+
+<p>There’s a matching ‘from_query_vars’ argument as well, so you could, for example, create a connection type between posts from category X to posts with tag Y etc.</p>
+
+<h3 id="removed-old-api">Removed old API</h3>
+
+<p>I went ahead and removed the old API. Here’s the migration path:</p>
+
+<table class="reference">
+  <tr>
+    <th>
+      Old
+    </th>
+    
+    <th>
+      New
+    </th>
+  </tr>
+  
+  <tr>
+    <td>
+      p2p_connect()
+    </td>
+    
+    <td>
+      p2p_type( ‘my_connection_type’ )-&gt;connect()
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      p2p_disconnect()
+    </td>
+    
+    <td>
+      p2p_type( ‘my_connection_type’ )-&gt;disconnect()
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      p2p_get_connected()
+    </td>
+    
+    <td>
+      p2p_type( ‘my_connection_type’ )-&gt;get_connected()
+    </td>
+  </tr>
+</table>
+
+<p>The benefit, of course, is that each of the new methods enforces the rules establised when registering the connection type.</p>
+
+<p>Finally, I set up a <a href="http://scribu.github.com/wp-posts-to-posts/">code reference site</a>, just to play around with DocBlox. Let me know if you find it useful.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

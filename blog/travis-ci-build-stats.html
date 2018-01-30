@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Travis CI Build Statistics</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/blog/travis-ci-build-stats.html">Travis CI Build Statistics</a></h2>
+
+	<time datetime="2014-04-10 00:00:00 +0300" id="top_time">April 10, 2014</time>
+
+	<p class="entry-content">
+	<p>I don’t know about you, but I think <a href="https://travis-ci.org">Travis CI</a> is the best thing that happened to open-source development since Github.</p>
+
+<p>I noticed that my builds seemed to be getting slower lately. Looking at the build history in the regular Travis CI interface wasn’t very conclusive, because you can only see 10 or 20 builds at a time:</p>
+
+<p><img src="/assets/img/travis-org.png" alt="travis site screenshot" /></p>
+
+<p>Even after pressing the “Show more” button repeadetly, I still wasn’t sure that it wasn’t just a random fluctuation. What I needed was to see all the builds at the same time.</p>
+
+<p>After a few hours of reading the <a href="https://api.travis-ci.org/docs/">Travis API docs</a> and fiddling with <a href="http://d3js.org/">D3</a>, this is what I came up with:</p>
+
+<p><img src="/assets/img/travis-charts.png" alt="travis chart screenshot" /></p>
+
+<p>It incrementally loads the most recent ~500 builds and plots them individually and again grouped by day. Clicking on one of the thin bars sends you to that build’s page on travis-ci.org where you can see all the available information about it.</p>
+
+<p>Looking at the build durations bar chart on the left, you can see that builds have indeed gotten slower, from 15-20 minutes per build, to about 20-25 minutes.</p>
+
+<p>You can inspect the build times for your own projects as well: <a href="http://scribu.github.io/travis-stats/">http://scribu.github.io/travis-stats/</a></p>
+
+<p>If you have other neat visualization ideas, open an issue on Github: <a href="https://github.com/scribu/travis-stats">https://github.com/scribu/travis-stats</a></p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

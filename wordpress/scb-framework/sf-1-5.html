@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>scbFramework: Version 1.5</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/scb-framework/sf-1-5.html">scbFramework: Version 1.5</a></h2>
+
+	<time datetime="2010-03-17 00:00:00 +0200" id="top_time">March 17, 2010</time>
+
+	<p class="entry-content">
+	<p>I’ve recently learned that <code class="highlighter-rouge">register_uninstall_hook()</code> allows a single callback per plugin. This meant that if you were using both <code class="highlighter-rouge">scbOptions</code> and <code class="highlighter-rouge">scbTable</code>, for example, when a user uninstalled that plugin, either the option wasn’t deleted or the table wasn’t dropped.</p>
+
+<p>This is now fixed by using a new method, <code class="highlighter-rouge">scbUtil::add_uninstall_hook()</code>. It also prevents multiple UPDATE queries to execute on each page load.</p>
+
+<p>This also means that <code class="highlighter-rouge">scbOptions</code>, <code class="highlighter-rouge">scbTable</code> and <code class="highlighter-rouge">scbBoxesPage</code> now require <code class="highlighter-rouge">scbUtil</code> to work.</p>
+
+<p>Other improvements:</p>
+
+<ul>
+  <li>new methods for <code class="highlighter-rouge">scbOptions</code>: <code class="highlighter-rouge">get_defaults()</code>; <code class="highlighter-rouge">cleanup()</code>; <code class="highlighter-rouge">__isset()</code>;</li>
+  <li>new method for <code class="highlighter-rouge">scbAdminPage</code>: <code class="highlighter-rouge">page_help()</code>;</li>
+  <li><code class="highlighter-rouge">scbAdminPage::submit_button() </code>accepts an array of arguments</li>
+  <li><code class="highlighter-rouge">scbAdminPage</code> can create top level menus</li>
+  <li><code class="highlighter-rouge">scbBoxesPage</code> can assign the same handler to multiple boxes, with different arguments</li>
+  <li><code class="highlighter-rouge">debug()</code> outputs at the end of the page, only for administrators</li>
+</ul>
+
+<p>Here is the full <a href="http://plugins.trac.wordpress.org/changeset?new=218502%40scb-framework&amp;old=184274%40scb-framework">changeset</a>.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Posts 2 Posts: Version 0.9</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-9.html">Posts 2 Posts: Version 0.9</a></h2>
+
+	<time datetime="2011-09-19 00:00:00 +0300" id="top_time">September 19, 2011</time>
+
+	<p class="entry-content">
+	<h3 id="admin-box-enhancements">Admin Box Enhancements</h3>
+
+<p><img class="alignnone size-full wp-image-1701" src="/files/p2p-0.9-box.png" alt="admin box" width="517" height="286" /></p>
+
+<p>In the above screenshot you can see the following new features:</p>
+
+<ul>
+  <li><a href="https://github.com/scribu/wp-posts-to-posts/wiki/Connection-ordering">drag-and-drop ordering</a></li>
+  <li><a href="https://github.com/scribu/wp-posts-to-posts/wiki/Connection-information">dropdown fields</a></li>
+</ul>
+
+<h3 id="multiple-connections-per-post-type">Multiple Connections Per Post Type</h3>
+
+<p>Besides the ‘fields’ parameter, there’s also a ‘data’ parameter. This can be used to distinguish between connection types:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'from' =&gt; 'actor',
+	'to' =&gt; 'actor',
+	'reciprocal' =&gt; true,
+	'title' =&gt; array( 'from' =&gt; 'Doubles', 'to' =&gt; 'Main Actor' ),
+	'data' =&gt; array( 'type' =&gt; 'doubles' ),
+) );
+
+p2p_register_connection_type( array(
+	'from' =&gt; 'actor',
+	'to' =&gt; 'actor',
+	'reciprocal' =&gt; true,
+	'title' =&gt; 'Friends with',
+	'data' =&gt; array( 'type' =&gt; 'friends' )
+) );
+</code></pre></div></div>
+
+<h3 id="api-overhaul">API Overhaul</h3>
+
+<p><q>Should I use ‘connected_to’ or ‘connected_from’? Erm… I’ll just use ‘connected’.</q></p>
+
+<p>Even I was tired of having to think about it. No more.</p>
+
+<p>In previous versions, connection types were tightly coupled with the admin box code. I extracted all the logic into a <code class="highlighter-rouge">P2P_Connection_Type</code> class, which should make querying for posts a lot easier.</p>
+
+<p>The old way of doing things still works, except in the following cases:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">p2p_register_connection_type()</code> returns a <code class="highlighter-rouge">P2P_Connection_Type</code> instance now. Therefore, <code class="highlighter-rouge">'from' =&gt; array( ... )</code> and <code class="highlighter-rouge">'to' =&gt; array( ... )</code> are not accepted anymore.</li>
+  <li><code class="highlighter-rouge">p2p_each_connected()</code> functions and <code class="highlighter-rouge">'each_connected'</code> query vars are gone. Use <a href="https://github.com/scribu/wp-posts-to-posts/wiki/Looping-The-Loop"><code class="highlighter-rouge">P2P_Connection_Type-&gt;each_connected()</code></a> instead:</li>
+</ul>
+
+<p>Old:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$my_query = new WP_Query( array(
+    'ignore_sticky_posts' =&gt; true,
+    'post_type' =&gt; 'artist',
+    'each_connected' =&gt; array(
+        'post_type' =&gt; 'art',
+    )
+) );
+</code></pre></div></div>
+
+<p>New:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$my_query = new WP_Query( array(
+    'ignore_sticky_posts' =&gt; true,
+    'post_type' =&gt; 'artist',
+) );
+
+$my_connection_type-&gt;each_connected( $my_query );
+</code></pre></div></div>
+
+<p>All the <a href="https://github.com/scribu/wp-posts-to-posts/wiki/">tutorials</a> on the wiki have been updated to use the hot new API, so feel free to dig in. :)</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

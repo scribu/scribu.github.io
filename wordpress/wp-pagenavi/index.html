@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>WP Pagenavi</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+<h2 class="plugin-title"><a class="no-link" href="#">WP Pagenavi</a></h2>
+
+<ul class="resources">
+	<li><a class="button" href="http://wordpress.org/extend/plugins/wp-pagenavi/">Homepage</a></li>
+	<li><a class="button" href="http://wordpress.org/support/plugin/wp-pagenavi/">Support</a></li>
+</ul>
+
+<article style="min-height: initial"><strong>Alert:</strong> This plugin is no longer under active development, because I <a href="/blog/left-wordpress.html">left WordPress.</a></article>
+
+
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/wp-pagenavi/wpn-2-80.html">WP-PageNavi: Version 2.80</a></h2>
+
+	<time datetime="2011-10-30 00:00:00 +0300" id="top_time">October 30, 2011</time>
+
+	<p class="entry-content">
+		<p>The main feature in this version is the ability to use <code class="highlighter-rouge">wp_pagenavi()</code> for multipart pages.</p>
+
+<p>For example, to add it to the Twentyeleven theme, you would open <code class="highlighter-rouge">content-page.php</code> and replace this line:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">wp_link_pages</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span> <span class="s1">'before'</span> <span class="o">=&gt;</span> <span class="s1">'
+
+&lt;div class="page-link"&gt;
+  &lt;span&gt;'</span> <span class="o">.</span> <span class="nx">__</span><span class="p">(</span> <span class="s1">'Pages:'</span><span class="p">,</span> <span class="s1">'twentyeleven'</span> <span class="p">)</span> <span class="o">.</span> <span class="s1">'&lt;/span&gt;'</span><span class="p">,</span> <span class="s1">'after'</span> <span class="o">=&gt;</span> <span class="s1">'
+&lt;/div&gt;'</span> <span class="p">)</span> <span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>with this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">wp_pagenavi</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span> <span class="s1">'type'</span> <span class="o">=&gt;</span> <span class="s1">'multipart'</span> <span class="p">)</span> <span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/wp-pagenavi/wpn-2-74.html">WP-PageNavi: Version 2.74</a></h2>
+
+	<time datetime="2011-02-17 00:00:00 +0200" id="top_time">February 17, 2011</time>
+
+	<p class="entry-content">
+		<p>Two new improvements come with this version:</p>
+
+<h3 id="using-wp_pagenavi-with-custom-queries">Using wp_pagenavi() with custom queries</h3>
+
+<p>The old way (which still works):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>query_posts( array( 'tag' =&gt; 'foo', 'paged' =&gt; get_query_var('paged') ) );
+
+while ( have_posts() ) : the_post();
+	the_title();
+	// more stuff here
+endwhile;
+
+wp_pagenavi();
+
+wp_reset_query();	// avoid errors further down the page
+</code></pre></div></div>
+
+<p>The new way (better, because it has less side-effects):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$my_query = new WP_Query( array( 'tag' =&gt; 'foo', 'paged' =&gt; get_query_var('paged') ) );
+
+while ( $my_query-&gt;have_posts() ) : $my_query-&gt;the_post();
+	the_title();
+	// more stuff here
+endwhile;
+
+wp_pagenavi( array( 'query' =&gt; $my_query ) );
+
+wp_reset_postdata();	// avoid errors further down the page
+</code></pre></div></div>
+
+<p>Notice that, in both cases, I <strong>included the ‘paged’ parameter</strong>. Without it, you would see the same posts on all pages.</p>
+
+<h3 id="smaller-and-larger-classes">‘smaller’ and ‘larger’ classes</h3>
+
+<p>Each link has now an additional ‘smaller’ or ‘larger’ class, depending on where it is, in relation to the current page.</p>
+
+<p>For example, if you’re on page 2, the link to page 1 will have the ‘smaller’ class, while links to page 3, 4, 5 etc. will have the ‘larger’ class.</p>
+
+<p>This allows even more customization via CSS.</p>
+
+<p>Enjoy.</p>
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/wp-pagenavi/wp-2-70.html">WP-PageNavi: Version 2.70</a></h2>
+
+	<time datetime="2010-04-11 00:00:00 +0300" id="top_time">April 11, 2010</time>
+
+	<p class="entry-content">
+		<h3 id="php5-requirement">PHP5 requirement</h3>
+
+<p>In order to run version 2.70 or newer, your host needs to be running PHP5. If you get a fatal error on activation, ask your hosting provider to upgrade your account from PHP4 (which is old, slow and a security risk).</p>
+
+<p>To see what PHP version you’re really running, add this line to <code class="highlighter-rouge">wp-config.php</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var_dump(PHP_VERSION);
+</code></pre></div></div>
+
+<p>You can get the earlier version of the plugin from <a href="http://downloads.wordpress.org/plugin/wp-pagenavi.2.61.zip">here</a>.</p>
+
+<h3 id="enhancements">Enhancements</h3>
+
+<p>First of all, I’ve trimmed down the default pagenavi-css file so that it integrates better with your theme, out of the box.</p>
+
+<p>If you don’t want to display a certain part of the navigation, like the “previous page” link, you can simply go to the Page Navigation Text section, on the settings page, and clear that field.</p>
+
+<p>Also, you can now insert HTML code in those fields. This is useful if you want, for example, to display an image instead of the usual “»”.</p>
+
+<p>The “Uninstall WP-PageNavi” section was removed. Cleanup will be performed automatically when you uninstall the plugin from the Plugins page.</p>
+
+<p>Finally, If you need super-advanced customization, you can use the ‘wp_pagenavi’ <a href="http://codex.wordpress.org/Plugin_API#Filters">filter</a>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/wp-pagenavi/right-way-to-use-query_posts.html">WP-PageNavi: The Right Way To Use query_posts()</a></h2>
+
+	<time datetime="2010-04-11 00:00:00 +0300" id="top_time">April 11, 2010</time>
+
+	<p class="entry-content">
+		<p>First rule of using <code class="highlighter-rouge">query_posts()</code>: don’t. Use the <a href="http://codex.wordpress.org/Plugin_API/Filter_Reference/request">‘request’</a> filter instead.</p>
+
+<p>Ever since I’ve taken over development of the <a href="http://wordpress.org/extend/plugins/wp-pagenavi/">WP-PageNavi</a> plugin, I keep seeing people opening support topics like this:</p>
+
+<p>“PageNavi doesn’t show the correct posts”</p>
+
+<p>“Page numbers don’t work with PageNavi”</p>
+
+<p>etc.</p>
+
+<p>Most of the time, your theme is just using <code class="highlighter-rouge">query_posts()</code> wrong.</p>
+
+<p>So here is the correct way to make paging work using query_posts():</p>
+
+<p>Say you have something like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>query_posts('cat=8');
+</code></pre></div></div>
+
+<p>or like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>query_posts( array( 'cat' =&gt; 8 ) );
+</code></pre></div></div>
+
+<p>You just need to pass along the ‘paged’ query var from the main query:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>query_posts( array( 'cat' =&gt; 8, 'paged' =&gt; get_query_var('paged') ) );
+</code></pre></div></div>
+
+<p>If that doesn’t work, you can also try passing the ‘page’ query var:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>query_posts( array( 'cat' =&gt; 8, 'paged' =&gt; get_query_var('page') ) );
+</code></pre></div></div>
+
+<p>Also see the Codex page on <a href="http://codex.wordpress.org/Template_Tags/query_posts">query_posts()</a>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

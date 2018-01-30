@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Front-end Editor: Version 1.5</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/front-end-editor/fee-1-5.html">Front-end Editor: Version 1.5</a></h2>
+
+	<time datetime="2009-11-29 00:00:00 +0200" id="top_time">November 29, 2009</time>
+
+	<p class="entry-content">
+	<p>Straight from the lab, we bring you the latest and greatest in front-end editing:</p>
+
+<h3 id="swap-theme-images">Swap theme images</h3>
+
+<p>Currently, there is no easy way to change an image from your theme. You have to either override the image file through FTP or locate the code in your theme and modify it.</p>
+
+<p>Wouldn’t it be nice if you could just double-click on the image you want to change and then just do it, without leaving the page you’re on?</p>
+
+<p>Good news: now you can, with a little bit of tweaking. To make an image editable, you have to make a one-time edit to your theme.</p>
+
+<!--more-->
+
+<p>I chose the <a href="http://cutline.tubetorial.com/">Cutline</a> theme as an example:</p>
+
+<p>In header.php, I replaced this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;img src="&lt;?php bloginfo('template_url'); ?&gt;/images/header_1.jpg" width="970" height="140" alt="&lt;?php bloginfo('name'); ?&gt; header image 1" title="&lt;?php bloginfo('name'); ?&gt; header image 1" /&gt;
+</code></pre></div></div>
+
+<p>with this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">editable_image</span><span class="p">(</span><span class="s1">'header-1'</span><span class="p">,</span> 
+	<span class="nx">get_bloginfo</span><span class="p">(</span><span class="s1">'template_url'</span><span class="p">)</span> <span class="o">.</span> <span class="s1">'/images/header_1.jpg'</span><span class="p">,</span> 
+	<span class="k">array</span><span class="p">(</span><span class="s1">'width'</span> <span class="o">=&gt;</span> <span class="mi">970</span><span class="p">,</span> <span class="s1">'height'</span> <span class="o">=&gt;</span> <span class="mi">140</span><span class="p">,</span> <span class="s1">'alt'</span> <span class="o">=&gt;</span> <span class="nx">get_bloginfo</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)));</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>The first argument is the image name<br />
+The second argument is the default URL<br />
+The third argument is optional and it’s used for adding extra attributes to the <img /> element.</p>
+
+<p>Now, when I double-click on the header image, the Media Library box pops up. From there, I can choose any image I want to put instead of the current one:</p>
+
+<p><img src="http://img686.imageshack.us/img686/153/screenshot2s.png" alt="image swapping" /></p>
+
+<h3 id="nicedit-is-in-jwysiwyg-is-out">NicEdit is in, jWYSIWYG is out</h3>
+
+<p><a href="http://nicedit.com">NicEdit</a> is a more mature visual editor than <a href="http://code.google.com/p/jwysiwyg">jWYSIWYG</a>, but still lightweight.</p>
+
+<p><img src="http://img686.imageshack.us/img686/6445/screenshot1f.png" alt="visual editing" /></p>
+
+<p>Two important benefits:</p>
+
+<ul>
+  <li><strong>more inline than ever</strong>: when editing the post content, the editor preserves all the styles from your theme, making it even more seamless</li>
+  <li><strong>autogrow for all</strong>: autogrow is native to NicEdit, which means that it should work reliably in all browsers</li>
+</ul>
+
+<h3 id="other-improvements">Other improvements</h3>
+
+<ul>
+  <li>improved single paragraph editing</li>
+  <li>better handling of text widgets</li>
+  <li>compress JS &amp; CSS for faster loading</li>
+  <li>compatibility with Ajaxed WordPress plugin</li>
+  <li>added Estonian translation, by Aivar Luht</li>
+</ul>
+
+<p>If you’re having trouble with the new version or have a feature request, hit the <a href="http://wordpress.org/tags/front-end-editor">support forums</a>.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

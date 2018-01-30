@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Theme Wrappers</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/theme-wrappers.html">Theme Wrappers</a></h2>
+
+	<time datetime="2011-09-11 00:00:00 +0300" id="top_time">September 11, 2011</time>
+
+	<p class="entry-content">
+	<p>You know what really grinds my gears? Code duplication. And you know where you can find plenty of that? In WordPress themes!</p>
+
+<p>This has gotten a little better recently, thanks to <a href="http://codex.wordpress.org/Function_Reference/get_template_part">get_template_part()</a>.</p>
+
+<p>Still, for each main template file you have to repeat the calls to <code class="highlighter-rouge">get_header()</code>, <code class="highlighter-rouge">get_sidebar()</code> and <code class="highlighter-rouge">get_footer()</code>, as well as any HTML that defines your basic layout.</p>
+
+<!--more-->
+
+<p>Here’s an example <code class="highlighter-rouge">archive.php</code> file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">get_header</span><span class="p">();</span> <span class="cp">?&gt;</span>
+
+<span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"primary"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"content"</span> <span class="na">role=</span><span class="s">"main"</span><span class="nt">&gt;</span>
+		<span class="cp">&lt;?php</span> <span class="k">while</span> <span class="p">(</span> <span class="nx">have_posts</span><span class="p">()</span> <span class="p">)</span> <span class="o">:</span> <span class="nx">the_post</span><span class="p">();</span> <span class="cp">?&gt;</span>
+
+		<span class="cp">&lt;?php</span> <span class="nx">get_template_part</span><span class="p">(</span> <span class="s1">'content'</span><span class="p">,</span> <span class="nx">get_post_format</span><span class="p">()</span> <span class="p">);</span> <span class="cp">?&gt;</span>
+
+		<span class="cp">&lt;?php</span> <span class="k">endwhile</span><span class="p">;</span> <span class="cp">?&gt;</span>
+	<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/section&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nx">get_sidebar</span><span class="p">();</span> <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nx">get_footer</span><span class="p">();</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Even with the creative use of <code class="highlighter-rouge">get_template_part()</code>, all the code around it will need to be added to <code class="highlighter-rouge">single.php</code>, <code class="highlighter-rouge">tag.php</code> etc. etc.</p>
+
+<p>What you would like to do is put all that common code into a single file, and call it, say, <code class="highlighter-rouge">wrapper.php</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">get_header</span><span class="p">(</span> <span class="nx">my_template_base</span><span class="p">()</span> <span class="p">);</span> <span class="cp">?&gt;</span>
+
+<span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"primary"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"content"</span> <span class="na">role=</span><span class="s">"main"</span><span class="nt">&gt;</span>
+		<span class="cp">&lt;?php</span> <span class="k">include</span> <span class="nx">my_template_path</span><span class="p">();</span> <span class="cp">?&gt;</span>
+	<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/section&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nx">get_sidebar</span><span class="p">(</span> <span class="nx">my_template_base</span><span class="p">()</span> <span class="p">);</span> <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="nx">get_footer</span><span class="p">(</span> <span class="nx">my_template_base</span><span class="p">()</span> <span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>and leave <code class="highlighter-rouge">archive.php</code> with only the specific code:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="k">while</span> <span class="p">(</span> <span class="nx">have_posts</span><span class="p">()</span> <span class="p">)</span> <span class="o">:</span> <span class="nx">the_post</span><span class="p">();</span> <span class="cp">?&gt;</span>
+
+	<span class="cp">&lt;?php</span> <span class="nx">get_template_part</span><span class="p">(</span> <span class="s1">'content'</span><span class="p">,</span> <span class="nx">get_post_format</span><span class="p">()</span> <span class="p">);</span> <span class="cp">?&gt;</span>
+
+<span class="cp">&lt;?php</span> <span class="k">endwhile</span><span class="p">;</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Here’s what the template hierarchy looked like before:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{template}.php
+    header-{foo}.php &gt; header.php
+    sidebar-{bar}.php &gt; sidebar.php
+    footer-{baz}.php &gt; footer.php
+</code></pre></div></div>
+
+<p>and after:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wrapper-{template}.php &gt; wrapper.php
+    {template}.php
+        header-{template}.php &gt; header.php
+        sidebar-{template}.php &gt; sidebar.php
+        footer-{template}.php &gt; footer.php
+</code></pre></div></div>
+
+<p>Replace <code class="highlighter-rouge">{template}</code> with any template name: <code class="highlighter-rouge">single</code>, <code class="highlighter-rouge">taxonomy-my_custom_tax</code> etc.</p>
+
+<p>Now you’re probably wondering what kind of voodoo you would have to do to make this work. In fact, the only magic ingredient you need is the often overlooked <code class="highlighter-rouge">'template_include'</code> filter:</p>
+
+<script src="https://gist.github.com/1209013.js"></script>
+
+<p>Paste that code into your theme’s <code class="highlighter-rouge">functions.php</code> file and you’re done: wrappers for all.</p>
+
+<p>Note that you can have multiple wrappers: <code class="highlighter-rouge">wrapper-single.php</code>, <code class="highlighter-rouge">wrapper-page.php</code> etc. and that they can be overwritten, just like any other template, using a child theme.</p>
+
+<p>This approach was inspired by Django’s template language, which supports <a href="https://docs.djangoproject.com/en/dev/topics/templates/#template-inheritance">template inheritance</a>.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

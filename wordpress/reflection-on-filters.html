@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Reflection on filters</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/reflection-on-filters.html">Reflection on filters</a></h2>
+
+	<time datetime="2011-06-15 00:00:00 +0300" id="top_time">June 15, 2011</time>
+
+	<p class="entry-content">
+	<p>Filters are the most awesome thing about WordPress, code wise. <sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<h3 id="the-problem">The Problem</h3>
+
+<p>Passing a class method to a filter, however, is not so awesome.</p>
+
+<p>Say you have this class for manipulating WP_Query:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class My_Plugin {
+
+    function parse_query( $wp_query ) {
+        ...
+    }
+
+    function posts_clauses( $clauses, $wp_query ) {
+        ...
+    }
+
+    function the_posts( $posts, $wp_query ) {
+        ...
+    }
+}
+</code></pre></div></div>
+
+<p>To hook it up to the appropriate filters, you have to write this code:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>add_action( 'parse_query', array( 'My_Plugin', 'parse_query' ) );
+add_filter( 'posts_clauses', array( 'My_Plugin', 'posts_clauses' ), 10, 2 );
+add_filter( 'the_posts', array( 'My_Plugin', 'the_posts' ), 10, 2 );
+</code></pre></div></div>
+
+<p>Ugh… so much duplication! What a wonderful world it would be if we didn’t have to write all that boilerplate code each time.</p>
+
+<h3 id="the-solution">The Solution</h3>
+
+<p>PHP has this neat feature called <a href="http://www.php.net/manual/en/intro.reflection.php">reflection</a>. With it, you can reverse-engineer the properties and methods of a class or object.</p>
+
+<p>So, this is exactly what the <a href="#the-code">scbHooks</a> class does. Given a class or object, it hooks all the public methods to filters of the same name. It also passes the appropriate number of arguments, by looking at the method signature.</p>
+
+<p>So, instead of the boilerplate code above, you would just write:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scbHooks::add( 'My_Plugin' );
+</code></pre></div></div>
+
+<p>Ah… DRYness restored.</p>
+
+<p>If you change your mind, you can remove the filters, just as easily:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scbHooks::remove( 'My_Plugin' );
+</code></pre></div></div>
+
+<h3 id="limitations">Limitations</h3>
+
+<p>That’s pretty swell, but there are some drawbacks:</p>
+
+<ul>
+  <li>priority is always set to 10</li>
+  <li>impossible method names. For example: <em>load-edit.php</em></li>
+  <li>can’t have two methods hooked to the same filter</li>
+</ul>
+
+<p>I use scbHooks more like a starter kit, with which I can rapidly prototype a solution. Once I hit one of the above limitations, I abandon ship:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scbHooks::debug( 'My_Plugin' );
+</code></pre></div></div>
+
+<p>This method will actually generate the boilerplate source code, which you can paste into the plugin and completely forget about scbHooks.</p>
+
+<h3 id="the-extended-solution">The Extended Solution</h3>
+
+<p>Yitzi, a commenter, had the <a href="http://scribu.net/wordpress/reflection-on-filters.html#comment-4864">fabulous idea</a> to set the priority via doc comment. I just modified the syntax a little and also added the ability to change the filter name:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class My_Plugin {
+
+    /**
+     * @hook: wp_ajax_my-action
+     * @priority: 11
+     */
+    function ajax_handler() {
+        // awesome code
+    }
+}
+
+scbHooks::debug( 'My_Plugin' );
+
+// Result: add_filter( 'wp_ajax_my-action',  array( 'My_Plugin', 'ajax_handler' ), 11, 0 );
+</code></pre></div></div>
+
+<p>This effectively solves all the drawbacks I mentioned earlier. As such, I don’t think I’ll be abandoning ship so soon after all.</p>
+
+<h3 id="the-code">The Code</h3>
+
+<script src="https://gist.github.com/1046841.js?file=scb-hooks.php"></script>
+
+<p>By the way, scbHooks is now a part of <a href="http://wordpress.org/extend/plugins/scb-framework/">scbFramework</a>.</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Actions are just filters in <a href="http://core.trac.wordpress.org/browser/tags/3.1.3/wp-includes/plugin.php#L305">disguise</a>. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

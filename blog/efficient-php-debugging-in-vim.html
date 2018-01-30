@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Efficient PHP Debugging In Vim</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/blog/efficient-php-debugging-in-vim.html">Efficient PHP Debugging In Vim</a></h2>
+
+	<time datetime="2012-07-11 00:00:00 +0300" id="top_time">July 11, 2012</time>
+
+	<p class="entry-content">
+	<p>I mainly develop in PHP, which naturally involves a web server. This makes setting up a streamlined development environment a bit trickier. Nonetheless, we have all the necessary tools to make debugging PHP as powerfull as in any compiled language.</p>
+
+<p>I use vim as my primary editor, so I’m going to show you how you can get all the features that are normally associated with IDEs.</p>
+
+<!--more-->
+
+<h3 id="inline-syntax-checking">Inline Syntax Checking</h3>
+
+<p>The typical development loop looks like this:</p>
+
+<ol>
+  <li>Write code in editor.</li>
+  <li>Refresh browser.</li>
+  <li>Get parser error.</li>
+  <li>Fix syntax error in editor.</li>
+  <li>Refresh browser.</li>
+</ol>
+
+<p>We can skip steps 2 and 3 by auto-linting the source code without leaving the editor. All you need to do is install the <a href="https://github.com/scrooloose/syntastic">Syntastic</a> plugin for vim. Each time you save the file, it will be run through <code class="highlighter-rouge">php -l</code> and if there’s an error, your cursor is automatically moved to that line.</p>
+
+<h3 id="breakpoints-stacktraces-and-watched-expressions">Breakpoints, Stacktraces And Watched Expressions</h3>
+
+<p>Most of the time, sprinkling <code class="highlighter-rouge">var_dump()</code> calls through your code works well enough. But there are cases when chasing down a bug through a complex call chain is just hopeless using that approach.</p>
+
+<p>Fortunately, we have Xdebug, which allows us to step through code as it’s being executed. If you’ve ever set a breakpoint in Firebug or in Visual Studio, you know what I’m talking about.</p>
+
+<p>There are various vim extensions that can talk to Xdebug, but the best one I’ve found is called <a href="https://github.com/brookhong/DBGPavim">DBGPavim</a>. In the readme, you will find all you need to know about setting it up.</p>
+
+<p>Note that you don’t have to use Apache for this. I use nginx and php-fpm and Xdebug works fine.</p>
+
+<p>To see other vim goodies I use, check out my <a href="https://github.com/scribu/dotvim">dotvim</a> repo on Github.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

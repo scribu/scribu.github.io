@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>A Command-Line Interface for WordPress</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/a-command-line-interface-for-wordpress.html">A Command-Line Interface for WordPress</a></h2>
+
+	<time datetime="2011-10-05 00:00:00 +0300" id="top_time">October 05, 2011</time>
+
+	<p class="entry-content">
+	<div>
+  <img src="/files/wp-terminal.png" alt="" title="wp-terminal" width="128" height="105" class="alignleft size-full wp-image-1743 plain" />
+</div>
+
+<p>Currently, there is only one way of talking to a WordPress installation: HTTP requests. Whether you use a web browser, an XML-RPC application or just <code class="highlighter-rouge">wget</code>, it’s still just HTTP underneath.</p>
+
+<p>But what about when said WordPress installation is on the same machine you’re on? More to the point, what if said machine was running an operating system which supported an <a href="http://en.wikipedia.org/wiki/Bash_%28Unix_shell%29">UNIX shell</a>?</p>
+
+<p>Well, for one thing, you wouldn’t need to worry about cookie-based authentication, since you can already do whatever you want with that installation, if you can read its <code class="highlighter-rouge">wp-config.php</code> file.</p>
+
+<p>All that’s needed is some code to glue the command prompt to WordPress. And that’s exactly what <a href="https://github.com/wp-cli/wp-cli">wp-cli</a> does. It allows you to <strong>control WordPress through the command-line</strong>.</p>
+
+<p>A few examples of built-in commands:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Activate a newly installed theme on a particular site in a multisite setup
+wp theme activate my-new-theme --blog=fooblog.example.com
+
+# Get the value of a certain option
+wp option get my_option
+</code></pre></div></div>
+
+<p>Now why would you want to do this?</p>
+
+<p>Firstly, if you’re a heavy bash user, it might be more comfortable for you to install a plugin or update Core from the command line.</p>
+
+<p>But the real value in this is <strong>automation</strong> and seamless integration with other tools: cron jobs, deployment scripts etc.</p>
+
+<p>There have been a few attempts of creating such a tool in the past, but they lacked a critical feature: <strong>extensibility</strong>. To add a new command to wp-cli, you just need to write a plain PHP class and register it with <code class="highlighter-rouge">WP_CLI::addCommand()</code>.</p>
+
+<p>There already are several popular plugins that work with wp-cli. For example, if you’re using WP Super-Cache, you can run the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wp super-cache flush
+</code></pre></div></div>
+
+<p>There’s a list of all the <a href="https://github.com/wp-cli/wp-cli/wiki/List-of-community-commands">community commands</a> on the wiki.</p>
+
+<p>Note that, as of this writing, the wp-cli project is less than a month old. It was started by Andreas Creten and I’m a collaborator. If you would like to get involved, feel free to jump in on github: <a href="https://github.com/wp-cli/wp-cli" rel="nofollow">https://github.com/wp-cli/wp-cli</a></p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

@@ -1,0 +1,88 @@
+{
+	"main-title": "Connecting The Dots",
+
+	"slides": [
+		{
+			"slogan": "Connecting The Dots",
+			"primary_text": "Cristi Burcă<br>Lisbon, Sep. 2012"
+		},
+
+		{
+			"title": "a.k.a. scribu",
+			"class": "vcentered",
+			"image": "contributors.png"
+		},
+
+		{
+			"title": "I work at:",
+			"class": "vcentered logo",
+			"image": "AppThemes-1200.png"
+		},
+
+		{
+			"title": "Posts 2 Posts",
+			"buildup": [
+				"connect posts directly to other posts*",
+				"connect posts to users",
+				"many-to-many or one-to-many",
+				"connection custom fields"
+			],
+			"footnote": "* posts = posts, pages, attachments, CPTs"
+		},
+
+		{
+			"markdown": "defining.md"
+		},
+
+		{
+			"class": "fill",
+			"image": "metabox.png"
+		},
+
+		{
+			"markdown": "querying.md"
+		},
+
+		{
+			"slogan": "Storing the connections"
+		},
+
+		{
+			"title": "First try: Custom Fields",
+			"markdown": "schema1.md"
+		},
+
+		{
+			"title": "Second try: Hidden Taxonomy",
+			"markdown": "schema2.md"
+		},
+
+		{
+			"title": "Currently: Custom Tables",
+			"markdown": "schema4.md"
+		},
+
+		{
+			"slogan": "The Plumbing"
+		},
+
+		{
+			"title": "Core Classes",
+			"image": "core.png"
+		},
+
+		{
+			"title": "Admin Classes",
+			"image": "admin.png"
+		},
+
+		{
+			"title": "The Unit Tests",
+			"image": "travis.png"
+		},
+
+		{
+			"markdown": "links.md"
+		}
+	]
+}

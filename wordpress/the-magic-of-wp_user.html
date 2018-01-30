@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>The Magic of WP_User</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/the-magic-of-wp_user.html">The Magic of WP_User</a></h2>
+
+	<time datetime="2011-12-20 00:00:00 +0200" id="top_time">December 20, 2011</time>
+
+	<p class="entry-content">
+	<p>In previous versions of WordPress, when you called <code class="highlighter-rouge">get_userdata()</code> or <code class="highlighter-rouge">get_user_by()</code>, you got a plain <code class="highlighter-rouge">stdClass</code> object, filled with all the fields from both <code class="highlighter-rouge">wp_users</code> and <code class="highlighter-rouge">wp_usermeta</code> tables. This had two disadvantages:</p>
+
+<ul>
+  <li>dashes were removed, so that ‘my-custom-field’ became ‘mycustomfield’</li>
+  <li>all fields were loaded and kept in memory, wasting precious resources</li>
+</ul>
+
+<p>Since WordPress 3.3, all user-related functions return <a href="http://codex.wordpress.org/Class_Reference/WP_User">WP_User</a> instances. This class has some <a href="http://www.php.net/manual/en/language.oop5.overloading.php">magic methods</a> that make it behave as if it contained all the custom fields.</p>
+
+<h3 id="accessing-a-single-custom-field">Accessing a single custom field</h3>
+
+<p>For example, let’s try to display the user description of the currently logged in user:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$current_user = wp_get_current_user();
+
+if ( isset( $current_user-&gt;bio ) )
+	echo '&lt;p&gt;
+  ' . $current_user-&gt;bio . '
+&lt;/p&gt;';
+</code></pre></div></div>
+
+<p>This code works fine both in WP 3.2 and in WP 3.3. The difference is that in WP 3.3 that code is equivalent to this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if ( $current_user-&gt;__isset( 'bio' ) ) )
+	echo '&lt;p&gt;
+  ' . $current_user-&gt;__get( 'bio' ) . '
+&lt;/p&gt;';
+</code></pre></div></div>
+
+<p>Internally, the <code class="highlighter-rouge">__isset()</code> and <code class="highlighter-rouge">__get()</code> methods call <code class="highlighter-rouge">get_user_meta()</code>.</p>
+
+<p>If you have a variable key or a key with dashes, there are prettier aliases which you can use:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if ( $current_user-&gt;has_prop( 'my-field' ) ) )
+	echo '&lt;p&gt;
+  ' . $current_user-&gt;get( 'my-field' ) . '
+&lt;/p&gt;';
+</code></pre></div></div>
+
+<h3 id="accessing-all-custom-fields">Accessing all custom fields</h3>
+
+<p>Unfortunately, iterating over all the custom fields by casting to an array isn’t possible anymore:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>foreach ( (array) $user as $key =&gt; $value ) {
+	var_dump( $key, $value );
+}
+</code></pre></div></div>
+
+<p>It will have to be replaced with this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>foreach ( get_user_meta( $user-&gt;ID ) as $key =&gt; $values ) {
+	var_dump( $key, $values );
+}
+</code></pre></div></div>
+
+<p>Note that, in the later case, <code class="highlighter-rouge">$values</code> is an array.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

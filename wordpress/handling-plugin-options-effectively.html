@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Handling plugin options effectively</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/handling-plugin-options-effectively.html">Handling plugin options effectively</a></h2>
+
+	<time datetime="2009-12-11 00:00:00 +0200" id="top_time">December 11, 2009</time>
+
+	<p class="entry-content">
+	<p>The more popular a plugin is, the more options it seems to have. This goes for themes too. Managing options is apparently brain-dead simple, using <a href="http://codex.wordpress.org/Function_Reference/add_option">add_option()</a> and friends.</p>
+
+<p>However, when you find a <a href="http://wordpress.org/extend/plugins/clean-options/">plugin</a> specifically wrote for cleaning up the <s>Windows registry</s> WordPress options table, you know it’s not all rainbows and unicorns.</p>
+
+<p>People often complain that their options table is filled with cruft from previously installed plugins. How can this happen? The main reason is that those lazy developers are too distracted to take out the trash when you’re done with their plugins.</p>
+
+<p>Because I’m a plugin developer too, ergo hard-working &amp; focused, I wrote a class to help me with this problem. It’s called <a href="http://scribu.net/wordpress/scb-framework/scb-options.html">scbOptions</a> and it’s a part of my little <a href="http://scribu.net/wordpress/scb-framework">plugin framework</a>.</p>
+
+<p>It takes care of removing the options automatically when the plugin is uninstalled via the WordPress interface. It also encourages and makes it easier to work with <a href="http://striderweb.com/nerdaphernalia/2008/07/consolidate-options-with-arrays/">consolidated options</a>.</p>
+
+<p>So that takes care of 2 out of the <a href="http://planetozh.com/blog/2009/09/top-10-most-common-coding-mistakes-in-wordpress-plugins/">10 most common mistakes</a>. Do you have any tips for handling options better? Do share.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

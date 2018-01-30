@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Extending the Category Walker</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/extending-the-category-walker.html">Extending the Category Walker</a></h2>
+
+	<time datetime="2010-06-16 00:00:00 +0300" id="top_time">June 16, 2010</time>
+
+	<p class="entry-content">
+	<p>Categories are better than tags! Why? Because a category can have child categories, and grand-child categories and so on. You can do all sorts of interesting things with them.</p>
+
+<p>Say you want to <em>display only the categories related to a certain post, while maintaining the hierarchy</em>.</p>
+
+<p>You could try to painstakingly re-create the category tree from the bottom up and then display it somehow.</p>
+
+<p>Or… you could choose to simply skip the categories you don’t want to have displayed. Makes sense? Read on.</p>
+
+<h3 id="enter-walkers">Enter Walkers</h3>
+
+<p>A <a href="http://core.trac.wordpress.org/browser/trunk/wp-includes/classes.php?rev=14964#L729">Walker</a> is a special class for displaying various tree-like structures. WordPress uses them for displaying categories, pages and threaded comments.</p>
+
+<p>The <a href="http://codex.wordpress.org/Template_Tags/wp_list_categories">wp_list_categories()</a> template tag uses one of them internally. It’s called Walker_Category. The nice bit is that you can replace the default walker with your own.</p>
+
+<h3 id="walk-your-own-way">Walk Your Own Way</h3>
+
+<p>First we’ll need to make our own walker, using <code class="highlighter-rouge">Walker_Category</code> as a base:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Post_Category_Walker extends Walker_Category {
+
+	private $term_ids = array();
+
+	function __construct( $post_id, $taxonomy )  {
+		// fetch the list of term ids for the given post
+		$this-&gt;term_ids = wp_get_post_terms( $post_id, $taxonomy, 'fields=ids' );
+	}
+
+	function display_element( $element, &amp;$children_elements, $max_depth, $depth=0, $args, &amp;$output ) {
+		$display = false;
+
+		$id = $element-&gt;term_id;
+
+		if ( in_array( $id, $this-&gt;term_ids ) ) {
+			// the current term is in the list
+			$display = true;
+		}
+		elseif ( isset( $children_elements[ $id ] ) ) {
+			// the current term has children
+			foreach ( $children_elements[ $id ] as $child ) {
+				if ( in_array( $child-&gt;term_id, $this-&gt;term_ids ) ) {
+					// one of the term's children is in the list
+					$display = true;
+					// can stop searching now
+					break;
+				}
+			}
+		}
+
+		if ( $display )
+			parent::display_element( $element, &amp;$children_elements, $max_depth, $depth, $args, &amp;$output );
+	}
+}
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">display_element()</code> is a method in the <code class="highlighter-rouge">Walker</code> class. It’s called once for each element.</p>
+
+<p>What happens here is that we first check if either the current element or one of its children is in the category list of the given post. If it is, we let <code class="highlighter-rouge">Walker_Category</code> do the actual displaying.</p>
+
+<p>All that’s left to do now is pass our enhanced walker to <code class="highlighter-rouge">wp_list_categories()</code>. We’ll wrap it up in a function, for convenience:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function walk_post_categories( $post_id, $args = array() ) {
+	$args = wp_parse_args( $args, array(
+		'taxonomy' =&gt; 'category'
+	) );
+
+	$args['walker'] = new Post_Category_Walker( $post_id, $args['taxonomy'] );
+
+	$output = wp_list_categories( $args );
+	if ( $output )
+		return $output;
+}
+</code></pre></div></div>
+
+<p>And that’s about it. You now have a neat little template tag:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">walk_post_categories</span><span class="p">(</span><span class="mi">123</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>You can even pass additional arguments to wp_list_categories:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">walk_post_categories</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="s1">'show_count=1&amp;title_li='</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="keep-on-walking">Keep On Walking</h3>
+
+<p>Of course, this is just one example. You can use this approach with any type of walker. Let me know what other uses you’ve found.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Cross-browser AJAX uploads with Ember.js and mOxie</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/blog/cross-browser-uploads-ember-moxie.html">Cross-browser AJAX uploads with Ember.js and mOxie</a></h2>
+
+	<time datetime="2014-02-24 00:00:00 +0200" id="top_time">February 24, 2014</time>
+
+	<p class="entry-content">
+	<p>Implementing single-page web applications that work on all browsers remains a challenge. For the basic task of uploading files, you still need some sort of polyfill or library that adds <a href="http://caniuse.com/#search=FileReader">support</a> for older browsers (read IE 8 and 9, which are still in wide use).</p>
+
+<p>In this tutorial I’m going to describe how to integrate one such library, called <a href="https://github.com/moxiecode/moxie">mOxie</a>, with one client-side MVC framework, called <a href="http://emberjs.com/">Ember.js</a>.</p>
+
+<h3 id="0-getting-the-moxie-library">0. Getting the mOxie library</h3>
+
+<p>I’m going to assume you already have an Ember app going, so the first step is acquiring the mOxie files. You can either use the <a href="https://github.com/moxiecode/moxie/blob/master/bin/">pre-built files</a> or <a href="https://github.com/moxiecode/moxie#build-instructions">compile your own</a>. For example, we won’t need XHR2 support in this tutorial, so we can leave it out.</p>
+
+<h3 id="1-defining-the-template">1. Defining the template</h3>
+
+<p>The next thing we have to do is write the Handlebars template that will contain all the UI elements we need:</p>
+
+<script src="https://gist.github.com/scribu/e8cc6dcaeddb9df07d27.js?file=template.hbs"></script>
+
+<p>The UI has several components:</p>
+
+<ul>
+  <li>error and progress notifications</li>
+  <li>the list of selected files</li>
+  <li>the button for selecting more files</li>
+  <li>the button for initiating the upload</li>
+</ul>
+
+<h3 id="2-initializing-the-file-picker">2. Initializing the file picker</h3>
+
+<p>In the template above we placed the button inside a view. We can use that view to convert the <code class="highlighter-rouge">&lt;button&gt;</code> into a file picker:</p>
+
+<script src="https://gist.github.com/scribu/e8cc6dcaeddb9df07d27.js?file=view.js"></script>
+
+<p>Here we create a <code class="highlighter-rouge">mOxie.FileInput</code> instance once the template containing the button is rendered.</p>
+
+<h3 id="3-addingremoving-files">3. Adding/removing files</h3>
+
+<p>The view we defined in the previous step will send events up to the controller, which has to respond to them:</p>
+
+<script src="https://gist.github.com/scribu/e8cc6dcaeddb9df07d27.js?file=controller-1.js"></script>
+
+<p>The neat thing about Ember.js is that it will automatically re-render the template whenever the <code class="highlighter-rouge">attachments</code> property is modified.</p>
+
+<h3 id="4-uploading-the-files">4. Uploading the files</h3>
+
+<p>Finally, when the user wants to submit the form, we have to actually send the files to the server:</p>
+
+<script src="https://gist.github.com/scribu/e8cc6dcaeddb9df07d27.js?file=controller-2.js"></script>
+
+<p>We start uploading all the files concurrently. When one is done, we increment a counter. When all of them are done, we clear the queue. Did I mention <a href="http://domenic.me/2012/10/14/youre-missing-the-point-of-promises/">promises</a> are great?</p>
+
+<p>And here are the helper functions used in the controller above:</p>
+
+<script src="https://gist.github.com/scribu/e8cc6dcaeddb9df07d27.js?file=helpers.js"></script>
+
+<p>I wrapped both the <code class="highlighter-rouge">mOxie.FileReader</code> process and the AJAX request in RSVP promises so that chaining and utility methods such as <code class="highlighter-rouge">.catch()</code> always work as expected.</p>
+
+<h3 id="demo">Demo</h3>
+
+<p>I’ve set up a quick <a href="http://scribu.github.io/ember-moxie-demo/">demo</a> so that you can see it in action.</p>
+
+<p>This is just a starting point, of course. You can add all sorts of usability enhancements, such as progress bars, image previews etc. Happy hacking!</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

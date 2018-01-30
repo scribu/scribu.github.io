@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Asynchronous HTTP Requests in Python 3.5+</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/blog/asynchronous-http-requests-in-python-3.5.html">Asynchronous HTTP Requests in Python 3.5+</a></h2>
+
+	<time datetime="2016-11-11 00:00:00 +0200" id="top_time">November 11, 2016</time>
+
+	<p class="entry-content">
+	<p>So you’ve heard that Python now supports that fancy <code class="highlighter-rouge">async/await</code> syntax. You want to play with it, but <a href="http://lucumr.pocoo.org/2016/10/30/i-dont-understand-asyncio/">asyncio seems intimidating</a>.</p>
+
+<p>Well, someone wrote a simpler alternative to asyncio. It’s called <a href="https://curio.readthedocs.io/">Curio</a> and people are saying good things <a href="https://vorpus.org/blog/some-thoughts-on-asynchronous-api-design-in-a-post-asyncawait-world/">about it</a>. <sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<p>In this tutorial, I’m going to show you how to make non-blocking HTTP requests using Curio.</p>
+
+<p>Since it doesn’t have a high-level HTTP client yet, I whipped up a small library called <a href="https://github.com/scribu/curio-http">curio-http</a> <sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>, so you’ll need to install that as well.</p>
+
+<h3 id="the-syntax">The syntax</h3>
+
+<p>Let’s start with a single request:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">curio</span>
+<span class="kn">import</span> <span class="nn">curio_http</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">curio_http</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://httpbin.org/get'</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">'Status code:'</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+
+        <span class="n">content</span> <span class="o">=</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">'Content:'</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">curio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div></div>
+
+<p>You use <code class="highlighter-rouge">async def</code> to declare what’s called a <em>coroutine</em>. The last line — <code class="highlighter-rouge">curio.run(main())</code> — kicks off the coroutine.</p>
+
+<p>What’s inside the <code class="highlighter-rouge">main</code> coroutine should look familiar, if you’ve ever used the <a href="http://python-requests.org">requests</a> library.</p>
+
+<p>At each point where <code class="highlighter-rouge">await</code> is called, the coroutine could theoretically yield control to a different coroutine. However, since there are no other coroutines here, the script behaves roughly like a synchronous program:</p>
+
+<ol>
+  <li>Create an HTTP session.</li>
+  <li>Make an HTTP request.</li>
+  <li>Wait for the response headers.</li>
+  <li>Print the response status code.</li>
+  <li>Wait for the response content.</li>
+  <li>Print the content.</li>
+</ol>
+
+<h3 id="achieving-concurrency">Achieving concurrency</h3>
+
+<p>To reap the benefits of asynchronous I/O, it’s not enough to sprinkle our programs with the <code class="highlighter-rouge">async</code> and <code class="highlighter-rouge">await</code> keywords. We need to encode which operations can be executed independently (concurrent) and which need to happen one after the other (sequential).</p>
+
+<p>Sequential execution:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">response1</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://foo.com'</span><span class="p">)</span>
+<span class="n">response2</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://bar.com'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Concurrent execution:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">taks1</span> <span class="o">=</span> <span class="k">await</span> <span class="n">curio</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://foo.com'</span><span class="p">))</span>
+<span class="n">task2</span> <span class="o">=</span> <span class="k">await</span> <span class="n">curio</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://bar.com'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">curio.spawn()</code> is how you express the idea “I want this coroutine to be executed in the background”. The thing that’s spawned is what Curio calls a <em>task</em>.</p>
+
+<p>Let’s look at an example that fetches a list of URLs concurrently by spawning a task for each one:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">curio</span>
+<span class="kn">import</span> <span class="nn">curio_http</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">fetch_one</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">curio_http</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">response</span><span class="p">,</span> <span class="n">content</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">url_list</span><span class="p">):</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">url_list</span><span class="p">:</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="k">await</span> <span class="n">curio</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">fetch_one</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+        <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+        <span class="n">response</span><span class="p">,</span> <span class="n">content</span> <span class="o">=</span> <span class="k">await</span> <span class="n">task</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">'GET </span><span class="si">%</span><span class="s">s'</span> <span class="o">%</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+
+
+<span class="n">url_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">'http://httpbin.org/delay/1'</span><span class="p">,</span>
+    <span class="s">'http://httpbin.org/delay/2'</span><span class="p">,</span>
+    <span class="s">'http://httpbin.org/delay/3'</span><span class="p">,</span>
+    <span class="s">'http://httpbin.org/delay/4'</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">curio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">(</span><span class="n">url_list</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Each URL in the list takes a number of seconds to fetch.</p>
+
+<p>If we were to fetch them sequentially, it would take 1+2+3+4=10 seconds in total.</p>
+
+<p>Since we’re using tasks, the run time will only be around 4 seconds.</p>
+
+<h3 id="controlling-concurrency">Controlling concurrency</h3>
+
+<p>What if we want to scrape a site, but we don’t want to hammer it with too many concurrent connections?</p>
+
+<p>The simplest approach is to use what’s called a bounded semaphore.</p>
+
+<p>Let’s see what changes we would need to make to the above example:</p>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code> import curio
+ import curio_http
+
+<span class="gi">+MAX_CONNECTIONS_PER_HOST = 2
++
++sema = curio.BoundedSemaphore(MAX_CONNECTIONS_PER_HOST)
++
+</span> async def fetch_one(url):
+<span class="gd">-    async with curio_http.ClientSession() as session:
+</span><span class="gi">+    async with sema, curio_http.ClientSession() as session:
+</span>         response = await session.get(url)
+         content = await response.json()
+         return response, content
+</code></pre></div></div>
+
+<p>Here, we’re using not one, but two context managers: the semaphore and the HTTP session.</p>
+
+<p>The semaphore is <em>aquired</em> each time a task is started. It’s <em>released</em> right after the URL has finished being fetched.</p>
+
+<p>If more than <code class="highlighter-rouge">MAX_CONNECTIONS</code> tasks have already aquired the semaphore, the next task that tries to aquire it will wait until a release happens.</p>
+
+<p>To learn about more neat features of Curio, such as timeout handling and events, check out the excellent introductory <a href="http://curio.readthedocs.io/en/latest/tutorial.html">tutorial</a>.</p>
+
+<p>I hope this has given you a glimpse of what modern async I/O can look like in Python. All of the libraries used in this tutorial are in a very early state right now, but I think they have a lot of potential.</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>The downside is that it doesn’t work on Windows right now or with older versions of Python. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>Under the hood, it leverages this new thing called a <a href="https://sans-io.readthedocs.io/">sans I/O network protocol</a>. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

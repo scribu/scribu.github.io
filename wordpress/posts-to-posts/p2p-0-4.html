@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Posts 2 Posts: Version 0.4</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-4.html">Posts 2 Posts: Version 0.4</a></h2>
+
+	<time datetime="2010-10-08 00:00:00 +0300" id="top_time">October 08, 2010</time>
+
+	<p class="entry-content">
+	<p>Using a taxonomy to store post-to-post connections was an interesting exercise. It worked, but when it came time to extend it, it felled flat on its face.</p>
+
+<p>That’s why connections are now stored in a custom table, with an additional meta table for adding arbitrary information <em>per connection</em>.</p>
+
+<p>It is now possible to connect the same two posts twice, but with different metadata, something that would be needed in Justin Tadlock’s <a href="http://justintadlock.com/archives/2010/08/20/linking-terms-to-a-specific-post">movies scenario</a>, for example.</p>
+
+<p>The procedure for migrating old connections is the same as in the previous version: go to <em>/wp-admin/?migrate_p2p</em> and you’re done. (Make sure you have a recent database backup before you do this.)</p>
+
+<p>When searching for posts to connect, it will search only by post title and not by content, as in previous versions.</p>
+
+<p>Reciprocal connections are now stored only once.</p>
+
+<p>Speaking of reciprocal connections, most function in the API accepted a the third parameter, which used to be <code class="highlighter-rouge">$reciprocal = false</code>. It has been replaced with <em>$data = array()</em>. More info can be found in the file <a href="http://plugins.trac.wordpress.org/browser/posts-to-posts/tags/0.4/api.php">api.php</a>.</p>
+
+<p>Unless you’re doing advanced stuff, you shouldn’t need to touch the API, though. You can just use WP_Query or get_posts():</p>
+
+<p>Get posts connected from a particular post: $post_id -&gt; $posts</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$connected = get_posts( array(
+  'suppress_filters' =&gt; false,
+  'post_type' =&gt; 'book',
+  'connected_from' =&gt; $post_id,
+) );
+</code></pre></div></div>
+
+<p>Get posts connected to a particular post: $post_id &lt;- $posts</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$connected = get_posts( array(
+  'suppress_filters' =&gt; false,
+  'post_type' =&gt; 'book',
+  'connected_to' =&gt; $post_id,
+) );
+</code></pre></div></div>
+
+<p>Get connected posts, regardless of direction: $post_id &lt;- $posts OR $post_id -&gt; $posts</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$connected = get_posts( array(
+  'suppress_filters' =&gt; false,
+  'post_type' =&gt; 'book',
+  'connected' =&gt; $post_id,
+) );
+</code></pre></div></div>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

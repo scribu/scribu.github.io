@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Getting the class name from an object instance</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/blog/object-introspection.html">Getting the class name from an object instance</a></h2>
+
+	<time datetime="2013-07-15 00:00:00 +0300" id="top_time">July 15, 2013</time>
+
+	<p class="entry-content">
+	<p>I was recently assigned to work on a node.js project — a first, for me. I discovered that it comes with a neat <a href="http://nodejs.org/api/debugger.html">CLI debugger</a> built in, which is very handy when diving into an unknown codebase. However, when inspecting a variable, it doesn’t show me its type; only its value.</p>
+
+<p>First, let’s see how you would get the type of an object in other dynamic languages.</p>
+
+<p>In <strong>Ruby</strong>, every object responds to a <code class="highlighter-rouge">class</code> message, which returns an object of type <code class="highlighter-rouge">Class</code>, which responds to a <code class="highlighter-rouge">name</code> message, which returns a string:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>obj.class.name
+</code></pre></div></div>
+
+<p>In <strong>Python</strong>, every object has a <code class="highlighter-rouge">__class__</code> property, which contains a <code class="highlighter-rouge">type</code> instance, which has a <code class="highlighter-rouge">__name__</code> property, which contains a string:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>obj.__class__.__name__
+</code></pre></div></div>
+
+<p>In <strong>PHP</strong>, there’s a special <code class="highlighter-rouge">get_class()</code> function which returns the class name of an object as a string:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>get_class($obj);
+</code></pre></div></div>
+
+<p>In <strong>JavaScript</strong>, every object has a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor">constructor</a> property, which contains a <code class="highlighter-rouge">Function</code> object, which has a <code class="highlighter-rouge">name</code> property, which contains a string:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>obj.constructor.name
+</code></pre></div></div>
+
+<p>Update: Got a link <a href="https://twitter.com/pbaylies/status/356812965267247105">on twitter</a> to a much more in-depth <a href="http://stackoverflow.com/questions/332422/how-do-i-get-the-name-of-an-objects-type-in-javascript">discussion on StackOverflow</a>, with various caveats and workarounds. But for getting a general idea of what kind of object a variable is, I think the above method is good enough.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

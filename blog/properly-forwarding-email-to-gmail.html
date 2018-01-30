@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Properly forwarding email to Gmail</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/blog/properly-forwarding-email-to-gmail.html">Properly forwarding email to Gmail</a></h2>
+
+	<time datetime="2014-11-18 00:00:00 +0200" id="top_time">November 18, 2014</time>
+
+	<p class="entry-content">
+	<p>So I have a custom email address, <em>mail@example.com</em>, which I want to forward to <em>example@gmail.com</em>.</p>
+
+<p>Since I use NameCheap as my registrar, I had the option of setting up email forwarding via their UI. Very easy, but with drawbacks: sometimes email just wouldn’t arrive and I had no way of figuring out what the problem was.</p>
+
+<p>Then, while moving my hosting to <a href="https://www.digitalocean.com/?refcode=e785d2574328">DigitalOcean</a>, I decided to do the forwarding on my own server. So I configured the MX records and added virtual aliases in Postfix and pretty soon got a strange error from Google’s SMTP servers:</p>
+
+<blockquote>
+  <p>Our system has detected an unusual rate of 421-4.7.0 unsolicited mail originating from your IP address. To protect our 421-4.7.0 users from spam, mail sent from your IP address has been temporarily 421-4.7.0 rate limited. Please visit 421-4.7.0 http://www.google.com/mail/help/bulk_mail.html to review our Bulk 421 4.7.0 Email Senders Guidelines. f14si1032016icj.42 - gsmtp (in reply to end of DATA command))</p>
+</blockquote>
+
+<p>After a bit of Googling, it seems somebody had the <a href="https://www.digitalocean.com/community/questions/temporarily-rate-limited-from-google-in-mail-relay">same problem</a> and one suggested fix went like this: instead of pushing email to Gmail, make Gmail fetch it via POP3, so that’s what I did:</p>
+
+<ol>
+  <li>Enabled POP3 access by installing Courier.</li>
+  <li>Created a separate <code class="highlighter-rouge">postmaster</code> user (which doesn’t have <code class="highlighter-rouge">sudo</code>).</li>
+  <li>Routed all incoming mail to the <code class="highlighter-rouge">postmater</code> user.</li>
+  <li>Added the credentials in Gmail (<em>Settings → Accounts and Import</em>).</li>
+</ol>
+
+<p>and it seems to work great. Gmail fetches mail from my server at its own pace, while leaving malicious email in place. I should probably set up a cron job to delete messages left in <code class="highlighter-rouge">Maildir/cur/</code>.</p>
+
+<p>Basically, everything you need to know is in this <a href="https://help.ubuntu.com/community/PostfixBasicSetupHowto">excellent tutorial</a> on the Ubuntu Wiki.</p>
+
+<p>For a long time, for me Postfix was that thing that never works right, but after reading a few clear tutorials, it actually sort of makes sense. So, drop me a line anytime. :)</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

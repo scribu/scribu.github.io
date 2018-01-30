@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Custom Sortable Columns</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/custom-sortable-columns.html">Custom Sortable Columns</a></h2>
+
+	<time datetime="2010-08-12 00:00:00 +0300" id="top_time">August 12, 2010</time>
+
+	<p class="entry-content">
+	<p>This summer I’ve been busy with my <a href="http://scribu.net/wordpress/gsoc-proposal-enhanced-admin-pages.html">GSoC project</a>, which involved making columns sortable on list-type screens in the WordPress administration area. Yesterday, that work was included in trunk, so if you’re on the bleeding edge (3.1-alpha), you should see something like this:</p>
+
+<p><img src="/files/screenshotqm.png" alt="Sortable post columns" /></p>
+
+<p>That’s all very nice, you say, but how do I make sortable columns of my own? First, let’s make a plain, old, non-sortable column:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Register the column
+function price_column_register( $columns ) {
+    $columns['price'] = __( 'Price', 'my-plugin' );
+
+    return $columns;
+}
+add_filter( 'manage_edit-post_columns', 'price_column_register' );
+</code></pre></div></div>
+
+<p>Nothing new here. We’re just using a well-known hook to add a Price column on the posts screen. Then, with another hook, we’re displaying the value, which is stored in a custom field in this case:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Display the column content
+function price_column_display( $column_name, $post_id ) {
+    if ( 'price' != $column_name )
+        return;
+
+    $price = get_post_meta($post_id, 'price', true);
+    if ( !$price )
+        $price = '&lt;em&gt;' . __( 'undefined', 'my-plugin' ) . '&lt;/em&gt;';
+
+    echo $price;
+}
+add_action( 'manage_posts_custom_column', 'price_column_display', 10, 2 );
+</code></pre></div></div>
+
+<p>Now comes the interesting part:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Register the column as sortable
+function price_column_register_sortable( $columns ) {
+    $columns['price'] = 'price';
+
+    return $columns;
+}
+add_filter( 'manage_edit-post_sortable_columns', 'price_column_register_sortable' );
+</code></pre></div></div>
+
+<p>We first need to tell WordPress that this is a sortable column. As you can see, the hook name is very similar to the one we used to register the column in the first place. <sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<p>There’s just one more thing we need to do. Since WordPress doesn’t know how to handle ‘orderby=price’, we’ll have to teach it, by altering the query variables:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function price_column_orderby( $vars ) {
+    if ( isset( $vars['orderby'] ) &amp;&amp; 'price' == $vars['orderby'] ) {
+        $vars = array_merge( $vars, array(
+            'meta_key' =&gt; 'price',
+            'orderby' =&gt; 'meta_value_num'
+        ) );
+    }
+ 
+    return $vars;
+}
+add_filter( 'request', 'price_column_orderby' );
+</code></pre></div></div>
+
+<p>We’re basically telling it to order by the ‘price’ custom field we displayed before. <sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup></p>
+
+<p>And that’s all there is to it. This is how it should look:</p>
+
+<p><img src="/files/screenshot1ky.png" alt="Result" /></p>
+
+<p>Here’s the full code, for convenience: <a href="https://gist.github.com/906872" rel="nofollow">https://gist.github.com/906872</a></p>
+
+<p><strong>Update:</strong> With the <a href="http://wordpress.org/extend/plugins/codepress-admin-columns/">CodePress Admin Columns</a> plugin you can manage admin columns through a GUI.</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>The first ‘price’ represents the internal column name, while the second is the value sent to the 
+<code class="highlighter-rouge">?orderby=</code> query variable. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>More info on 
+<a href="http://codex.wordpress.org/Function_Reference/WP_Query#Order_.26_Orderby_Parameters">meta_value_num</a>. <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

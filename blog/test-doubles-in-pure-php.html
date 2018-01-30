@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Creating test doubles in pure PHP</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/blog/test-doubles-in-pure-php.html">Creating test doubles in pure PHP</a></h2>
+
+	<time datetime="2013-09-20 00:00:00 +0300" id="top_time">September 20, 2013</time>
+
+	<p class="entry-content">
+	<p>The PHP world is not known for good unit test coverage. It’s mostly a cultural issue, but there is a technical aspect to it as well.</p>
+
+<p>PHPUnit allows you to create <a href="http://phpunit.de/manual/3.7/en/test-doubles.html">mock objects</a>, but that assumes your codebase uses the Depedency Injection pattern. If not, it’s very hard to add unit tests without doing major refactorings, because the language doesn’t support monkey patching (i.e. redefining functions and methods at runtime).</p>
+
+<p>You could install the <a href="http://php.net/manual/en/book.runkit.php">runkit</a> extension, which allows you to replace everything, including constants. However, that means that anyone who wants to run the tests needs to re-compile their PHP.</p>
+
+<blockquote>
+  <p><a href="https://github.com/antecedent/patchwork">Patchwork</a> is a PHP library that makes it possible to redefine user-defined functions and methods at runtime, replicating the functionality of <code class="highlighter-rouge">runkit_function_redefine</code> in pure PHP 5.3 code.</p>
+</blockquote>
+
+<p>I started using it to create mocks and it’s great, but I had this nagging thought: how the hell does it work?</p>
+
+<p>I set out to figure out what black magic the author uses, only to find that he already wrote a very easy to understand description of the <a href="http://antecedent.github.io/patchwork/docs/implementation.html">implementation</a>, like any responsible developer would. Neat!</p>
+
+<p>Gems like these are few and far between in the PHP ecosystem, but they do exist.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

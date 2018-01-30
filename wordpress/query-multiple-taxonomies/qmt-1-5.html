@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Query Multiple Taxonomies: Version 1.5</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/query-multiple-taxonomies/qmt-1-5.html">Query Multiple Taxonomies: Version 1.5</a></h2>
+
+	<time datetime="2011-06-07 00:00:00 +0300" id="top_time">June 07, 2011</time>
+
+	<p class="entry-content">
+	<h3 id="better-titles">Better titles</h3>
+
+<p>If you go to an URL like <em>?genre=jazz&amp;instrument=guitar+piano</em>, the page title that WP serves looks like this:</p>
+
+<p><em>Jazz</em></p>
+
+<p>Not very descriptive, is it? With QMT, it looks like this:</p>
+
+<p><em>Genre: Jazz; Instrument: Guitar + Piano</em></p>
+
+<h3 id="easy-templating">Easy templating</h3>
+
+<p>It was painful seeing users modify the plugin PHP files, just to change from &lt;h4&gt; to &lt;h3&gt; or to add an id to some div. No more.</p>
+
+<p>In this version, all the HTML is separated into distinct files, which can be overwritten by themes. Here’s a <a href="https://github.com/scribu/wp-query-multiple-taxonomies/wiki/Changing-templates">guide</a> for doing that.</p>
+
+<p>Remember the tutorial for <a href="http://scribu.net/wordpress/extending-the-category-walker.html">customizing category walkers</a>, which involved writing your own PHP class and a helper function on top? What if you could do it without writing any PHP at all?</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+&lt;li class="term-item {{#is-selected}}current-term{{/is-selected}}"&gt;
+  {{#is-selected}}
+		&lt;a class="remove-term" href="{{url}}" title="{{title}}"&gt;{{name}} (-)&lt;/a&gt;
+	{{/is-selected}}
+	{{^is-selected}}
+		&lt;a class="add-term" href="{{url}}" title="{{title}}"&gt;{{name}} (+)&lt;/a&gt;
+	{{/is-selected}}
+	{{#children}}
+		&lt;ul&gt;
+	{{{child-list}}}
+			
+  &lt;/ul&gt;
+	{{/children}}
+&lt;/li&gt;
+
+</code></pre></div></div>
+
+<p>This is the default <a href="http://mustache.github.com/mustache.5.html">Mustache</a> template that is used by the plugin to generate a hierarchical list of terms.</p>
+
+<p>I’m really excited about using Mustache in WordPress, as it neatly fills the gap between providing a settings page and making the user write PHP code.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

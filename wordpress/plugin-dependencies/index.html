@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Plugin Dependencies</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+<h2 class="plugin-title"><a class="no-link" href="#">Plugin Dependencies</a></h2>
+
+<ul class="resources">
+	<li><a class="button" href="http://wordpress.org/extend/plugins/plugin-dependencies/">Homepage</a></li>
+	<li><a class="button" href="http://wordpress.org/support/plugin/plugin-dependencies/">Support</a></li>
+</ul>
+
+<article style="min-height: initial"><strong>Alert:</strong> This plugin is no longer under active development, because I <a href="/blog/left-wordpress.html">left WordPress.</a></article>
+
+
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/plugin-dependencies/new-maintainer-x-team.html">New Maintainer for Plugin Dependencies: X-Team</a></h2>
+
+	<time datetime="2014-01-27 00:00:00 +0200" id="top_time">January 27, 2014</time>
+
+	<p class="entry-content">
+		<p>I handed off development of the <a href="http://wordpress.org/plugins/plugin-dependencies/">Plugin Dependencies</a> plugin to <a href="https://github.com/x-team">X-Team</a>. They have released all sorts of interesting tools; check them out.</p>
+
+<p>The official Github repository is now <a href="https://github.com/x-team/wp-plugin-dependencies">https://github.com/x-team/wp-plugin-dependencies</a>.</p>
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/plugin-dependencies/pd-1-2.html">Plugin Dependencies: Version 1.2</a></h2>
+
+	<time datetime="2012-03-21 00:00:00 +0200" id="top_time">March 21, 2012</time>
+
+	<p class="entry-content">
+		<p>In previous versions of the plugin, to define a depedency to BuddyPress, you’d have to write:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Depends: buddypress/bp-loader.php
+</code></pre></div></div>
+
+<p>As a user <a href="http://wordpress.org/support/topic/plugin-plugin-dependencies-unreliable-plugin-namingidentifying-scheme">pointed out</a>, using the plugin path like that is not a good idea.</p>
+
+<p>It turns out that there’s a much more stable piece of information that can be used to identify plugins with: their name. D’oh!</p>
+
+<p>So now you can just write this instead:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Depends: BuddyPress
+</code></pre></div></div>
+
+<p>Besides being a lot more user-friendly, since plugin names rarely change, it’s more reliable as well. Win!</p>
+
+<p>Of course, for super-formal specs, the <a href="http://scribu.net/wordpress/plugin-dependencies/pd-1-1.html">Provides: header</a> still works.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/plugin-dependencies/pd-1-1.html">Plugin Dependencies: Version 1.1</a></h2>
+
+	<time datetime="2011-08-26 00:00:00 +0300" id="top_time">August 26, 2011</time>
+
+	<p class="entry-content">
+		<p>The main feature added in this version is the “Provides:” header. This allows virtual packages to be defined:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/*
+Plugin Name: Lib X
+Provides: lib-x
+*/
+</code></pre></div></div>
+
+<p>Now, dependant plugins can specify ‘lib-x’ as a dependency:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/*
+Plugin Name: Cool Plugin
+Depends: lib-x
+*/
+</code></pre></div></div>
+
+<p>The first advantage is that dependencies are no longer tied to plugin file paths.</p>
+
+<p>More importantly, you can now have dependency alternatives: there can be more than one plugin that provides the same functionality:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/*
+Plugin Name: Lib Alt
+Provides: lib-x
+*/
+</code></pre></div></div>
+
+<p>When you activate <em>Lib Alt</em>, <em>Lib X</em> will automatically be deactivated.</p>
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/plugin-dependencies/pd-1-0.html">Plugin Dependencies: Version 1.0</a></h2>
+
+	<time datetime="2010-10-25 00:00:00 +0300" id="top_time">October 25, 2010</time>
+
+	<p class="entry-content">
+		<p>The idea of dependencies for WordPress plugins has been floating around for some time: <a href="http://core.trac.wordpress.org/ticket/10190">#10190</a>, <a href="http://core.trac.wordpress.org/ticket/11308">#11308</a>, <a href="http://core.trac.wordpress.org/ticket/12612">#12612</a>.</p>
+
+<p>Although plugins can degrade gracefully by using actions and filters, there are some things they can’t do, due to the simple fact that they need to be activated first. Such as:</p>
+
+<div class="wp-caption alignnone" style="width: 440px">
+  <img src="http://s.wordpress.org/extend/plugins/plugin-dependencies/screenshot-1.png?r=303784" alt="" width="430" height="94" /><p class="wp-caption-text">
+    Activation prevention
+  </p>
+</div>
+
+<div class="wp-caption alignnone" style="width: 440px">
+  <img src="http://s.wordpress.org/extend/plugins/plugin-dependencies/screenshot-2.png?r=303784" alt="" width="430" height="175" /><p class="wp-caption-text">
+    Cascade deactivation
+  </p>
+</div>
+
+<p>My hope is that this meta-plugin will be rolled into Core at some point. Until then, we can learn more rapidly what works and what doesn’t.</p>
+
+<p>Go to the <a href="http://wordpress.org/extend/plugins/plugin-dependencies/">wp.org page</a> to see how easy it is to define a dependency.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Smart Archives Reloaded</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+<h2 class="plugin-title"><a class="no-link" href="#">Smart Archives Reloaded</a></h2>
+
+<ul class="resources">
+	<li><a class="button" href="http://wordpress.org/extend/plugins/smart-archives-reloaded/">Homepage</a></li>
+	<li><a class="button" href="http://wordpress.org/support/plugin/smart-archives-reloaded/">Support</a></li>
+</ul>
+
+<article style="min-height: initial"><strong>Alert:</strong> This plugin is no longer under active development, because I <a href="/blog/left-wordpress.html">left WordPress.</a></article>
+
+
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/sar-2-0.html">Smart Archives Reloaded: Version 2.0</a></h2>
+
+	<time datetime="2010-04-25 00:00:00 +0300" id="top_time">April 25, 2010</time>
+
+	<p class="entry-content">
+		<h3 id="flexible-post-selection">Flexible post selection</h3>
+
+<p>You can select exactly which posts you want to display. The <code class="highlighter-rouge">smart_archives()</code> template tag now takes a second parameter, which accepts most of the arguments that <a href="http://codex.wordpress.org/Template_Tags/query_posts">query_posts()</a> accepts.</p>
+
+<p>Here is the “laziest” way to use it:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">smart_archives</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="nv">$GLOBALS</span><span class="p">[</span><span class="s1">'query_string'</span><span class="p">]);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>If you put that code in <code class="highlighter-rouge">author.php</code>, for example, it will display the list of posts by the current author. If you put it in <code class="highlighter-rouge">tag.php</code>, it will list the posts in the current tag etc.</p>
+
+<p>You can also make it display the same set of posts, no matter where it’s placed:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">smart_archives</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span> <span class="s1">'author_name'</span> <span class="o">=&gt;</span> <span class="s1">'scribu'</span> <span class="p">)</span> <span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>The possibilities are endless.</p>
+
+<h3 id="fewer-queries">Fewer queries</h3>
+
+<p>With the previous version, generating the archive page on this site required around 900 database queries. Now it’s down to 300.</p>
+
+<h3 id="no-more-buggy-caching">No more buggy caching</h3>
+
+<p>Older versions of the plugin stored the generated HTML in a text file, instead of generating it on each page load. Unfortunately, this relied on two rather unreliable things: file permissions and wp-cron. Thus, it was the biggest source of problems for users. So I decided to remove file caching completely.</p>
+
+<p>If you want caching back, the best solution is to use a dedicated plugin, such as <a href="http://wordpress.org/extend/plugins/wp-super-cache/">WP Super Cache</a>. It will make your entire site load much faster.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/advanced-tweaking.html">Smart Archives Reloaded: Advanced Tweaking</a></h2>
+
+	<time datetime="2010-01-13 00:00:00 +0200" id="top_time">January 13, 2010</time>
+
+	<p class="entry-content">
+		<p>Since version 1.9, you can make modifications to the plugin output, without having to modify the plugin code. This way, your tweaks won’t be lost when you upgrade the plugin.</p>
+
+<h3 id="custom-styling">Custom styling</h3>
+
+<p>If you want to customize the appearance of the archives using your own CSS, here’s how you do it:</p>
+
+<ol>
+  <li>
+    <p>Add this code to your theme’s <code class="highlighter-rouge">functions.php</code> file:</p>
+
+    <p>add_filter(‘smart_archives_load_default_styles’, ‘__return_false’);</p>
+  </li>
+  <li>Copy everything from <code class="highlighter-rouge">smart-archives-reloaded/inc/styles.dev.css</code> into your theme’s <code class="highlighter-rouge">style.css</code> file.</li>
+  <li>Change the CSS in your theme’s <code class="highlighter-rouge">style.css</code> file, as needed.</li>
+</ol>
+
+<h3 id="custom-markup">Custom markup</h3>
+
+<p>If you want to go one step further and change the generated HTML markup, you can do that too (understanding of <a href="http://www.php.net/manual/en/language.oop5.inheritance.php">object inheritance</a> is required).</p>
+
+<p>First, take a look at the <code class="highlighter-rouge">SAR_Generator</code> class (in <code class="highlighter-rouge">smart-archives-reloaded/generator.php</code>).</p>
+
+<p>In your theme’s <code class="highlighter-rouge">functions.php</code> file, you can extend that class, like so:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class SAR_Custom_Generator extends SAR_Generator {
+
+	protected function generate_fancy() {
+		// your custom code here
+	}
+
+	protected function generate_block() {
+		// more of your custom code here
+	}
+
+	...
+}
+</code></pre></div></div>
+
+<p>Then, all you have to do is add the ‘generator’ argument to the template tag:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">smart_archives</span><span class="p">(</span><span class="s1">'generator=SAR_Custom_Generator'</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/sar-1-9.html">Smart Archives Reloaded: Version 1.9</a></h2>
+
+	<time datetime="2010-01-12 00:00:00 +0200" id="top_time">January 12, 2010</time>
+
+	<p class="entry-content">
+		<p>Lots of goodies in this release, based on the feedback and requests I got from you guys (and gals).</p>
+
+<h3 id="the-menu-format">The Menu Format</h3>
+
+<p>First off, there’s a new format called “menu”. It’s basically the year and month menu from the fancy format, but without the post list. It’s meant to be displayed on year and month based archives, to aid navigation.</p>
+
+<p>Usually, those archives are handled by the <code class="highlighter-rouge">archive.php</code> template in your theme, so that’s where you should use it:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">smart_archives</span><span class="p">(</span><span class="s1">'format=menu'</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="new-arguments">New arguments</h3>
+
+<p>There are also two new arguments:</p>
+
+<p><strong>month_format</strong> – can be one of ‘numeric’, ‘short’ and ‘long’</p>
+
+<p><strong>posts_per_month</strong> – set the number of posts displayed per month; by default, all posts are displayed.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">smart_archives</span><span class="p">(</span><span class="s1">'posts_per_month=25'</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Finally, you can now customize the look and feel more easily. See <a href="http://scribu.net/wordpress/smart-archives-reloaded/advanced-tweaking.html">Advanced Tweaking</a>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/sar-1-8.html">Smart Archives Reloaded: Version 1.8</a></h2>
+
+	<time datetime="2009-11-10 00:00:00 +0200" id="top_time">November 10, 2009</time>
+
+	<p class="entry-content">
+		<p>Previous versions of this plugin allowed only a single type of archive, controlled entirely from the settings page.</p>
+
+<p>Version 1.8 is a lot more developer friendly: any options set on the settings page can be overwritten:</p>
+
+<p>In your theme, you can now write:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">smart_archives</span><span class="p">(</span><span class="s1">'format=list&amp;#038;exclude_cat=123,543'</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>This works for the shortcode too. In any post or page, just write:</p>
+
+<p><code class="highlighter-rouge">[smart_archives format=list exclude_cat=123,543]</code></p>
+
+<p>What’s neat about this is that you can have more than one archive, or have the archive display differently in different parts of your site.</p>
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/sar-1-7.html">Smart Archives Reloaded: Version 1.7</a></h2>
+
+	<time datetime="2009-09-26 00:00:00 +0300" id="top_time">September 26, 2009</time>
+
+	<p class="entry-content">
+		<p>This release was basically written by <a href="http://www.conceptfusion.co.nz/2009/09/wordpress-smart-archives-reloaded-with-added-fancy/">Simon Pritchard</a>. I just added the finishing touches.</p>
+
+<h3 id="fancy-new-style">Fancy new style</h3>
+
+<p>Version 1.7 adds an integrated multi-level navigation UI to the archives, perfect for sites with a large number of posts.</p>
+
+<p><img src="http://img85.imageshack.us/img85/9146/screenshot2g.png" alt="Fancy archive on the default theme" /></p>
+
+<p>See a <a href="http://www.conceptfusion.co.nz/archive">live example</a>.</p>
+
+<h3 id="new-formatting-tags">New formatting tags</h3>
+
+<p>First, you have %category_link% and %category%, which will output a category list for each post.</p>
+
+<p>Secondly, you have %date%, wich will print out the publish date of each post. There is an additional field where you can customize the date format.</p>
+
+<p>If you like the new features, go thank Simon for his effort.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/sar-1-6.html">Smart Archives Reloaded: Version 1.6</a></h2>
+
+	<time datetime="2009-08-25 00:00:00 +0300" id="top_time">August 25, 2009</time>
+
+	<p class="entry-content">
+		<p>In version 1.6 you can better control how each post is displayed in the list:</p>
+
+<p><img src="http://img21.imageshack.us/img21/7999/sar16.png" alt="New setting" /></p>
+
+<p>Also, the admin page has been rearanged in a more logical order: general settings and specific settings.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/sarsar-1-5.html">Smart Archives Reloaded: Version 1.5</a></h2>
+
+	<time datetime="2009-06-12 00:00:00 +0300" id="top_time">June 12, 2009</time>
+
+	<p class="entry-content">
+		<p>This version adds a <strong>new setting</strong>, namely the ability to display the month links in the block as numbers from 01 to 12.</p>
+
+<p>The plugin is now fully <a href="http://scribu.net/wordpress/translating-plugins.html">translatable</a>.</p>
+
+<p>Finally, the cache file is now located in the uploads directory, so that you don’t have to mess with file permissions anymore.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/sar-1-4.html">Smart Archives Reloaded: Version 1.4</a></h2>
+
+	<time datetime="2009-01-18 00:00:00 +0200" id="top_time">January 18, 2009</time>
+
+	<p class="entry-content">
+		<p>Instead of updating the cache at a regular interval, the plugin now updates when a post is published or deleted.</p>
+
+<p>Also, an issue with accents should be fixed.</p>
+
+<p>Finally, some optimizations were also baked in.</p>
+
+<p><strong>PHP5 is required</strong></p>
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/sar-1-3.html">Smart Archives Reloaded: Version 1.3</a></h2>
+
+	<time datetime="2008-12-18 00:00:00 +0200" id="top_time">December 18, 2008</time>
+
+	<p class="entry-content">
+		<p>This version adds a new feature and has several bugfixes and improvements:</p>
+
+<ul class="plain">
+  <li>
+    <strong>new:</strong> month links in the block can point to month titles in the list.
+  </li>
+  <li>
+    <strong>new:</strong> validate excluded categories input
+  </li>
+  <li>
+    <strong>fix:</strong> block respects excluded categories option
+  </li>
+  <li>
+    <strong>new:</strong> uses scbOptionsPage framework 1.0
+  </li>
+  <li>
+    <strong>fix:</strong> single wp-cron event when changing cache interval
+  </li>
+  <li>
+    <strong>fix:</strong> redundant calls to displaySAR::generate()
+  </li>
+</ul>
+
+<p><strong>PHP5 is required.</strong></p>
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/sar-1-2.html">Smart Archives Reloaded: Version 1.2</a></h2>
+
+	<time datetime="2008-08-28 00:00:00 +0300" id="top_time">August 28, 2008</time>
+
+	<p class="entry-content">
+		<p>I have been using <a href="http://justinblanton.com/projects/smartarchives/">Smart Archives</a> for some time and I really liked it, but version 2.0 wasn’t up to snuff, in my opinion. So I decided to improve it, until I ended up with this plugin:</p>
+
+<ul>
+  <li><strong>Easy setup</strong> – no code editing required</li>
+  <li><strong>Better caching</strong> – no need to wait when publishing a new post</li>
+  <li><strong>Settings page</strong> – elegantly choose how you want the archives displayed</li>
+</ul>
+
+<h3 id="version-history">Version history</h3>
+
+<ul class="plain">
+  <li>
+    <strong>1.2</strong>: better HTML output; various optimizations and bugfixes
+  </li>
+  <li>
+    <strong>1.1</strong>: switched to wp_cron for updating the cache
+  </li>
+  <li>
+    <strong>1.0</strong>: initial release
+  </li>
+</ul>
+
+
+	</p>
+
+	
+</article>
+
+
+
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

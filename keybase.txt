@@ -1,0 +1,65 @@
+==================================================================
+https://keybase.io/scribu
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://scribu.net
+  * I am scribu (https://keybase.io/scribu) on keybase.
+  * I have a public key with fingerprint 2C8A 343A FDCC DDD2 6442  CCF1 8219 7F75 BDAF B501
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "2c8a343afdccddd26442ccf182197f75bdafb501",
+            "host": "keybase.io",
+            "key_id": "82197f75bdafb501",
+            "uid": "39cd3377c6f9820ac346af238bd61100",
+            "username": "scribu"
+        },
+        "service": {
+            "hostname": "scribu.net",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1411242062,
+    "expire_in": 157680000,
+    "prev": "89429cacdbdb355345a6c9dd5b36b89943c18283f17488d7da266dde2b7cfcf6",
+    "seqno": 4,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v1.0.5
+Comment: https://keybase.io/crypto
+
+yMHhAnicbVFbSBRRGJ61VnIXqYhS0V4mtYtmc791E3pQQZcQQ4LNbeacmd1pa2ad
+mTUvbWEgYphlkCTVQ1JBgljRFZMsshRFSdioMEQDkUqIfAjDrWakHoLOy+F8//d9
+//+d/0XqCsTjCo/kFGHe79WukYH5KFKx8a2vAZV0WIcKDWhYXr4UVQvKRsRQNQsV
+UAJwIkmRogIBgBASDEURACg4R+A8q7C0BEVFojEczUdDuukobBtJNOUCVbcx+xFQ
+oY3+hx9dLpA8gCTJsoBReI7AREBSjKgQJCdBBscxzCGasqGJx2SbbQJDlaJoLB+1
+sRoVyM7ETuN/6gWabNm6iKFbOtCP2njIsiKCI7PqIg7vuCwF/jgEJFWDdmZbUCMb
+pqprqIDbTGCpjiVO4ThBERhD5KNybUQ15IDqMGiW4TD7OG3kGichTxE8EAGUoETS
+NEnRIgN4CGmJZCSO5ykS2L/GkQrOUhwHWSgSDAOhTEgsUIDCoE6mak1HBcoeUww6
+adSgJlpRQ0Zjzwf8KxGXB0l2JzlbQzwpa/7usvniKuT6o5Ks8GxpaeeYMJNbXfir
+4hrz+tXV9en904d7phr6bvrUtsmUWeThQlXnka7HXz+NevcvDiWqikEjE50rH727
+t1j0+hCz20wb80ycfj/l97VtHbeYgUxy8p4R3x2fEFLH19XvC1/O2/PlWVOpv/tH
+W2bWid4+MWPbBiOUe9B/3/2R7y/JXXqSqI+6ztbdmp0fzMtwp79sHm7lT57yny9c
+XAhUzg8lYj+3PN3RnpStuD+U+9bOtVR2u9LWXol/a++Kb7606c1gcceu7Wc+pzdm
+kD21saXk1tud0zt72eGcjtWHEndCPTeKCsqyzz3o8x54F5y+0AUrspLLXDNNLb8B
+xl0Pgg==
+=SEW9
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/scribu
+
+==================================================================

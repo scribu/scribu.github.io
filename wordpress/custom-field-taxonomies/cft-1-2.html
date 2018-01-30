@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Custom Field Taxonomies: Version 1.2</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/custom-field-taxonomies/cft-1-2.html">Custom Field Taxonomies: Version 1.2</a></h2>
+
+	<time datetime="2009-03-24 00:00:00 +0200" id="top_time">March 24, 2009</time>
+
+	<p class="entry-content">
+	<p>Another substantial update for y’all:</p>
+
+<h4 id="revamped-admin-page">Revamped Admin Page</h4>
+
+<p><img src="http://img14.imageshack.us/img14/8430/cftadmin.gif" alt="New CFT Admin Page" /><br />
+The new admin page is built up entirely of shiny 2.7 style boxes. They work just like the ones on your dashboard.</p>
+
+<p>The admin page has been moved to Posts -&gt; CF Taxonomies for easier access. There is also a new feature to add default values.</p>
+
+<h4 id="enhanced-sorting">Enhanced sorting</h4>
+
+<p><a href="http://scribu.net/wordpress/custom-field-taxonomies/cft-1-1.html">Version 1.1</a> introduced an option to display posts with a relevance less than 100%. Now you have an extra option to also adjust the relevance based on the order of the query vars in the URL.</p>
+
+<p>For example, if your URL is <em><a href="http://example.com?foo=xxx&#038;bar=yyy" rel="nofollow">http://example.com?foo=xxx&amp;bar=yyy</a></em>, posts that don’t have <code class="highlighter-rouge">bar=yyy</code>, but have <code class="highlighter-rouge">foo=xxx</code> will rank higher than those that have <code class="highlighter-rouge">bar=yyy</code> but don’t have <code class="highlighter-rouge">foo=xxx</code>.</p>
+
+<h4 id="important-bugfix">Important bugfix</h4>
+
+<p>In earlier version, if you used <code class="highlighter-rouge">query_posts()</code> anywhere in the template file that was used by the plugin, you would get all kinds of errors. Not anymore:</p>
+
+<p>Now you can use <code class="highlighter-rouge">query_posts()</code> and even have multiple loops on the same page and CFT will only modify the main loop.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

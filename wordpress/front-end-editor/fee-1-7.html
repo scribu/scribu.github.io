@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Front-end Editor: Version 1.7</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/front-end-editor/fee-1-7.html">Front-end Editor: Version 1.7</a></h2>
+
+	<time datetime="2010-02-18 00:00:00 +0200" id="top_time">February 18, 2010</time>
+
+	<p class="entry-content">
+	<p>Let’s get right into it:</p>
+
+<h3 id="post-thumbnail-switching">Post thumbnail switching</h3>
+
+<p>If your theme supports <a href="http://markjaquith.wordpress.com/2009/12/23/new-in-wordpress-2-9-post-thumbnail-images/">native thumbnails</a> (introduced in WordPress 2.9), you will be able to change them by double-clicking on them.</p>
+
+<h3 id="editable-options">Editable options</h3>
+
+<p>Similarly to editable_images(), you can now have editable bits of text anywhere in your theme. For example:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">editable_option</span><span class="p">(</span><span class="s1">'blurb'</span><span class="p">);</span> <span class="cp">?&gt;</span>
+
+[...]
+
+Today's mood: 
+
+<span class="cp">&lt;?php</span> <span class="nx">editable_option</span><span class="p">(</span><span class="s1">'mood'</span><span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>It’s like text widgets, without the widgets. :-)</p>
+
+<h3 id="no-more-autogrow">No more autogrow</h3>
+
+<p>If you’ve been using the basic text editor, you’ve probably had your share of frustration with the autogrow script. After switching from Autogrow to Growfield without much improvement, I’ve decided to stick to a normal textarea with a scrollbar.</p>
+
+<p>The rich editor is not affected by this.</p>
+
+<h3 id="configurable-nicedit">Configurable nicEdit</h3>
+
+<p>I’ve added two buttons to the rich editor panel: font-family and font-color. More importantly, you can now select which buttons you want to use. Just paste this code in your theme’s functions.php:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function configure_fee_nicedit($config) {
+	$config['buttonList'] = array(
+		'bold', 'italic', 'strikethrough',
+		'left','center', 'right',
+	);
+	return $config;
+}
+add_filter('front_end_editor_nicedit', 'configure_fee_nicedit');
+</code></pre></div></div>
+
+<p>See the available <a href="http://nicedit.pbworks.com/Configuration+Options">configuration options</a>.</p>
+
+<h3 id="upgrade-instructions">Upgrade instructions</h3>
+
+<p>If you have custom code written for the plugin, read on:</p>
+
+<p>Renamed hooks:</p>
+
+<p>front_ed_fields -&gt; front_end_editor_fields<br />
+front_ed_allow -&gt; front_end_editor_allow<br />
+front_ed_disable -&gt; front_end_editor_disable</p>
+
+<p>Renamed CSS classes:</p>
+
+<p>.front-ed -&gt; .fee-field<br />
+.front-ed-{filter} -&gt; .fee-filter-{filter}<br />
+.front-ed-container -&gt; .fee-form</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

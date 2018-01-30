@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Sortable Taxonomy Columns</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/sortable-taxonomy-columns.html">Sortable Taxonomy Columns</a></h2>
+
+	<time datetime="2011-03-05 00:00:00 +0200" id="top_time">March 05, 2011</time>
+
+	<p class="entry-content">
+	<p>After finding out how to make <a href="http://scribu.net/wordpress/custom-sortable-columns.html" title="Create your own sortable columns">sortable columns</a> based on custom fields, several people have asked how they could sort posts by taxonomy terms. So here’s how to do it:</p>
+
+<p>Let’s presume we have a ‘product’ post type, with a ‘color’ taxonomy. Here’s some <a href="https://gist.github.com/856587">example code</a>, just to get that out of the way.</p>
+
+<p>So we already have a sortable ‘Color’ column, except clicking on it sorts posts by date. Let’s fix that.</p>
+
+<h3 id="orderby-subquery">Orderby subquery</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function color_orderby( $orderby, $wp_query ) {
+	global $wpdb;
+
+	if ( isset( $wp_query-&gt;query['orderby'] ) &amp;&amp; 'color' == $wp_query-&gt;query['orderby'] ) {
+		$orderby = "(
+			SELECT GROUP_CONCAT(name ORDER BY name ASC)
+			FROM $wpdb-&gt;term_relationships
+			INNER JOIN $wpdb-&gt;term_taxonomy USING (term_taxonomy_id)
+			INNER JOIN $wpdb-&gt;terms USING (term_id)
+			WHERE $wpdb-&gt;posts.ID = object_id
+			AND taxonomy = 'color'
+			GROUP BY object_id
+		) ";
+		$orderby .= ( 'ASC' == strtoupper( $wp_query-&gt;get('order') ) ) ? 'ASC' : 'DESC';
+	}
+
+	return $orderby;
+}
+add_filter( 'posts_orderby', 'color_orderby', 10, 2 );
+</code></pre></div></div>
+
+<p>Even if they have more than one term associated, the posts will be sorted correctly.</p>
+
+<p>However, the query is not very efficient, since we’re basically doing a SELECT for each post. It will get very slow if you have thousands of posts. Let’s see if we can do better.</p>
+
+<h3 id="derived-table">Derived table</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function color_clauses( $clauses, $wp_query ) {
+	global $wpdb;
+
+	if ( isset( $wp_query-&gt;query['orderby'] ) &amp;&amp; 'color' == $wp_query-&gt;query['orderby'] ) {
+		$clauses['join'] .= " LEFT JOIN (
+			SELECT object_id, GROUP_CONCAT(name ORDER BY name ASC) AS color
+			FROM $wpdb-&gt;term_relationships
+			INNER JOIN $wpdb-&gt;term_taxonomy USING (term_taxonomy_id)
+			INNER JOIN $wpdb-&gt;terms USING (term_id)
+			WHERE taxonomy = 'color'
+			GROUP BY object_id
+		) AS color_terms ON ($wpdb-&gt;posts.ID = color_terms.object_id)";
+		$clauses['orderby'] = 'color_terms.color ';
+		$clauses['orderby'] .= ( 'ASC' == strtoupper( $wp_query-&gt;get('order') ) ) ? 'ASC' : 'DESC';
+	}
+
+	return $clauses;
+}
+add_filter( 'posts_clauses', 'color_clauses', 10, 2 );
+</code></pre></div></div>
+
+<p>This is apparently faster, since we’re getting all the terms at once, but it still won’t scale, because a temporary table has to be created, which takes longer and longer, the more connections between posts and terms you have.</p>
+
+<h3 id="direct-joins">Direct JOINs</h3>
+
+<p>Mike Schinkel droped by and left an improved method in the comments. I just cleaned it up a bit and made it work with posts that don’t have any terms associated. Enjoy:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function color_clauses_mike( $clauses, $wp_query ) {
+	global $wpdb;
+
+	if ( isset( $wp_query-&gt;query['orderby'] ) &amp;&amp; 'color' == $wp_query-&gt;query['orderby'] ) {
+
+		$clauses['join'] .= &amp;lt;&amp;lt;&amp;lt;SQL
+LEFT OUTER JOIN {$wpdb-&gt;term_relationships} ON {$wpdb-&gt;posts}.ID={$wpdb-&gt;term_relationships}.object_id
+LEFT OUTER JOIN {$wpdb-&gt;term_taxonomy} USING (term_taxonomy_id)
+LEFT OUTER JOIN {$wpdb-&gt;terms} USING (term_id)
+SQL;
+
+		$clauses['where'] .= " AND (taxonomy = 'color' OR taxonomy IS NULL)";
+		$clauses['groupby'] = "object_id";
+		$clauses['orderby']  = "GROUP_CONCAT({$wpdb-&gt;terms}.name ORDER BY name ASC) ";
+		$clauses['orderby'] .= ( 'ASC' == strtoupper( $wp_query-&gt;get('order') ) ) ? 'ASC' : 'DESC';
+	}
+
+	return $clauses;
+}
+add_filter( 'posts_clauses', 'color_clauses_mike', 10, 2 );
+</code></pre></div></div>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

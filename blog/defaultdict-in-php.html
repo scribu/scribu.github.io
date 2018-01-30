@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>defaultdict In PHP</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/blog/defaultdict-in-php.html">defaultdict In PHP</a></h2>
+
+	<time datetime="2012-10-13 00:00:00 +0300" id="top_time">October 13, 2012</time>
+
+	<p class="entry-content">
+	<p>In the little experience I’ve had with programming in Python, I’ve found the <a href="http://docs.python.org/library/collections.html#collections.defaultdict">defaultdict</a> class to be one of the most useful.</p>
+
+<p>PHP already has a limited version of this feature built in, called <a href="http://en.wikipedia.org/wiki/Autovivification">autovivification</a>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$arr = array();
+$arr['foo']['bar'] = 1;
+
+print_r( $arr['foo'] );  // Result: Array ( [bar] =&gt; 1 )
+
+print_r( $arr['baz'] );  // Result: Undefined index: baz
+</code></pre></div></div>
+
+<p>As you can see, it doesn’t work when accessing an undefined value; when implicitly setting a value, you can only construct arrays.</p>
+
+<p>Fortunately, it’s pretty easy to implement our own version of Python’s <code class="highlighter-rouge">defaultdict</code> by using the special <code class="highlighter-rouge">ArrayAccess</code> interface (requires PHP &gt;= 5.3.4):</p>
+
+<script src="https://gist.github.com/3885198.js?file=defaultdict.php"></script>
+
+<p>You use it just as if it were a regular associative array:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$counts = new Defaultdict(1);
+
+echo $counts['foo']; // Result: 1
+
+$counts['bar']++;
+
+echo $counts['bar']; // Result: 2
+</code></pre></div></div>
+
+<p>And you can even pass an anonymous function for constructing new default values:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$instances = new Defaultdict( function( $key ) {
+
+	$value = new stdClass;
+	$value-&gt;id = $key;
+
+	return $value;
+} );
+
+print_r( $instances['bar'] );  // Result: stdClass Object ( [id] =&gt; bar )
+</code></pre></div></div>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

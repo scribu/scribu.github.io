@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>The Right Way To Add Custom Quicktags</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/right-way-to-add-custom-quicktags.html">The Right Way To Add Custom Quicktags</a></h2>
+
+	<time datetime="2009-07-11 00:00:00 +0300" id="top_time">July 11, 2009</time>
+
+	<p class="entry-content">
+	<p>Ever since WordPress introduced quicktags, people have been wanting to customize them. Naturally, a lot of <a href="http://lorelle.wordpress.com/2006/03/31/customizing-your-wordpress-quicktag-buttons/">tutorials</a> popped up, demonstrating how to do this. The problem is that <em>all</em> of them require that you edit quicktags.js, a file in WordPress.</p>
+
+<p>But it doesn’t have to be that way now, since newer versions of WP have a script loading API. So here’s a better way to do it, without modifying any core files:</p>
+
+<p>First, we make a basic plugin file, where we tell WP to load some javascript, right after loading the quicktags script:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/*
+Plugin Name: My Custom Quicktags
+Version: 1.0
+*/
+
+add_action('admin_print_scripts', 'my_custom_quicktags');
+function my_custom_quicktags() {
+	wp_enqueue_script(
+		'my_custom_quicktags',
+		plugin_dir_url(__FILE__) . 'my-custom-quicktags.js',
+		array('quicktags')
+	);
+}
+</code></pre></div></div>
+
+<p>Now, instead of modifying quicktags.js, we add our quicktag code in a separate file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>edButtons[edButtons.length] = new edButton( 'sup', 'sup', '&lt;sup&gt;', '&lt;/sup&gt;', '' );
+</code></pre></div></div>
+
+<p>Feel free to modify this to suit your needs.</p>
+
+<p>The benefit of this method is that when you upgrade WordPress, your quicktag(s) will still be there.</p>
+
+<p>I’ve made a .zip with these two files, which you can download and install as a regular plugin. It has been tested on WordPress 2.8.1 and 2.7.1.</p>
+
+<p><a class="button download" href="/files/custom-quicktags.zip">Download</a></p>
+
+<p>I’d love to know what quicktags you make with this tutorial, so feel free to share in the comments.</p>
+
+<h3>Update</h3>
+
+<p>It seems someone has taken this a step further, with the <a href="http://wordpress.org/extend/plugins/post-editor-buttons/">Post Edit Buttons</a> plugin. More power to him :)</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

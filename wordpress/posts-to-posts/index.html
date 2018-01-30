@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Posts 2 Posts</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+<h2 class="plugin-title"><a class="no-link" href="#">Posts 2 Posts</a></h2>
+
+<ul class="resources">
+	<li><a class="button" href="http://wordpress.org/extend/plugins/posts-to-posts/">Homepage</a></li>
+	<li><a class="button" href="http://wordpress.org/support/plugin/posts-to-posts/">Support</a></li>
+</ul>
+
+<article style="min-height: initial"><strong>Alert:</strong> This plugin is no longer under active development, because I <a href="/blog/left-wordpress.html">left WordPress.</a></article>
+
+
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/version-1-6.html">Posts 2 Posts: Version 1.6</a></h2>
+
+	<time datetime="2013-05-10 00:00:00 +0300" id="top_time">May 10, 2013</time>
+
+	<p class="entry-content">
+		<p>There were some <a href="http://wordpress.org/extend/plugins/posts-to-posts/changelog/">improvements</a> commited to the development version of the plugin for a while and I thought I’d do a quick release, to get them in the hands of users.</p>
+
+<p>With version 1.6, P2P development will effectively be entering <em>hibernation mode</em>. I won’t be working on any new features or bug fixes, since the plugin already works well enough on the single site where I use it. Also, I won’t be answering support questions anymore; sorry.</p>
+
+<p>Of course, I’d be happy to review and merge <a href="https://github.com/scribu/wp-posts-to-posts/">pull requests</a> that people open and still hope that I’ll eventually be able to <a href="http://scribu.net/wordpress/plugin-help-wanted.html">hand it off</a> to someone else.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-1-4.html">Posts 2 Posts: Version 1.4</a></h2>
+
+	<time datetime="2012-08-17 00:00:00 +0300" id="top_time">August 17, 2012</time>
+
+	<p class="entry-content">
+		<h3 id="improved-ui">Improved UI</h3>
+
+<p><img src="/files/screenshot-24.png" alt="" title="screenshot-2" width="491" height="228" class="alignnone size-full wp-image-9954" /></p>
+
+<p>When you need to create connections, there’s now a link that reveals the connection candidates. This saves vertical space when you’re doing something else in the post editing screen.</p>
+
+<p>When you found the item you want to connect to, you can now click anywhere in the row, instead of just on the ‘+’ icon. This makes it both easier to target and less confusing. After the connection is created, you can click on the connected post’s title to edit it, as before.</p>
+
+<!--more-->
+
+<h3 id="revamped-connection-querying">Revamped connection querying</h3>
+
+<p>The SQL generated for querying connections is now more precise, so that trashed and auto-draft posts are ignored by default.</p>
+
+<p>Also, you can now filter both ends of the connection. For example, you can find all pages connected to any posts in the ‘Tutorials’ category:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$pages = new WP_Query( array(
+  'post_type' =&gt; 'page',
+  'connected_type' =&gt; 'pages_to_posts',
+  'connected_to' =&gt; 'any',
+  'connected_query' =&gt; array(
+    'category_name' =&gt; 'tutorials',
+  ),
+  'nopaging' =&gt; true
+) );
+</code></pre></div></div>
+
+<p>The arguments in the ‘connected_query’ array are used to restrict the other end of the connection. All normal arguments for WP_Query – and for WP_User_Query, respectively – are supported.</p>
+
+<h3 id="new-hooks">New Hooks</h3>
+
+<ul>
+  <li>‘p2p_init’ – use it instead of ‘init’ to register connection types</li>
+  <li>‘p2p_created_connection’ – fired after a connection is created</li>
+  <li>‘p2p_delete_connections’ – fired before connections are deleted</li>
+</ul>
+
+<h3 id="squashed-bugs">Squashed Bugs</h3>
+
+<p>As with every release, there are numerous little things that get fixed along the way, which can be seen <a href="https://github.com/scribu/wp-posts-to-posts/issues?milestone=13&amp;state=closed">here</a>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-1-3.html">Posts 2 Posts: Version 1.3</a></h2>
+
+	<time datetime="2012-04-28 00:00:00 +0300" id="top_time">April 28, 2012</time>
+
+	<p class="entry-content">
+		<h3 id="improved-api">Improved API</h3>
+
+<p>In this release, I focused on making the API more uniform; everything works for both posts-to-posts and posts-to-users connections now. This is possible because you can pass whole post and user objects, instead of just IDs.</p>
+
+<p>Previously:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$connected = get_users( array(
+	'connected_type' =&gt; 'posts_to_users',
+	'connected_items' =&gt; $post-&gt;ID
+) );
+</code></pre></div></div>
+
+<p>Now:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$connected = get_users( array(
+	'connected_type' =&gt; 'posts_to_users',
+	'connected_items' =&gt; $post
+) );
+</code></pre></div></div>
+
+<p>This small change gives P2P more information to work with, which means fewer database queries are needed.</p>
+
+<h3 id="shortcodes">Shortcodes!</h3>
+
+<p>The plugin now comes with a pair of <a href="http://codex.wordpress.org/Shortcode">shortcodes</a> for conveniently listing connected items anywhere.</p>
+
+<p>Say you defined a <a href="https://github.com/scribu/wp-posts-to-posts/wiki/Basic-usage">connection type</a> called ‘posts_to_pages’. Here’s how the shortcode would look like:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[p2p_connected type=posts_to_pages]
+</code></pre></div></div>
+
+<p>If you insert that into a post, it will display a list of connected pages. If you insert it into a page, it will display a list of connected posts.</p>
+
+<p>And there’s one for related posts too:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[p2p_related type=posts_to_pages]
+</code></pre></div></div>
+
+<p>Shortcodes and widgets also have <a href="https://github.com/scribu/wp-posts-to-posts/wiki/Actions-and-filters">filters</a> for modifying the HTML output.</p>
+
+<h3 id="default-field-values">Default field values</h3>
+
+<p>You can now set default values for the connection fields in the metabox, likes so:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'name' =&gt; 'posts_to_pages',
+	'from' =&gt; 'post',
+	'to' =&gt; 'page',
+ 
+	'fields' =&gt; array(
+		'color' =&gt; array(
+			'title' =&gt; 'Color',
+			'type' =&gt; 'checkbox',
+			'values' =&gt; array( 'green', 'yellow', 'blue', 'white' ),
+			'default' =&gt; 'blue'
+		),
+	)
+) );
+</code></pre></div></div>
+
+<p>In total, there were 16 <a href="https://github.com/scribu/wp-posts-to-posts/issues?milestone=11&amp;state=closed">resolved issues</a> in this release.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-1-2.html">Posts 2 Posts: Version 1.2</a></h2>
+
+	<time datetime="2012-04-07 00:00:00 +0300" id="top_time">April 07, 2012</time>
+
+	<p class="entry-content">
+		<p>The main attraction in this release is the new admin screen that gives an overview of all the connection types found in the system:</p>
+
+<p><img src="/files/screenshot-5.png" alt="Connection Types screen" width="567" height="272" class="alignnone size-full wp-image-5144" /></p>
+
+<p>Another thing to note is that queries like this no longer work:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$query = new WP_Query( array(
+  'connected_items' =&gt; get_queried_object_id()
+) );
+</code></pre></div></div>
+
+<p>You have to set the ‘connected_type’ parameter:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$query = new WP_Query( array(
+  'connected_type' =&gt; 'posts_to_pages',
+  'connected_items' =&gt; get_queried_object_id()
+) );
+</code></pre></div></div>
+
+<p>Also, you can pass an array of connection types and P2P will pick the ones that make sense.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$query = new WP_Query( array(
+  'connected_type' =&gt; array( 'posts_to_pages', 'actors_to_movies' ),
+  'connected_items' =&gt; get_queried_object_id()
+) );
+</code></pre></div></div>
+
+<p>As with every release, it contains a bunch of smaller enhancements and bug fixes. See the <a href="http://wordpress.org/extend/plugins/posts-to-posts/changelog/">changelog</a> for more details.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-1-1.html">Posts 2 Posts: Version 1.1</a></h2>
+
+	<time datetime="2011-12-01 00:00:00 +0200" id="top_time">December 01, 2011</time>
+
+	<p class="entry-content">
+		<p>I’m pleased to announce that the Posts 2 Posts plugin now also supports <a href="https://github.com/scribu/wp-posts-to-posts/wiki/Posts-2-Users">posts-to-users</a> connections. (It supports users-to-users connections as well, but there’s no UI for them).</p>
+
+<p>This is made possible by a new <code class="highlighter-rouge">p2p_type</code> column on the <code class="highlighter-rouge">wp_p2p</code> table, with which we can clearly distinguish between user ids and post ids. If you’re upgrading from a previous version of Posts 2 Posts, all the existing connections will be automatically updated to have the correct value for this column.</p>
+
+<p>For the next version, I’m thinking of supporting connections between posts on different blogs in a multisite network.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-1-0.html">Posts 2 Posts: Version 1.0</a></h2>
+
+	<time datetime="2011-11-13 00:00:00 +0200" id="top_time">November 13, 2011</time>
+
+	<p class="entry-content">
+		<p>It’s been a year and a half since the initial <a href="http://scribu.net/wordpress/posts-to-posts/p2p-0-1.html" title="Version 0.1">0.1 release</a>. Posts 2 Posts has come a long way since then and it’s been a very interesting journey.</p>
+
+<p>Here’s what’s new in version 1.0:</p>
+
+<h3 id="indeterminate-connection-types">Indeterminate connection types</h3>
+
+<p>Initially, connection types were organised exclusively around post types. Since version 0.9.5, you can use arbitrary query variables to define the sides of a connection type.</p>
+
+<p>And with this release, there’s a clear distinction between regular connection types and <a href="https://github.com/scribu/wp-posts-to-posts/wiki/Reciprocal-connections">indeterminate connection types</a>, which are a lot easier to control now.</p>
+
+<h3 id="improved-support-for-ordered-connections">Improved support for ordered connections</h3>
+
+<p>You can now order connections both ways. Also, you can get the previous and next post in the list. See <a href="https://github.com/scribu/wp-posts-to-posts/wiki/Connection-ordering">Connection ordering</a>.</p>
+
+<h3 id="related-posts">Related posts</h3>
+
+<p>If you have actors and movies, it’s a lot easier now to get other actors that have played in the same movies as a particular actor. See the wiki page about <a href="https://github.com/scribu/wp-posts-to-posts/wiki/Related-posts">related posts</a>.</p>
+
+<p>Additionally, you can show related posts using the widget.</p>
+
+<h3 id="more-connection-field-types">More connection field types</h3>
+
+<p>In previous versions, a connection field could be either a text input or a dropdown. Now, you can also add radio buttons, checkboxes and textareas. See <a href="https://github.com/scribu/wp-posts-to-posts/wiki/Connection-information">Connection information</a>.</p>
+
+<p>You can see all the tickets closed for this release on github:</p>
+
+<p><a href="https://github.com/scribu/wp-posts-to-posts/issues?milestone=2&#038;state=closed" rel="nofollow">https://github.com/scribu/wp-posts-to-posts/issues?milestone=2&amp;state=closed</a></p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-9-5.html">Posts 2 Posts: Version 0.9.5</a></h2>
+
+	<time datetime="2011-10-21 00:00:00 +0300" id="top_time">October 21, 2011</time>
+
+	<p class="entry-content">
+		<p>In short, this version improves the connection type based API introduced in 0.9 and removes the old API.</p>
+
+<h3 id="connection-type-ids">Connection Type IDs</h3>
+
+<p>Previously, you had to keep track of connection type instances yourself, making it hard to work with more than one connection type.</p>
+
+<p>Old:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>global $my_connection_type;
+
+$my_connection_type = p2p_register_connection_type( array(
+	'from' =&gt; 'post',
+	'to' =&gt; 'page'
+) );
+</code></pre></div></div>
+
+<p>New:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'id' =&gt; 'posts_to_pages',
+	'from' =&gt; 'post',
+	'to' =&gt; 'page'
+) );
+</code></pre></div></div>
+
+<p>And, to get a list of connected items, instead of:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>global $my_connection_type;
+
+$connected = $my_connection_type-&gt;get_connected( get_queried_object_id() );
+</code></pre></div></div>
+
+<p>you can now do it in one line:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$connected = p2p_type( 'posts_to_pages' )-&gt;get_connected( get_queried_object_id() );
+</code></pre></div></div>
+
+<h3 id="one-to-many-connections">One-To-Many Connections</h3>
+
+<p>There’s a new ‘cardinality’ argument:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+  'from' =&gt; 'post',
+  'to' =&gt; 'page',
+  'cardinality' =&gt; 'one-to-many',
+  'reciprocal' =&gt; true
+) );
+</code></pre></div></div>
+
+<p>When editing a page, you will only be able to connect it to a single post and only to a post that doesn’t have a connected page yet.</p>
+
+<p><code class="highlighter-rouge">'cardinality' =&gt; 'many-to-one'</code> has the same effect, in reverse.</p>
+
+<h3 id="arbitrary-query-variables">Arbitrary query variables</h3>
+
+<p>You can now distinguish between connection types based on any query variable, not just ‘post_type’:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$types = array(
+    'bug' =&gt; 'Bug',
+    'feature' =&gt; 'Feature'
+);
+
+foreach ( $types as $type =&gt; $title ) {
+    p2p_register_connection_type( array(
+        'from' =&gt; 'contact',
+        'to' =&gt; 'ticket',
+        'to_query_vars' =&gt; array(
+            'meta_key' =&gt; 'type',
+            'meta_value' =&gt; $type
+        ),
+        'title' =&gt; array( 'from' =&gt; $title ),
+    );
+}
+</code></pre></div></div>
+
+<p>The above code will create two meta boxes: in one, contacts will only be able to create connections to ‘bug’-type tickets and in the other only to ‘feature’-type tickets.</p>
+
+<p>There’s a matching ‘from_query_vars’ argument as well, so you could, for example, create a connection type between posts from category X to posts with tag Y etc.</p>
+
+<h3 id="removed-old-api">Removed old API</h3>
+
+<p>I went ahead and removed the old API. Here’s the migration path:</p>
+
+<table class="reference">
+  <tr>
+    <th>
+      Old
+    </th>
+    
+    <th>
+      New
+    </th>
+  </tr>
+  
+  <tr>
+    <td>
+      p2p_connect()
+    </td>
+    
+    <td>
+      p2p_type( ‘my_connection_type’ )-&gt;connect()
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      p2p_disconnect()
+    </td>
+    
+    <td>
+      p2p_type( ‘my_connection_type’ )-&gt;disconnect()
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      p2p_get_connected()
+    </td>
+    
+    <td>
+      p2p_type( ‘my_connection_type’ )-&gt;get_connected()
+    </td>
+  </tr>
+</table>
+
+<p>The benefit, of course, is that each of the new methods enforces the rules establised when registering the connection type.</p>
+
+<p>Finally, I set up a <a href="http://scribu.github.com/wp-posts-to-posts/">code reference site</a>, just to play around with DocBlox. Let me know if you find it useful.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-9.html">Posts 2 Posts: Version 0.9</a></h2>
+
+	<time datetime="2011-09-19 00:00:00 +0300" id="top_time">September 19, 2011</time>
+
+	<p class="entry-content">
+		<h3 id="admin-box-enhancements">Admin Box Enhancements</h3>
+
+<p><img class="alignnone size-full wp-image-1701" src="/files/p2p-0.9-box.png" alt="admin box" width="517" height="286" /></p>
+
+<p>In the above screenshot you can see the following new features:</p>
+
+<ul>
+  <li><a href="https://github.com/scribu/wp-posts-to-posts/wiki/Connection-ordering">drag-and-drop ordering</a></li>
+  <li><a href="https://github.com/scribu/wp-posts-to-posts/wiki/Connection-information">dropdown fields</a></li>
+</ul>
+
+<h3 id="multiple-connections-per-post-type">Multiple Connections Per Post Type</h3>
+
+<p>Besides the ‘fields’ parameter, there’s also a ‘data’ parameter. This can be used to distinguish between connection types:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'from' =&gt; 'actor',
+	'to' =&gt; 'actor',
+	'reciprocal' =&gt; true,
+	'title' =&gt; array( 'from' =&gt; 'Doubles', 'to' =&gt; 'Main Actor' ),
+	'data' =&gt; array( 'type' =&gt; 'doubles' ),
+) );
+
+p2p_register_connection_type( array(
+	'from' =&gt; 'actor',
+	'to' =&gt; 'actor',
+	'reciprocal' =&gt; true,
+	'title' =&gt; 'Friends with',
+	'data' =&gt; array( 'type' =&gt; 'friends' )
+) );
+</code></pre></div></div>
+
+<h3 id="api-overhaul">API Overhaul</h3>
+
+<p><q>Should I use ‘connected_to’ or ‘connected_from’? Erm… I’ll just use ‘connected’.</q></p>
+
+<p>Even I was tired of having to think about it. No more.</p>
+
+<p>In previous versions, connection types were tightly coupled with the admin box code. I extracted all the logic into a <code class="highlighter-rouge">P2P_Connection_Type</code> class, which should make querying for posts a lot easier.</p>
+
+<p>The old way of doing things still works, except in the following cases:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">p2p_register_connection_type()</code> returns a <code class="highlighter-rouge">P2P_Connection_Type</code> instance now. Therefore, <code class="highlighter-rouge">'from' =&gt; array( ... )</code> and <code class="highlighter-rouge">'to' =&gt; array( ... )</code> are not accepted anymore.</li>
+  <li><code class="highlighter-rouge">p2p_each_connected()</code> functions and <code class="highlighter-rouge">'each_connected'</code> query vars are gone. Use <a href="https://github.com/scribu/wp-posts-to-posts/wiki/Looping-The-Loop"><code class="highlighter-rouge">P2P_Connection_Type-&gt;each_connected()</code></a> instead:</li>
+</ul>
+
+<p>Old:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$my_query = new WP_Query( array(
+    'ignore_sticky_posts' =&gt; true,
+    'post_type' =&gt; 'artist',
+    'each_connected' =&gt; array(
+        'post_type' =&gt; 'art',
+    )
+) );
+</code></pre></div></div>
+
+<p>New:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$my_query = new WP_Query( array(
+    'ignore_sticky_posts' =&gt; true,
+    'post_type' =&gt; 'artist',
+) );
+
+$my_connection_type-&gt;each_connected( $my_query );
+</code></pre></div></div>
+
+<p>All the <a href="https://github.com/scribu/wp-posts-to-posts/wiki/">tutorials</a> on the wiki have been updated to use the hot new API, so feel free to dig in. :)</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/version-0-8.html">Posts 2 Posts: Version 0.8</a></h2>
+
+	<time datetime="2011-07-22 00:00:00 +0300" id="top_time">July 22, 2011</time>
+
+	<p class="entry-content">
+		<h3 id="ui-changes">UI Changes</h3>
+
+<p>With the WP 3.2 admin refresh, the connection box UI also received an overhaul:</p>
+
+<p><a href="/files/screenshot-11.png"><img src="/files/screenshot-11.png" alt="" title="screenshot-1" width="314" height="401" class="alignnone size-full wp-image-1506" /></a></p>
+
+<p>A significant enhancement in this version is the ability to create draft posts from the connection box. The idea is to be able to make the connections first and then write the content. Hat tip to Oren Kolker.</p>
+
+<p>Additionally, when a post is not published, you will see it’s status. Props <a href="http://wordpress.mfields.org/">Michael Fields</a> for the suggestion.</p>
+
+<h3 id="api-changes">API Changes</h3>
+
+<p><code class="highlighter-rouge">p2p_each_connected()</code> has been revamped to, hopefully, make it easier to use. There’s a detailed tutorial on the wiki:</p>
+
+<p><a href="http://github.com/scribu/wp-posts-to-posts/wiki/Looping-The-Loop" rel="nofollow">http://github.com/scribu/wp-posts-to-posts/wiki/Looping-The-Loop</a></p>
+
+<p>Also, there’s a new function called <code class="highlighter-rouge">p2p_list_posts()</code> which takes a WP_Query object or an array of posts as the first argument and outputs a simple unordered list of links to those posts.</p>
+
+<p>Finally, there are 3 new query vars that can be used to get connected posts ordered by a particular connection field. More details on the wiki:</p>
+
+<p><a href="http://github.com/scribu/wp-posts-to-posts/wiki/Connection-ordering" rel="nofollow">http://github.com/scribu/wp-posts-to-posts/wiki/Connection-ordering</a></p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-7.html">Posts 2 Posts: Version 0.7</a></h2>
+
+	<time datetime="2011-04-01 00:00:00 +0300" id="top_time">April 01, 2011</time>
+
+	<p class="entry-content">
+		<p>As promised, this version comes with a much sexier metabox for managing connections:</p>
+
+<p><img src="/files/screenshot-1.png" title="Sexy metabox" width="311" height="377" class="alignnone size-full wp-image-1183" /></p>
+
+<p>Now you can:</p>
+
+<ul>
+  <li>Go to the connected post editing screen in one click.</li>
+  <li>See recent posts using the Recent button.</li>
+  <li>OMG! pagination.</li>
+</ul>
+
+<p>It comes with an enhanced API to boot:</p>
+
+<h3 id="connection-information">Connection information</h3>
+
+<p>Storing arbitrary data related to a particular connection has been possible since <a href="http://scribu.net/wordpress/posts-to-posts/p2p-0-4.html">version 0.4</a>, but being able to edit that data through the UI was far from easy.</p>
+
+<p>So, this release brings a simple way to do that, with a new argument called ‘fields’:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'from' =&gt; 'actor',
+	'to' =&gt; 'movie',
+
+	'fields' =&gt; array(
+		'role' =&gt; 'Role',
+		'role_type' =&gt; 'Role Type'
+	),
+	'context' =&gt; 'advanced'
+) );
+</code></pre></div></div>
+
+<p>Here we just defined a connection type between actors and movies, with each connection having two additional fields: ‘role’ – the role of the actor in that particular movie and ‘role type’.</p>
+
+<h3 id="duplicates">Duplicates</h3>
+
+<p>If you want to enable more than one connection between the same two posts, set <code class="highlighter-rouge">'prevent_duplicates' =&gt; false</code> when registering the connection type:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'from' =&gt; 'actor',
+	'to' =&gt; 'movie',
+	'fields' =&gt; array(
+		'role' =&gt; 'Role',
+		'role_type' =&gt; 'Role Type'
+	),
+	'context' =&gt; 'advanced',
+
+	'prevent_duplicates' =&gt; false
+) );
+</code></pre></div></div>
+
+<p>This will allow you to have actors with two or more different roles in the same movie, for example.</p>
+
+<h3 id="distinct-titles">Distinct titles</h3>
+
+<p>Finally, for reciprocal connections, you can set different titles for the metabox, depending on which screen you’re on:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'from' =&gt; 'actor',
+	'to' =&gt; 'movie',
+	'fields' =&gt; array(
+		'role' =&gt; 'Role',
+		'role_type' =&gt; 'Role Type'
+	),
+	'context' =&gt; 'advanced',
+	'prevent_duplicates' =&gt; false,
+	'reciprocal' =&gt; true,
+
+	'title' =&gt; array(
+		'from' =&gt; 'Played In',
+		'to' =&gt; 'Cast'
+	)
+) );
+</code></pre></div></div>
+
+<p>With all those settings in place, you get something like this:</p>
+
+<p><img src="/files/screenshot-2.png" title="Advanced metabox" width="509" height="293" class="alignnone size-full wp-image-1184" /></p>
+
+<h3 id="acknowledgements">Acknowledgements</h3>
+
+<p>Special thanks to <a href="http://ciobi.ca">ciobi</a> for helping with the UI awesomeness.</p>
+
+<p>Thanks to Alexey Egorov for the <a href="http://www.iconfinder.com/search/?q=iconset:uidesignicons">icons</a>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/version-0-6.html">Posts 2 Posts: Version 0.6</a></h2>
+
+	<time datetime="2011-03-07 00:00:00 +0200" id="top_time">March 07, 2011</time>
+
+	<p class="entry-content">
+		<h3 id="nested-queries">Nested Queries</h3>
+
+<p>If, for each post in a loop, you find yourself doing a subquery using the ‘connected’ query vars, I’ve got good news for you.</p>
+
+<p>Replace something like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while ( have_posts() ) : the_post();
+	$connected_writers = get_posts( array(
+		'post_type' =&gt; 'writer',
+		'nopaging' =&gt; true,
+		'connected_to' =&gt; $post-&gt;ID,
+		'suppress_filters' =&gt; false
+	) );
+
+	foreach ( $connected_writers as $writer ) {
+		echo $writer-&gt;post_title;
+	}
+endwhile;
+</code></pre></div></div>
+
+<p>with this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_each_connected( 'to', 'writers', array(
+	'post_type' =&gt; 'writer',
+	'nopaging' =&gt; true,
+) );
+
+while ( have_posts() ) : the_post();
+	foreach ( $post-&gt;connected_writers as $writer ) {
+		echo $writer-&gt;post_title;
+	}
+endwhile;
+</code></pre></div></div>
+
+<p>Notice how each <code class="highlighter-rouge">$post</code> now has a <code class="highlighter-rouge">connected_writers</code> propery, which is an array containing the connected posts.</p>
+
+<p>The main advantage of this method is that it reduces the number of SQL queries dramatically.</p>
+
+<p>Here’s the original <a href="http://wordpress.org/support/topic/plugin-posts-2-posts-how-to-call-two-post-types-connected-in-one-query">forum thread</a> that spurred this feature.</p>
+
+<p>Several bug fixes also went into this release:</p>
+
+<ul>
+  <li>fixed p2p_is_connected() returning incorrect results</li>
+  <li>made p2p_get_connected() return p2p_ids even with <code class="highlighter-rouge">$direction = 'any'</code></li>
+  <li>made compatible with <a href="http://wordpress.org/extend/plugins/proper-network-activation">Proper Network Activation</a></li>
+</ul>
+
+<p>In the next version, I will be focusing on improving the default admin UI.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-5.html">Posts 2 Posts: Version 0.5</a></h2>
+
+	<time datetime="2010-11-22 00:00:00 +0200" id="top_time">November 22, 2010</time>
+
+	<p class="entry-content">
+		<p>This release is focused on enhancing the API, making it easier to leverage the p2pmeta table.</p>
+
+<p>First of all, a new variable for WP_Query is now available: <code class="highlighter-rouge">connected_meta</code>. It allows you to restrict connections based on what meta data they have. Here’s an example:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$my_query = new WP_Query( array(
+    'post_type' =&gt; 'book',
+    'connected_to' =&gt; 'any',
+    'connected_meta' =&gt; array(
+        'connection_date' =&gt; 'long ago',
+    )
+) );
+</code></pre></div></div>
+
+<p>This will retrieve any book that has a connection to any other post. Also, the connections have to have a custom field with the key <code class="highlighter-rouge">connection_date</code> and the value <code class="highlighter-rouge">long ago</code>.</p>
+
+<p>And, if that’s not enough, you can use the <a href="http://scribu.net/wordpress/advanced-metadata-queries.html" title="Advanced Metadata Queries">advanced meta query syntax</a>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$my_query = new WP_Query( array(
+    'post_type' =&gt; 'book',
+    'connected_to' =&gt; 'any'
+    'connected_meta' =&gt; array(
+        array(
+            'key' =&gt; 'connection_date',
+            'value' =&gt; array( 'long ago', 'yesterday' ),
+            'compare' =&gt; 'IN'
+        )
+    )
+) );
+</code></pre></div></div>
+
+<p>Also, after you do the query, you can access the rest of the connection meta data via the p2p_id property, assigned to each found post:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>while ( $my_query-&gt;have_posts() ) : $my_query-&gt;the_post();
+
+    $connection_type = p2p_get_meta( $post-&gt;p2p_id, 'connection_type', true );
+
+endwhile;
+</code></pre></div></div>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-4.html">Posts 2 Posts: Version 0.4</a></h2>
+
+	<time datetime="2010-10-08 00:00:00 +0300" id="top_time">October 08, 2010</time>
+
+	<p class="entry-content">
+		<p>Using a taxonomy to store post-to-post connections was an interesting exercise. It worked, but when it came time to extend it, it felled flat on its face.</p>
+
+<p>That’s why connections are now stored in a custom table, with an additional meta table for adding arbitrary information <em>per connection</em>.</p>
+
+<p>It is now possible to connect the same two posts twice, but with different metadata, something that would be needed in Justin Tadlock’s <a href="http://justintadlock.com/archives/2010/08/20/linking-terms-to-a-specific-post">movies scenario</a>, for example.</p>
+
+<p>The procedure for migrating old connections is the same as in the previous version: go to <em>/wp-admin/?migrate_p2p</em> and you’re done. (Make sure you have a recent database backup before you do this.)</p>
+
+<p>When searching for posts to connect, it will search only by post title and not by content, as in previous versions.</p>
+
+<p>Reciprocal connections are now stored only once.</p>
+
+<p>Speaking of reciprocal connections, most function in the API accepted a the third parameter, which used to be <code class="highlighter-rouge">$reciprocal = false</code>. It has been replaced with <em>$data = array()</em>. More info can be found in the file <a href="http://plugins.trac.wordpress.org/browser/posts-to-posts/tags/0.4/api.php">api.php</a>.</p>
+
+<p>Unless you’re doing advanced stuff, you shouldn’t need to touch the API, though. You can just use WP_Query or get_posts():</p>
+
+<p>Get posts connected from a particular post: $post_id -&gt; $posts</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$connected = get_posts( array(
+  'suppress_filters' =&gt; false,
+  'post_type' =&gt; 'book',
+  'connected_from' =&gt; $post_id,
+) );
+</code></pre></div></div>
+
+<p>Get posts connected to a particular post: $post_id &lt;- $posts</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$connected = get_posts( array(
+  'suppress_filters' =&gt; false,
+  'post_type' =&gt; 'book',
+  'connected_to' =&gt; $post_id,
+) );
+</code></pre></div></div>
+
+<p>Get connected posts, regardless of direction: $post_id &lt;- $posts OR $post_id -&gt; $posts</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$connected = get_posts( array(
+  'suppress_filters' =&gt; false,
+  'post_type' =&gt; 'book',
+  'connected' =&gt; $post_id,
+) );
+</code></pre></div></div>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-3.html">Posts 2 Posts: Version 0.3</a></h2>
+
+	<time datetime="2010-08-04 00:00:00 +0300" id="top_time">August 04, 2010</time>
+
+	<p class="entry-content">
+		<p>There was an interesting <a href="http://old.nabble.com/Time-for-a-wp_post_relationships-table--td29330877.html">discussion</a> on wp-hackers about how best to store many-to-many relationships between posts.</p>
+
+<p>The conclusion was that custom fields are probably the worst solution. While creating a custom table is the most straightforward way to do it, using a custom taxonomy has the most benefits. The most important one is that, when done right, no hand-written SQL is required.</p>
+
+<p>So, this version of the plugin uses a hidden taxonomy to store the connections between posts.</p>
+
+<p>If you were using an older version of the plugin, go to <em>/wp-admin/?migrate_p2p</em> to migrate your connections. You should probably make a database backup beforehand, just in case.</p>
+
+<p>Besides that, the parameter order for <code class="highlighter-rouge">p2p_get_connected()</code> and <code class="highlighter-rouge">p2p_list_connected()</code> were changed. See all the <a href="http://plugins.trac.wordpress.org/changeset?old_path=%2Fposts-to-posts%2Ftags%2F0.2%2Fapi.php&amp;new_path=%2Fposts-to-posts%2Ftags%2F0.3%2Fapi.php">API changes</a>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-2.html">Posts 2 Posts: Version 0.2</a></h2>
+
+	<time datetime="2010-07-15 00:00:00 +0300" id="top_time">July 15, 2010</time>
+
+	<p class="entry-content">
+		<p>You now have the ability to create multiple connections of the same type from the admin. This was the most requested feature and you should thank <a href="http://www.mrhead.sk/">Patrik Bóna</a> for providing the initial implementation.</p>
+
+<p><img src="/files/p2p-0.2.png" alt="the new metabox" /></p>
+
+<p>The <a href="http://plugins.trac.wordpress.org/browser/posts-to-posts/tags/0.2/api.php">API functions</a> have also changed (and are now documented), so you might want to take another look at them. I’ve also added a new helper function called <code class="highlighter-rouge">p2p_list_connected()</code>.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+	
+
+	<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-1.html">Posts 2 Posts: Version 0.1</a></h2>
+
+	<time datetime="2010-05-09 00:00:00 +0300" id="top_time">May 09, 2010</time>
+
+	<p class="entry-content">
+		<p>With custom post types coming to WordPress 3.0, a feature that’s needed on complex sites is the ability to create relationships between posts of different types.</p>
+
+<p>For example, if you have a ‘review’ post type, you’ll probably want to be able to link it to an ‘event’ post type. Once you register this connection type, you will see a dropdown of events on the review editing screen. (The dropdown will likely be replaced with something more scalable in a future version.)</p>
+
+<p>You can manage and retrieve connections using the provided <a href="http://plugins.trac.wordpress.org/browser/posts-to-posts/trunk/api.php">API functions</a>.</p>
+
+<p>The plugin does not create any new database tables; the connections are stored in the postmeta table.</p>
+
+<p>Version 0.1 is a developer preview release. It’s not meant for casual users.</p>
+
+
+	</p>
+
+	
+</article>
+
+
+
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

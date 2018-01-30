@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Deploying from git to svn</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/blog/deploying-from-git-to-svn.html">Deploying from git to svn</a></h2>
+
+	<time datetime="2011-08-04 00:00:00 +0300" id="top_time">August 04, 2011</time>
+
+	<p class="entry-content">
+	<p>I like writing WordPress plugins and I like using git to version-control them. Problem is that wordpress.org uses svn. Even worse, I like to use git submodules, so <a href="http://teleogistic.net/2011/05/revisiting-git-github-and-the-wordpress-org-plugin-repository/">git-svn</a> is not an option.</p>
+
+<p>What to do? Write a shell script, of course.</p>
+
+<!--more-->
+
+<p>In my home directory, I have a <code class="highlighter-rouge">git</code> folder and an <code class="highlighter-rouge">svn</code> folder, which contain repositories:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|- git/
+| |+ front-end-editor/
+| |+ posts-to-posts/
+|- svn/
+| |- front-end-editor/
+| | |+ branches/
+| | |+ tags/
+| | |+ trunk/
+| |- posts-to-posts/
+| | |+ branches/
+| | |+ tags/
+| | |+ trunk/
+</code></pre></div></div>
+
+<p>As you can see, the names are the same. This simplifies things a lot.</p>
+
+<p>Now on to the script:</p>
+
+<script src="https://gist.github.com/1125050.js?file=plugin-deploy.sh"></script>
+
+<p>A few things to note:</p>
+
+<p>When you delete a file in git, it will also be deleted in svn.</p>
+
+<p>In your git repo, you can create a <code class="highlighter-rouge">.svnignore</code> file where you can add paths that you don’t want to show up in your svn repo.</p>
+
+<p>It doesn’t mirror commits, just files. The git repo is the authoritative source.</p>
+
+<p>Example usage:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/git/front-end-editor/
+
+# make some changes ...
+
+git ci -m "add shiny new feature" -a
+
+plugin-deploy
+</code></pre></div></div>
+
+<p>That’s it.</p>
+
+<p>PS: I also have a script on top of that which handles tagging:</p>
+
+<script src="https://gist.github.com/1125050.js?file=plugin-tag.sh"></script>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

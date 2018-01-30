@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Smart Archives Reloaded: Version 2.0</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/smart-archives-reloaded/sar-2-0.html">Smart Archives Reloaded: Version 2.0</a></h2>
+
+	<time datetime="2010-04-25 00:00:00 +0300" id="top_time">April 25, 2010</time>
+
+	<p class="entry-content">
+	<h3 id="flexible-post-selection">Flexible post selection</h3>
+
+<p>You can select exactly which posts you want to display. The <code class="highlighter-rouge">smart_archives()</code> template tag now takes a second parameter, which accepts most of the arguments that <a href="http://codex.wordpress.org/Template_Tags/query_posts">query_posts()</a> accepts.</p>
+
+<p>Here is the “laziest” way to use it:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">smart_archives</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="nv">$GLOBALS</span><span class="p">[</span><span class="s1">'query_string'</span><span class="p">]);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>If you put that code in <code class="highlighter-rouge">author.php</code>, for example, it will display the list of posts by the current author. If you put it in <code class="highlighter-rouge">tag.php</code>, it will list the posts in the current tag etc.</p>
+
+<p>You can also make it display the same set of posts, no matter where it’s placed:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">smart_archives</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span> <span class="s1">'author_name'</span> <span class="o">=&gt;</span> <span class="s1">'scribu'</span> <span class="p">)</span> <span class="p">);</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>The possibilities are endless.</p>
+
+<h3 id="fewer-queries">Fewer queries</h3>
+
+<p>With the previous version, generating the archive page on this site required around 900 database queries. Now it’s down to 300.</p>
+
+<h3 id="no-more-buggy-caching">No more buggy caching</h3>
+
+<p>Older versions of the plugin stored the generated HTML in a text file, instead of generating it on each page load. Unfortunately, this relied on two rather unreliable things: file permissions and wp-cron. Thus, it was the biggest source of problems for users. So I decided to remove file caching completely.</p>
+
+<p>If you want caching back, the best solution is to use a dedicated plugin, such as <a href="http://wordpress.org/extend/plugins/wp-super-cache/">WP Super Cache</a>. It will make your entire site load much faster.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

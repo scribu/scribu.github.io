@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>Developing themes (without going crazy)</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="deck.js/core/deck.core.css">
+	<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="deck.js/extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+	<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="deck.js/themes/style/swiss.css">
+	<link rel="stylesheet" href="custom.css">
+
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link id="transition-css-link" rel="stylesheet" href="transition.css">
+
+	<script src="deck.js/modernizr.custom.js"></script>
+
+	<!-- Syntax highlighter -->
+	<link rel="stylesheet" href="shCore.css">
+	<link rel="stylesheet" href="shCoreMidnight.css">
+
+	<script src="shCore.js"></script>
+	<script src="shBrushXml.js"></script>
+	<script src="shBrushPhp.js"></script>
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="center slide" id="title-slide">
+<div class="vcenter">
+	<h1>developing themes</h1>
+	<h2>without going crazy</h2>
+</div>
+</section>
+
+<section class="slide" id="self">
+	<img class="vcenter" src="me.png" alt="@scribu">
+</section>
+
+<section class="slide" id="appthemes">
+	<img class="vcenter" src="appthemes.png" alt="AppThemes">
+</section>
+
+<section class="slide" id="goals">
+<div class="vcenter left">
+	<p>Keep related stuff together.</p>
+	<p>Keep unrelated stuff apart.</p>
+</div>
+</section>
+
+<!-- <section class="slide" id="duplication"> -->
+<!-- <div class="vcenter"> -->
+<!-- 	<h1>duplicating code</h1> -->
+<!-- 	<h2 class="slide">crazy!</h2> -->
+<!-- </div> -->
+<!-- </section> -->
+
+<section class="slide" id="typlical-html">
+	<p class="right vcenter">Typical HTML layout:</p>
+</section>
+
+<section class="center slide" id="split-header">
+	<h3>header.php</h3>
+<pre class="brush: php; html-script: true">&lt;html&gt;
+&lt;head&gt;
+    ...
+&lt;/head&gt;
+
+&lt;body &lt;?php body_class(); ?&gt;&gt;
+&lt;div id="page"&gt;
+    &lt;header id="branding" role="banner"&gt;
+        ...
+    &lt;/header&gt;&lt;!-- #branding --&gt;
+
+    &lt;div id="main"&gt;</pre>
+</section>
+
+<section class="center slide" id="split-footer">
+	<h3>footer.php</h3>
+<pre class="brush: php; html-script: true">    &lt;/div&gt;&lt;!-- #main --&gt;
+
+    &lt;footer id="colophon" role="contentinfo"&gt;
+        ...
+    &lt;/footer&gt;&lt;!-- #colophon --&gt;
+&lt;/div&gt;&lt;!-- #page --&gt;
+
+&lt;?php wp_footer(); ?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</section>
+
+<section class="center slide" id="split-index">
+<h3>index.php</h3>
+<pre class="brush: php; html-script: true">&lt;?php get_header(); ?&gt;
+
+&lt;div id="primary"&gt;
+    &lt;div id="content" role="main"&gt;
+        ...
+    &lt;/div&gt;&lt;!-- #content --&gt;
+&lt;/div&gt;&lt;!-- #primary --&gt;
+
+&lt;?php get_sidebar(); ?&gt;
+
+&lt;?php get_footer(); ?&gt;</pre>
+</section>
+
+<section class="slide right" id="wrappers">
+<div class="vcenter">
+	<h1 class="upper">theme wrappers</h1>
+	<h4 class="emphasis"><a href="http://scribu.net/wordpress/theme-wrappers.html">scribu.net/wordpress/theme-wrappers.html</a></h4>
+</div>
+</section>
+
+<section class="center slide" id="example-wrapper">
+	<h3>wrapper.php</h3>
+<pre class="brush: php; html-script: true">&lt;html&gt;
+&lt;head&gt;
+    ...
+&lt;/head&gt;
+
+&lt;body &lt;?php body_class(); ?&gt;&gt;
+&lt;div id="page"&gt;
+    &lt;?php get_header(); ?&gt;
+
+    &lt;div id="main"&gt;
+    &lt;?php include app_template_path(); ?&gt;
+    &lt;/div&gt;&lt;!-- #main --&gt;
+
+    &lt;?php get_footer(); ?&gt;
+&lt;/div&gt;&lt;!-- #page --&gt;
+
+&lt;?php wp_footer(); ?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</section>
+
+<section class="center slide" id="wrapped-header">
+<h3>header.php <span class="emphasis">(wrapped)</span></h3>
+<pre class="brush: php; html-script: true">    &lt;header id="branding" role="banner"&gt;
+        ...
+    &lt;/header&gt;&lt;!-- #branding --&gt;</pre>
+</section>
+
+<section class="center slide" id="wrapped-footer">
+<h3>footer.php <span class="emphasis">(wrapped)</span></h3>
+<pre class="brush: php; html-script: true">    &lt;footer id="colophon" role="contentinfo"&gt;
+        ...
+    &lt;/footer&gt;&lt;!-- #colophon --&gt;</pre>
+</section>
+
+<section class="center slide" id="wrapped-index">
+<h3>index.php <span class="emphasis">(wrapped)</span></h3>
+<pre class="brush: php; html-script: true">&lt;div id="primary"&gt;
+    &lt;div id="content" role="main"&gt;
+        ...
+    &lt;/div&gt;&lt;!-- #content --&gt;
+&lt;/div&gt;&lt;!-- #primary --&gt;
+
+&lt;?php get_sidebar(); ?&gt;</pre>
+</section>
+
+<section class="slide" id="typical-php">
+	<p class="right vcenter">Typical PHP layout:</p>
+</section>
+
+<section class="slide" id="all-the-things">
+	<img class="vcenter" src="all-the-things.jpg" alt="functions.php; html-script: true">
+</section>
+
+<section class="center slide" id="level-1">
+	<h3>Level 1</h3>
+<pre class="brush: php">add_filter( 'posts_where', 'my_posts_where', 10, 2 );
+add_action( 'template_redirect', 'my_template_redirect', 10, 2 );
+
+function my_posts_where( $sql, $wp_query ) {
+	if ( $wp_query-&gt;is_main_query() &amp;&amp; $wp_query-&gt;get( 'my_query_var' ) ) {
+		$sql = ...;
+	}
+
+	return $sql;
+}
+
+function my_template_redirect() {
+	global $wp_query;
+
+	if ( $wp_query-&gt;is_main_query() &amp;&amp; $wp_query-&gt;get( 'my_query_var' ) ) {
+		wp_enqueue_script( ... );
+	}
+}</pre>
+</section>
+
+<section class="center slide" id="level-2">
+	<h3>Level 2</h3>
+<pre class="brush: php">class My_View {
+
+	function __construct() {
+		add_filter( 'posts_where', array( $this, 'posts_where' ), 10, 2 );
+		add_action( 'template_redirect', array( $this, 'template_redirect' ), 10, 2 );
+	}
+
+	function posts_where( $sql, $wp_query ) {
+		if ( $wp_query-&gt;is_main_query() &amp;&amp; $wp_query-&gt;get( 'my_query_var' ) ) {
+			$sql = ...;
+		}
+
+		return $sql;
+	}
+
+	function template_redirect() {
+		global $wp_query;
+
+		if ( $wp_query-&gt;is_main_query() &amp;&amp; $wp_query-&gt;get( 'my_query_var' ) ) {
+			wp_enqueue_script( ... );
+		}
+	}
+}
+
+new My_View;</pre>
+</section>
+
+<section class="center slide" id="level-3">
+	<h3>Level 3</h3>
+<pre class="brush: php">
+class My_View extends APP_View {
+
+	function condition() {
+		return get_query_var( 'my_query_var' );
+	}
+
+	function posts_where( $sql, $wp_query ) {
+		$sql = ...;
+
+		return $sql;
+	}
+
+	function template_redirect() {
+		wp_enqueue_script( ... );
+	}
+}
+
+new My_View;</pre>
+
+<h4>APP_View: <a href="https://gist.github.com/2865132">gist.github.com/2865132</h4>
+</section>
+
+<section class="center slide" id="contact">
+<div class="vcenter">
+       <table style="margin: 0 auto">
+               <tr>
+                       <td colspan="2"><h1>contact</h1></td>
+               </tr>
+               <tr>
+                       <td class="left faded">site:</td>
+					   <td class="right"><a href="http://scribu.net">scribu.net</a></td>
+               </tr>
+               <tr>
+                       <td class="left faded">twitter+github:</td>
+					   <td class="right"><a href="http://twitter.com/scribu">@scribu</a></td>
+               </tr>
+       </table>
+</div>
+</section>
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="deck.js/core/deck.core.js"></script>
+<script src="deck.js/extensions/hash/deck.hash.js"></script>
+<script src="deck.js/extensions/menu/deck.menu.js"></script>
+<script src="deck.js/extensions/goto/deck.goto.js"></script>
+<script src="deck.js/extensions/status/deck.status.js"></script>
+<script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+<script src="deck.js/extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+	SyntaxHighlighter.all();
+});
+</script>
+
+</body>
+</html>

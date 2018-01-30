@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Fun with MBR and partition tables</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/blog/fun-with-mbr-and-partition-tables.html">Fun with MBR and partition tables</a></h2>
+
+	<time datetime="2010-05-20 00:00:00 +0300" id="top_time">May 20, 2010</time>
+
+	<p class="entry-content">
+	<p>I use <a href="http://ubuntu.com">Ubuntu</a> as my primary operating system. Because I needed Visual Studio for college, I also installed Windows 7 on the same hard-drive.</p>
+
+<p>To be able to access files on the Linux partition, I installed a little program called Ext2Fsd. Unfortunately, it wasn’t updated to work with Ext4 partitions so, yesterday, I decided to uninstall it. After restarting the machine, GRUB wouldn’t load; the partition table was busted.</p>
+
+<p>This is the process I went through to make everything go back to normal:</p>
+
+<h3 id="deleting-grub">Deleting GRUB</h3>
+
+<ol>
+  <li>Get a Windows 7 .iso image</li>
+  <li>Burn it to a USB stick using <a href="http://wudt.codeplex.com/">Windows USB/DVD Tool</a></li>
+  <li>Boot from the stick drive</li>
+  <li>Choose “Repair Windows”</li>
+  <li>In the Command Promt, type <code class="highlighter-rouge">Bootrec.exe /FixMbr</code></li>
+</ol>
+
+<p>At this point, I was able to boot Windows. In hindsight, I could have skipped this part completely.</p>
+
+<h3 id="rebuilding-the-partition-table">Rebuilding the partition table</h3>
+
+<ol>
+  <li>Get an Ubuntu 10.04 .iso image</li>
+  <li>Burn it to a USB stick using <a href="http://unetbootin.sourceforge.net/">UNetbootin</a></li>
+  <li>Boot from the stick drive</li>
+  <li>Recover Ubuntu partition using <a href="http://www.brzitwa.de/mb/gpart/index.html">gpart</a></li>
+  <li><a href="https://help.ubuntu.com/community/RecoveringUbuntuAfterInstallingWindows">Re-install Grub</a></li>
+</ol>
+
+<p>In hindsight, I could have ran gpart directly under Windows.</p>
+
+<p>Anyway, back to work…</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+
+		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+
+		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
+		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="/assets/css/normalize.css" rel="stylesheet" />
+		<link href="/assets/css/h5bp.css" rel="stylesheet" />
+		<link href="/assets/css/svbtle.css" rel="stylesheet" />
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="/assets/css/github.css" rel="stylesheet" />
+		<link href="/assets/css/custom.css?ver=1" rel="stylesheet" />
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+		<title>Posts 2 Posts: Version 0.7</title>
+	</head>
+
+	<body>
+
+		<header id="sidebar">
+			<aside id="my-logo" class="clearfix">
+	<a title="scribu.net" class="ir" href="/">scribu</a>
+</aside>
+
+<ul id="user_meta">
+	<li class="blog_name"><h1 id="blog_name"><a href="/">scribu</a></h1></li> 
+	<li class="tagline"><h2 id="tagline"></h2></li>
+
+	<li><a class="button" href="/about/">About</a></li>
+	<li><a class="button" href="/projects/">Projects</a></li>
+</ul>
+
+		</header>
+
+		<section id="river" role="main">
+
+
+
+
+
+
+
+
+<article class="post">
+	<h2 class="entry-title"><a class="no-link" href="/wordpress/posts-to-posts/p2p-0-7.html">Posts 2 Posts: Version 0.7</a></h2>
+
+	<time datetime="2011-04-01 00:00:00 +0300" id="top_time">April 01, 2011</time>
+
+	<p class="entry-content">
+	<p>As promised, this version comes with a much sexier metabox for managing connections:</p>
+
+<p><img src="/files/screenshot-1.png" title="Sexy metabox" width="311" height="377" class="alignnone size-full wp-image-1183" /></p>
+
+<p>Now you can:</p>
+
+<ul>
+  <li>Go to the connected post editing screen in one click.</li>
+  <li>See recent posts using the Recent button.</li>
+  <li>OMG! pagination.</li>
+</ul>
+
+<p>It comes with an enhanced API to boot:</p>
+
+<h3 id="connection-information">Connection information</h3>
+
+<p>Storing arbitrary data related to a particular connection has been possible since <a href="http://scribu.net/wordpress/posts-to-posts/p2p-0-4.html">version 0.4</a>, but being able to edit that data through the UI was far from easy.</p>
+
+<p>So, this release brings a simple way to do that, with a new argument called ‘fields’:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'from' =&gt; 'actor',
+	'to' =&gt; 'movie',
+
+	'fields' =&gt; array(
+		'role' =&gt; 'Role',
+		'role_type' =&gt; 'Role Type'
+	),
+	'context' =&gt; 'advanced'
+) );
+</code></pre></div></div>
+
+<p>Here we just defined a connection type between actors and movies, with each connection having two additional fields: ‘role’ – the role of the actor in that particular movie and ‘role type’.</p>
+
+<h3 id="duplicates">Duplicates</h3>
+
+<p>If you want to enable more than one connection between the same two posts, set <code class="highlighter-rouge">'prevent_duplicates' =&gt; false</code> when registering the connection type:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'from' =&gt; 'actor',
+	'to' =&gt; 'movie',
+	'fields' =&gt; array(
+		'role' =&gt; 'Role',
+		'role_type' =&gt; 'Role Type'
+	),
+	'context' =&gt; 'advanced',
+
+	'prevent_duplicates' =&gt; false
+) );
+</code></pre></div></div>
+
+<p>This will allow you to have actors with two or more different roles in the same movie, for example.</p>
+
+<h3 id="distinct-titles">Distinct titles</h3>
+
+<p>Finally, for reciprocal connections, you can set different titles for the metabox, depending on which screen you’re on:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p2p_register_connection_type( array(
+	'from' =&gt; 'actor',
+	'to' =&gt; 'movie',
+	'fields' =&gt; array(
+		'role' =&gt; 'Role',
+		'role_type' =&gt; 'Role Type'
+	),
+	'context' =&gt; 'advanced',
+	'prevent_duplicates' =&gt; false,
+	'reciprocal' =&gt; true,
+
+	'title' =&gt; array(
+		'from' =&gt; 'Played In',
+		'to' =&gt; 'Cast'
+	)
+) );
+</code></pre></div></div>
+
+<p>With all those settings in place, you get something like this:</p>
+
+<p><img src="/files/screenshot-2.png" title="Advanced metabox" width="509" height="293" class="alignnone size-full wp-image-1184" /></p>
+
+<h3 id="acknowledgements">Acknowledgements</h3>
+
+<p>Special thanks to <a href="http://ciobi.ca">ciobi</a> for helping with the UI awesomeness.</p>
+
+<p>Thanks to Alexey Egorov for the <a href="http://www.iconfinder.com/search/?q=iconset:uidesignicons">icons</a>.</p>
+
+
+</p>
+
+	
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+	/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'scribu'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</article>
+
+
+		</section>
+
+		<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+		try {
+			var pageTracker = _gat._getTracker("UA-962663-10");
+			pageTracker._trackPageview();
+		} catch(err) {}
+</script>
+
+	</body>
+</html>
+
