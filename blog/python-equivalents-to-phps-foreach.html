@@ -74,7 +74,7 @@
 <article class="col-9 post">
 	<h1 class="mb-0 mt-1">Python equivalents to PHP&#8217;s foreach</h1>
 
-	<time datetime="2011-10-23 00:00:00 +0300">October 23, 2011</time>
+	<time datetime="2011-10-23 00:00:00 +0100">October 23, 2011</time>
 
 	<p class="entry-content">
 	<p>One of the first problems I had when learning Python was looping over data. PHP’s arrays are very versatile, but in Python, you need to think in terms of lists and dictionaries.</p>
@@ -100,12 +100,12 @@
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="s">'orange'</span><span class="p">,</span> <span class="s">'pear'</span><span class="p">,</span> <span class="s">'banana'</span><span class="p">]</span>
 
-<span class="c"># without indexes</span>
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+<span class="c1"># without indexes
+</span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
     <span class="k">print</span> <span class="n">item</span>
 
-<span class="c"># with indexes</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+<span class="c1"># with indexes
+</span><span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
     <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span>
 </code></pre></div></div>
 
@@ -136,12 +136,12 @@
     <span class="s">'north-america'</span><span class="p">:</span> <span class="s">'North America'</span>
 <span class="p">}</span>
 
-<span class="c"># without keys</span>
-<span class="k">for</span> <span class="n">continent</span> <span class="ow">in</span> <span class="n">continents</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+<span class="c1"># without keys
+</span><span class="k">for</span> <span class="n">continent</span> <span class="ow">in</span> <span class="n">continents</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
     <span class="k">print</span> <span class="n">continent</span>
 
-<span class="c"># with keys</span>
-<span class="k">for</span> <span class="p">(</span><span class="n">slug</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span> <span class="ow">in</span> <span class="n">continents</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="c1"># with keys
+</span><span class="k">for</span> <span class="p">(</span><span class="n">slug</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span> <span class="ow">in</span> <span class="n">continents</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="k">print</span> <span class="n">slug</span><span class="p">,</span> <span class="n">title</span>
 </code></pre></div></div>
 
@@ -192,8 +192,7 @@ var disqus_shortname = 'scribu'; // required: replace example with your forum sh
 							<a href="/archive">Archive</a>
 						</li>
 					</ul>
-					<p class="text-muted small mb-4 mb-lg-0">&copy; Burcă Silviu-Cristian PFA 2018. All Rights Reserved.</p>
-				</div>
+					<p class="text-muted small mb-4 mb-lg-0">&copy; Burcă Silviu-Cristian 2019. All Rights Reserved.</p> </div>
 				<div class="col-lg-6 h-100 text-center text-lg-right my-auto">
 					<ul class="list-inline mb-0">
 						<li class="list-inline-item mr-3">
