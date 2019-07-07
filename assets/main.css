@@ -57,7 +57,7 @@ header.masthead .overlay { opacity: 0.5 !important; }
 section { padding: 3.5rem 0; }
 
 #intro { font-size: 1.5rem; padding-top: 3.5rem; padding-bottom: 3.5rem; }
-#intro img { display: block; margin-top: 3.5rem; max-width: 100%; }
+#intro img { display: block; margin-top: 3.5rem; }
 
 .avatar { margin-top: -10.5rem; float: right; border-radius: 1rem; margin-bottom: 1rem; margin-left: 1rem; }
 
