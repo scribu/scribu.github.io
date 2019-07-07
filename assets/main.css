@@ -53,6 +53,11 @@ header.masthead .overlay { opacity: 0.5 !important; }
 .navbar-brand img { display: block; }
 .navbar-brand span { display: block; margin-left: 0.5rem; }
 
+/* Homepage */
+#intro { font-size: 1.5rem; }
+
+.avatar { margin-top: -3.5rem; float: right; border-radius: 1rem; }
+
 /* Footer */
 #contact a, #contact a:hover { color: white; }
 
