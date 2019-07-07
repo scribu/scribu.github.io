@@ -54,9 +54,12 @@ header.masthead .overlay { opacity: 0.5 !important; }
 .navbar-brand span { display: block; margin-left: 0.5rem; }
 
 /* Homepage */
-#intro { font-size: 1.5rem; }
+section { padding: 3.5rem 0; }
 
-.avatar { margin-top: -3.5rem; float: right; border-radius: 1rem; }
+#intro { font-size: 1.5rem; padding-top: 3.5rem; padding-bottom: 3.5rem; }
+#intro img { display: block; margin-top: 3.5rem; }
+
+.avatar { margin-top: -10.5rem; float: right; border-radius: 1rem; }
 
 /* Footer */
 #contact a, #contact a:hover { color: white; }
