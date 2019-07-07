@@ -61,7 +61,7 @@ section { padding: 3.5rem 0; }
 
 .avatar { margin-top: -10.5rem; float: right; border-radius: 1rem; margin-bottom: 1rem; margin-left: 1rem; }
 
-@media (max-width: 767.98px) { .avatar { margin-top: 0; float: none; } }
+@media (max-width: 768px) { .avatar { margin-top: 0; float: none; } }
 #companies { padding-bottom: 2.5rem; }
 #companies img { margin-bottom: 1rem; }
 
