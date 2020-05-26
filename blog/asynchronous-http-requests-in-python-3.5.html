@@ -197,8 +197,8 @@
 <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code> import curio
  import curio_http
 
-<span class="gi">+MAX_CONNECTIONS_PER_HOST = 2
-+
++MAX_CONNECTIONS_PER_HOST = 2
+<span class="gi">+
 +sema = curio.BoundedSemaphore(MAX_CONNECTIONS_PER_HOST)
 +
 </span> async def fetch_one(url):

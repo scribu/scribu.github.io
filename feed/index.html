@@ -4,13 +4,71 @@
 	<title>scribu</title>
 	<link href="http://scribu.net"/>
 	<link type="application/atom+xml" rel="self" href="http://scribu.net/feed/"/>
-	<updated>2019-07-07T15:57:47+01:00</updated>
+	<updated>2020-05-26T02:27:54+01:00</updated>
 	<id>http://scribu.net</id>
 	<author>
 		<name>scribu</name>
 		<email>mail@scribu.net</email>
 	</author>
 
+	
+	<entry>
+		<id>http://scribu.net/making-friends</id>
+		<link type="text/html" rel="alternate" href="http://scribu.net/making-friends.html"/>
+		<title>Making Friends With Other Techies</title>
+		<updated>2020-05-26T02:23:00+01:00</updated>
+		<author>
+			<name>scribu</name>
+			<uri>http://scribu.net</uri>
+		</author>
+		<content type="html">&lt;p&gt;I was never good at making friends, even with people in the same line of work as me.&lt;/p&gt;
+
+&lt;p&gt;The only way I made friends in the software industry was very obliquely: by contributing to open-source for months and years. Eventually, after interacting with dozens or hundreds of people in public forums, I would have an occasional email conversation with someone and/or meet up by accident at a conference.&lt;/p&gt;
+
+&lt;p&gt;But what if you didn’t have that much time? What if you want to have a nice conversation with a stranger &lt;em&gt;immediately&lt;/em&gt;? That is, to “convert” someone who you haven’t interacted with at all before to someone you can call a very new friend, in one go.&lt;/p&gt;
+
+&lt;h2 id=&quot;attitude&quot;&gt;Attitude&lt;/h2&gt;
+
+&lt;p&gt;The most important thing is not the words you say, but the mindset behind the words. What is your “model” for that initial conversation? What are you expecting to happen?&lt;/p&gt;
+
+&lt;p&gt;Your model could be &lt;strong&gt;adversarial&lt;/strong&gt; - “A conversation is a competition to see which person is the smartest”. Most programmers have some level of imposter syndrome. They secretly think they’re not very good, which makes them anxious about talking to strangers. “What if they find out that I’m a fraud?” they might think.&lt;/p&gt;
+
+&lt;p&gt;Another model you could have is &lt;strong&gt;transactional&lt;/strong&gt;: “A conversation is an exchange of useful information and/or a sales pitch”. This attitude may be fine in a strictly professional setting, but we’re talking about geniune friendships.&lt;/p&gt;
+
+&lt;p&gt;The “correct” belief is something like &lt;strong&gt;egoless curiosity&lt;/strong&gt;: “This person &lt;em&gt;probably&lt;/em&gt; has something to teach me. I just need to figure out what.”&lt;/p&gt;
+
+&lt;p&gt;When I say “teach”, I don’t mean it in the strict pedagogical sense (i.e. I didn’t know functional programming before, so they helped me understand it). I mean it in a broader sense, as in you can learn a new perspective on a certain topic, or on life, more generally. I would argue that these fuzzier concepts are actually more valuable than purely academic knowledge.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-to-talk-about&quot;&gt;What to talk about&lt;/h2&gt;
+
+&lt;p&gt;We probably shouldn’t be talking about our deepest hopes or fears with someone we just met. But we &lt;em&gt;do&lt;/em&gt; want to go beyond mere small talk. A safe middle ground would be some &lt;strong&gt;intellectual subject&lt;/strong&gt;. We’re all nerds, so we like to dive deep into different areas anyway.&lt;/p&gt;
+
+&lt;p&gt;It just needs to be something that at least one of you is either actively investigating or has explored in the past. If neither of you knows anything about the subject, then it’ll be a pretty short conversation:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Gee, $TrendyFramework seems cool.&lt;/li&gt;
+  &lt;li&gt;Yep, it’s the hot new thing.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If both of you have some knowledge about the topic, at about the same level, you can talk shop: favorite watering holes, things you’re currently struggling to grok etc.&lt;/p&gt;
+
+&lt;p&gt;If one of you is clearly much more experienced, the more junior person can ask them directly for their thoughts, tips on what to learn next, etc. Or the more experienced person can ask the junior what they’re having trouble with, for example.&lt;/p&gt;
+
+&lt;h2 id=&quot;starting-the-conversation&quot;&gt;Starting the conversation&lt;/h2&gt;
+
+&lt;p&gt;Just ask them what they’re currently interested in. Is there a new programming language they’re learning? Are they hacking on a side-project? Maybe they’re reading about something completely unrelated to tech?&lt;/p&gt;
+
+&lt;p&gt;As soon as you hear something that piques your interest, you can either share some of your own thinking on the topic or ask a follow-up question: How did they come to that topic? Any interesting insights they’ve gained so far? What aspect are they currently stuck on?&lt;/p&gt;
+
+&lt;p&gt;Hopefully, by this point, you’ve already got the conversation flowing. As you talk, there will be more and more adjacent topics that you can branch out into.&lt;/p&gt;
+
+&lt;p&gt;The trick is to maintain that curiosity and open-mindedness. If the other person says something you don’t necessarily agree with, that’s just an opportunity to learn more about a different perspective.&lt;/p&gt;
+
+&lt;p&gt;The scary thing about a conversation is that you can’t predict exactly how it will go. That’s also the exciting part.&lt;/p&gt;
+
+&lt;p&gt;Good luck!&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<id>http://scribu.net/blog/asynchronous-http-requests-in-python-3.5</id>
@@ -138,8 +196,8 @@
 &lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; import curio
  import curio_http
 
-&lt;span class=&quot;gi&quot;&gt;+MAX_CONNECTIONS_PER_HOST = 2
-+
++MAX_CONNECTIONS_PER_HOST = 2
+&lt;span class=&quot;gi&quot;&gt;+
 +sema = curio.BoundedSemaphore(MAX_CONNECTIONS_PER_HOST)
 +
 &lt;/span&gt; async def fetch_one(url):
@@ -433,34 +491,6 @@
 &lt;p&gt;The flower had once seen a caravan passing.&lt;/p&gt;
 
 &lt;p&gt;“People?” she echoed. “I think there are six or seven of them in existence. I saw them, several years ago. But one never knows where to find them. The wind blows them away. They have no roots, and that makes their life very difficult.”&lt;/p&gt;
-</content>
-	</entry>
-	
-	<entry>
-		<id>http://scribu.net/blog/test-doubles-in-pure-php</id>
-		<link type="text/html" rel="alternate" href="http://scribu.net/blog/test-doubles-in-pure-php.html"/>
-		<title>Creating test doubles in pure PHP</title>
-		<updated>2013-09-20T00:00:00+01:00</updated>
-		<author>
-			<name>scribu</name>
-			<uri>http://scribu.net</uri>
-		</author>
-		<content type="html">&lt;p&gt;The PHP world is not known for good unit test coverage. It’s mostly a cultural issue, but there is a technical aspect to it as well.&lt;/p&gt;
-
-&lt;p&gt;PHPUnit allows you to create &lt;a href=&quot;http://phpunit.de/manual/3.7/en/test-doubles.html&quot;&gt;mock objects&lt;/a&gt;, but that assumes your codebase uses the Depedency Injection pattern. If not, it’s very hard to add unit tests without doing major refactorings, because the language doesn’t support monkey patching (i.e. redefining functions and methods at runtime).&lt;/p&gt;
-
-&lt;p&gt;You could install the &lt;a href=&quot;http://php.net/manual/en/book.runkit.php&quot;&gt;runkit&lt;/a&gt; extension, which allows you to replace everything, including constants. However, that means that anyone who wants to run the tests needs to re-compile their PHP.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://github.com/antecedent/patchwork&quot;&gt;Patchwork&lt;/a&gt; is a PHP library that makes it possible to redefine user-defined functions and methods at runtime, replicating the functionality of &lt;code class=&quot;highlighter-rouge&quot;&gt;runkit_function_redefine&lt;/code&gt; in pure PHP 5.3 code.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;I started using it to create mocks and it’s great, but I had this nagging thought: how the hell does it work?&lt;/p&gt;
-
-&lt;p&gt;I set out to figure out what black magic the author uses, only to find that he already wrote a very easy to understand description of the &lt;a href=&quot;http://antecedent.github.io/patchwork/docs/implementation.html&quot;&gt;implementation&lt;/a&gt;, like any responsible developer would. Neat!&lt;/p&gt;
-
-&lt;p&gt;Gems like these are few and far between in the PHP ecosystem, but they do exist.&lt;/p&gt;
-
 </content>
 	</entry>
 	
