@@ -1,492 +1,425 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset='utf-8'>
+<!-- Beautiful Jekyll 4.1 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+  
 
-		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
-		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+  
 
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <title>Custom Field Taxonomies</title>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <meta name="author" content="Cristi Burcă">
+  
 
-		<!-- Bootstrap core CSS -->
-		<link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="description" content="{% assign post_list = site.categories.custom-field-taxonomies %}
 
-		<!-- Custom fonts for this template -->
-		<link href="/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link href="/assets/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
-		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+{% include post-list.html %}">
 
-		<!-- Custom styles for this template -->
-		<link href="/assets/main.css" rel="stylesheet">
-		<link href="/assets/css/github.css" rel="stylesheet" />
+  
 
-		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-		<!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
+  
 
-		<title>Custom Field Taxonomies</title>
-	</head>
+  <link rel="alternate" type="application/rss+xml" title="scribu.net" href="/feed.xml">
 
-	<body>
+  
 
-		<!-- Navigation -->
-		<nav id="navigation" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-			<div class="container">
-				<a class="navbar-brand" href="/">
-					<img src="/assets/img/logo-white.png" width=30 alt="scribu.net" />
-					<span>scribu.net</span>
-				</a>
+  
 
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="/archive">Archive</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+  
 
 
-<h2 class="plugin-title"><a class="no-link" href="#">Custom Field Taxonomies</a></h2>
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-<ul class="resources">
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="scribu.net">
+  <meta property="og:title" content="Custom Field Taxonomies">
+  <meta property="og:description" content="{% assign post_list = site.categories.custom-field-taxonomies %}
+
+{% include post-list.html %}">
+
+  
+  <meta property="og:image" content="/assets/img/avatar-icon.png">
+  
+
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="/wordpress/custom-field-taxonomies/">
+  <link rel="canonical" href="/wordpress/custom-field-taxonomies/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@scribu">
+  <meta name="twitter:creator" content="@scribu">
+
+  <meta property="twitter:title" content="Custom Field Taxonomies">
+  <meta property="twitter:description" content="{% assign post_list = site.categories.custom-field-taxonomies %}
+
+{% include post-list.html %}">
+
+  
+  <meta name="twitter:image" content="/assets/img/avatar-icon.png">
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="">scribu.net</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/archive">Archive</a>
+          </li></ul>
+  </div>
+
+  
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="">
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/avatar-icon.png" />
+        </a>
+      </div>
+    </div>
+  
+
+</nav>
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="page-heading">
+          <h1>Custom Field Taxonomies</h1>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md " role="main">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+      
+
+      <ul class="resources">
 	<li><a class="button" href="http://wordpress.org/extend/plugins/custom-field-taxonomies/">Homepage</a></li>
 	<li><a class="button" href="http://wordpress.org/support/plugin/custom-field-taxonomies/">Support</a></li>
 </ul>
 
-<article style="min-height: initial"><strong>Alert:</strong> This plugin is no longer under active development, because I <a href="/blog/left-wordpress.html">left WordPress.</a></article>
+<p class="box-error">This plugin is no longer under active development.</p>
 
 
 
-
+<div id="archive">
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 2.0</h1>
+		
+			
+			<h3 id="y2010">2010</h3>
+			<ul>
+			
+		
 
-	<time datetime="2010-08-08 00:00:00 +0100">August 08, 2010</time>
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/version-2-0.html">Custom Field Taxonomies: Version 2.0</a>
+		</li>
 
-	<p class="entry-content">
-		<p>As promised, this plugin is now a utility to convert custom fields into terms in a taxonomy.</p>
-
-<p>If you go to WP-Admin -&gt; Tools, you’ll see this at the bottom:</p>
-
-<p><img src="/files/cft-2.0.png" alt="admin interface" /></p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/change-of-direction.html">Custom Field Taxonomies: Change of direction</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Change of direction</h1>
+		
+			</ul>
+			<h3 id="y2009">2009</h3>
+			<ul>
+			
+		
 
-	<time datetime="2010-06-20 00:00:00 +0100">June 20, 2010</time>
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/cft-1-4.html">Custom Field Taxonomies: Version 1.4</a>
+		</li>
 
-	<p class="entry-content">
-		<p>When this plugin was first released, custom taxonomies were practically unheard of (WordPress 2.7). Custom fields were already there and convenient to use, so it was easier at the time to use custom fields as if they were tags.</p>
-
-<p>Since WP 2.9, that is no longer the case: with a single line of code, you can get a separate set of tags that you can manage, assign to posts and group posts by, right away.</p>
-
-<p>So, if you’re starting a new project, instead of using Custom Field Taxonomies, I recommend you use the following plugins to achieve the same functionality:</p>
-
-<ul>
-  <li><a href="http://wordpress.org/extend/plugins/simple-taxonomies/">Simple Taxonomies</a> – register custom taxonomies from the admin</li>
-  <li><a href="http://wordpress.org/extend/plugins/query-multiple-taxonomies/">Query Multiple Taxonomies</a></li>
-</ul>
-
-<p>Instead of trying to emulate native taxonomies, this plugin will be transformed into a simple utility that converts custom fields to taxonomy terms.</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/cft-1-3.html">Custom Field Taxonomies: Version 1.3</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 1.4</h1>
+		
 
-	<time datetime="2009-09-28 00:00:00 +0100">September 28, 2009</time>
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/cft-1-2.html">Custom Field Taxonomies: Version 1.2</a>
+		</li>
 
-	<p class="entry-content">
-		<p>This release is sponsored by Dustin Dempsey, from <a href="http://playforward.net/">Playforward Designs</a>.</p>
-
-<h3 id="ranges">Ranges</h3>
-
-<p>A common need for sites using Custom Field Taxonomies is a query like this:</p>
-
-<p><code class="highlighter-rouge">?price-min=300&amp;#038;price-max=500</code></p>
-
-<p>This would show posts having a custom field ‘price’ with a value between 300 and 500.</p>
-
-<p>Since version 1.4, this is possible with all meta taxonomies, numeric or not. You can also use <code class="highlighter-rouge">price-min</code> withouth <code class="highlighter-rouge">price-max</code> and vice-versa.</p>
-
-<h3 id="security-enhancements">Security enhancements</h3>
-
-<p>While working on this release, I have found several potential security holes. These are all corrected now.</p>
-
-<p>If you are using a previous version of the plugin, please update as soon as possible!</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/cft-1-1.html">Custom Field Taxonomies: Version 1.1</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 1.3</h1>
+		
 
-	<time datetime="2009-07-09 00:00:00 +0100">July 09, 2009</time>
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/cft-1-0.html">Custom Field Taxonomies: Version 1.0</a>
+		</li>
 
-	<p class="entry-content">
-		<p>This version adds two query options:</p>
-
-<h4 id="or-query">OR query</h4>
-
-<p><code class="highlighter-rouge">?fruit=apple,orange,pair</code></p>
-
-<p>will match all posts that have the fruit field set to apple OR orange OR pair.</p>
-
-<h4 id="and-query">AND query</h4>
-
-<p><code class="highlighter-rouge">?color=red+orange+yellow</code></p>
-
-<p>will match posts that have 3 color fields: one with red, one with orange and one wih yellow.</p>
-
-<p>These capabilities are disabled by default. Before you enable them from Posts -&gt; CF Taxnomies, a word of <strong>caution</strong>:</p>
-
-<p>If some of your field values have commas ‘,’ character in them, don’t enable the OR query.</p>
-
-<p>Also, if some of the field values have spaces ‘ ‘ in them, don’t enable the AND query.</p>
-
-<p>Currently, you can’t enable both the AND query and the “Show posts that don’t match all key=value pairs” option. This will probably be fixed in the future.</p>
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/cft-0-9.html">Custom Field Taxonomies: Version 0.9</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 1.2</h1>
+		
 
-	<time datetime="2009-03-24 00:00:00 +0000">March 24, 2009</time>
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/cft-0-8.html">Custom Field Taxonomies: Version 0.8</a>
+		</li>
 
-	<p class="entry-content">
-		<p>Another substantial update for y’all:</p>
-
-<h4 id="revamped-admin-page">Revamped Admin Page</h4>
-
-<p><img src="http://img14.imageshack.us/img14/8430/cftadmin.gif" alt="New CFT Admin Page" /><br />
-The new admin page is built up entirely of shiny 2.7 style boxes. They work just like the ones on your dashboard.</p>
-
-<p>The admin page has been moved to Posts -&gt; CF Taxonomies for easier access. There is also a new feature to add default values.</p>
-
-<h4 id="enhanced-sorting">Enhanced sorting</h4>
-
-<p><a href="http://scribu.net/wordpress/custom-field-taxonomies/cft-1-1.html">Version 1.1</a> introduced an option to display posts with a relevance less than 100%. Now you have an extra option to also adjust the relevance based on the order of the query vars in the URL.</p>
-
-<p>For example, if your URL is <em><a href="http://example.com?foo=xxx&#038;bar=yyy" rel="nofollow">http://example.com?foo=xxx&amp;bar=yyy</a></em>, posts that don’t have <code class="highlighter-rouge">bar=yyy</code>, but have <code class="highlighter-rouge">foo=xxx</code> will rank higher than those that have <code class="highlighter-rouge">bar=yyy</code> but don’t have <code class="highlighter-rouge">foo=xxx</code>.</p>
-
-<h4 id="important-bugfix">Important bugfix</h4>
-
-<p>In earlier version, if you used <code class="highlighter-rouge">query_posts()</code> anywhere in the template file that was used by the plugin, you would get all kinds of errors. Not anymore:</p>
-
-<p>Now you can use <code class="highlighter-rouge">query_posts()</code> and even have multiple loops on the same page and CFT will only modify the main loop.</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/cft-0-7.html">Custom Field Taxonomies: Version 0.7</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 1.1</h1>
+		
 
-	<time datetime="2009-03-18 00:00:00 +0000">March 18, 2009</time>
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/cft-0-6.html">Custom Field Taxonomies: Version 0.6</a>
+		</li>
 
-	<p class="entry-content">
-		<p>This version brings several important new features:</p>
-
-<h4 id="wildcard-support">Wildcard support</h4>
-
-<p><em><a href="http://example.com/?field=abc*" rel="nofollow">http://example.com/?field=abc*</a></em> will fetch all posts that have a meta key <em>field</em> with any value beginning with <em>abc</em>: ‘abc’, ‘abcd’ etc.</p>
-
-<p>The ‘<em>’ character can appear multiple times, anywhere: *<a href="http://example.com/?field=*ab*c*&#038;another=foo*bar" rel="nofollow">http://example.com/?field=*ab*c*&amp;another=foo*bar</a></em></p>
-
-<h4 id="relevance">Relevance:</h4>
-
-<p>There’s a new checkbox in the settings page that allow the following behaviour:</p>
-
-<p><em><a href="http://example.com/?key1=value1&#038;key2=value2" rel="nofollow">http://example.com/?key1=value1&amp;key2=value2</a></em> will fetch posts that have at least one of those key=value pairs.</p>
-
-<p>There is also a new template tag that displays the relevance for each post: <code class="highlighter-rouge">meta_relevance()</code></p>
-
-<h4 id="enhanced-search--replace">Enhanced search &amp; replace</h4>
-
-<p>Now you can select in which meta taxonomy you want values replaced. This allows for better control over your custom fields.</p>
-
-<p><strong class="important">Important:</strong> The parameters for <code class="highlighter-rouge">meta_cloud()</code> have changed. Check template-tags.php to learn more.</p>
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/custom-field-taxonomies/cft-0-5.html">Custom Field Taxonomies: Version 0.5</a>
+		</li>
+
+		</ul>
 	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 1.0</h1>
-
-	<time datetime="2009-03-04 00:00:00 +0000">March 04, 2009</time>
-
-	<p class="entry-content">
-		<p>Several improvements  in this release. Be sure to upgrade.</p>
-
-<ul>
-  <li>
-    <p>meta_filter_box<!---->() now comes with autosuggest.</p>
-  </li>
-  <li>added $relative parameter to meta_cloud(). Note that the arguments are now splitted in $metaArgs and $cloudArgs.</li>
-  <li>relative links are disabled for posts, pages and attachments, because you would get a single item anyway</li>
-  <li>fixed issue with blogs that have a static page as the front page</li>
-  <li>fixed issue with get_meta_url()</li>
-  <li>to avoid unexpected behaviour, you can’t register taxonomies with keys used by WP (‘p’, ‘s’, ‘cat’ etc.)</li>
-</ul>
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 0.9</h1>
-
-	<time datetime="2009-02-23 00:00:00 +0000">February 23, 2009</time>
-
-	<p class="entry-content">
-		<p><img src="http://i5.photobucket.com/albums/y197/SCriBu/Blog/meta-filter.png" alt="Meta Filter (search box)" /></p>
-
-<p>In version 0.9 I finally included an advanced meta search box. It can be easily styled and you can even have several boxes on the same page.</p>
-
-<p>The code to display it is simple: <code class="highlighter-rouge"><span class="cp">&lt;?php</span> <span class="nx">meta_filter_box</span><span class="o">&lt;!----&gt;</span><span class="p">()</span> <span class="cp">?&gt;</span></code>.</p>
-
-<p>If you don’t want to use a certain key as a filter, you can write</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">meta_filter_box</span><span class="p">(</span><span class="nv">$exclude</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'key1'</span><span class="p">,</span> <span class="s1">'key2'</span><span class="p">))</span> <span class="cp">?&gt;</span>
-</code></pre></div></div>
-
-<p>Make sure your theme has wp_footer() written somewhere in footer.php.</p>
-
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 0.8</h1>
-
-	<time datetime="2009-02-15 00:00:00 +0000">February 15, 2009</time>
-
-	<p class="entry-content">
-		<p><img src="http://i5.photobucket.com/albums/y197/SCriBu/Blog/cf-management.png" alt="Custom Field Management" /></p>
-
-<p>Another update for this plugin: Added a custom field management section in which you can replace custom field keys or custom field values. Maybe an option to delete certain custom fields based on key or value? We’ll see.</p>
-
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 0.7</h1>
-
-	<time datetime="2009-02-11 00:00:00 +0000">February 11, 2009</time>
-
-	<p class="entry-content">
-		<p>This version adds multiple key=value check, which means that now you can have URLs like this:</p>
-
-<p><code class="highlighter-rouge">&lt;a href="http://yoursite.com/?s=anything&amp;#038;key1=valueA&amp;#038;key2=valueB" rel="nofollow"&gt;http://yoursite.com/?s=anything&amp;#038;key1=valueA&amp;#038;key2=valueB&lt;/a&gt;...</code></p>
-
-<p><code class="highlighter-rouge">&lt;a href="http://yoursite.com/category/news/?key1=valueA&amp;#038;key2=valueB" rel="nofollow"&gt;http://yoursite.com/category/news/?key1=valueA&amp;#038;key2=valueB&lt;/a&gt;...</code></p>
-
-<p>I’ve also added autosuggest to the input fields in the Settings Page which will give suggestions based on the existing meta keys on your site.</p>
-
-<p>Any ideas for an interface to construct such URLs are welcome (an advanced search box? etc).</p>
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 0.6</h1>
-
-	<time datetime="2009-02-05 00:00:00 +0000">February 05, 2009</time>
-
-	<p class="entry-content">
-		<p>By popular demand, this plugin now supports URLs like this:</p>
-
-<ul>
-  <li><a href="http://example.com/?s=word&#038;meta_key=meta_value" rel="nofollow">http://example.com/?s=word&amp;meta_key=meta_value</a></li>
-  <li><a href="http://example.com/?cat=1&#038;mood=Happy" rel="nofollow">http://example.com/?cat=1&amp;mood=Happy</a></li>
-</ul>
-
-<p>The template tags were updated to reflect this posibility. Also, an extra template tag was added:</p>
-
-<p><code class="highlighter-rouge">all_meta_info()</code> displays all available data for the current post.</p>
-
-<p><strong>PHP5 is required.</strong></p>
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Custom Field Taxonomies: Version 0.5</h1>
-
-	<time datetime="2009-02-03 00:00:00 +0000">February 03, 2009</time>
-
-	<p class="entry-content">
-		<p>Custom Field Taxonomies is a plugin that lets you use post metadata as ad-hoc taxonomies.</p>
-
-<p><img src="http://i5.photobucket.com/albums/y197/SCriBu/Blog/register-taxonomy.png" alt="Register taxonomy" /></p>
-
-<p>For each taxonomy, you have</p>
-
-<ul>
-  <li>Tag cloud with all values of that field</li>
-  <li>Show only posts with field = value</li>
-  <li>Any theme can add a meta.php template</li>
-  <li>Several template tags (can be found in meta-template.php)</li>
-</ul>
-
-<p>It also has a nice settings page where you can define which fields to be used as taxonomies.</p>
-
-<p><strong>PHP5 is required.</strong></p>
-
-
-	</p>
-
-	
-</article>
 </div>
 
 
 
 
+      
 
-	<!-- Footer -->
-	<footer class="footer bg-light">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-					<p class="text-muted small mb-4 mb-lg-0">&copy; Cristi Burcă 2020. All Rights Reserved.</p> </div>
-				<div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-					<ul class="list-inline mb-0">
-						<li class="list-inline-item mr-3">
-							<a href="https://twitter.com/scribu">
-								<i class="fa fa-twitter fa-2x fa-fw"></i>
-							</a>
-						</li>
-						<li class="list-inline-item mr-3">
-							<a href="https://github.com/scribu">
-								<i class="fa fa-github fa-2x fa-fw"></i>
-							</a>
-						</li>
-						<li class="list-inline-item">
-							<a href="https://www.linkedin.com/in/scribu/">
-								<i class="fa fa-linkedin fa-2x fa-fw"></i>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer>
+      
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </div>
+  </div>
+</div>
 
-	<script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript">
-		try {
-			var pageTracker = _gat._getTracker("UA-962663-10");
-			pageTracker._trackPageview();
-		} catch(err) {}
-</script>
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="mailto:mail@scribu.net" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/scribu" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/scribu" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Cristi Burcă
+        &nbsp;&bull;&nbsp;
+      
+      2020
+
+      
+
+      
+      </p>
+      <!-- Please don't remove this, keep my open source work credited :) -->
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
 
 </body>
 </html>
-

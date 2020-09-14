@@ -1,1031 +1,545 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset='utf-8'>
+<!-- Beautiful Jekyll 4.1 | Copyright Dean Attali 2020 -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-		<link rel="alternate" type="application/atom+xml" href="/feed" title="Atom Feed">
+  
 
-		<link rel="openid2.provider" href="https://openid.stackexchange.com/openid/provider">
-		<link rel="openid2.local_id" href="https://openid.stackexchange.com/user/b5a2e93c-328d-4f65-842e-5847ce5a0582">
+  
 
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <title>Front-end Editor</title>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <meta name="author" content="Cristi Burcă">
+  
 
-		<!-- Bootstrap core CSS -->
-		<link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="description" content="{% assign post_list = site.categories.front-end-editor %}
 
-		<!-- Custom fonts for this template -->
-		<link href="/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link href="/assets/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
-		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+{% include post-list.html %}">
 
-		<!-- Custom styles for this template -->
-		<link href="/assets/main.css" rel="stylesheet">
-		<link href="/assets/css/github.css" rel="stylesheet" />
+  
 
-		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-		<!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
+  
 
-		<title>Front-end Editor</title>
-	</head>
+  <link rel="alternate" type="application/rss+xml" title="scribu.net" href="/feed.xml">
 
-	<body>
+  
 
-		<!-- Navigation -->
-		<nav id="navigation" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-			<div class="container">
-				<a class="navbar-brand" href="/">
-					<img src="/assets/img/logo-white.png" width=30 alt="scribu.net" />
-					<span>scribu.net</span>
-				</a>
+  
 
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="/archive">Archive</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+  
 
 
-<h2 class="plugin-title"><a class="no-link" href="#">Front-end Editor</a></h2>
+  
+    
+      
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-<ul class="resources">
+
+    
+      
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+
+
+    
+      
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/assets/css/bootstrap-social.css">
+    
+      <link rel="stylesheet" href="/assets/css/beautifuljekyll.css">
+    
+  
+
+  
+
+  
+  
+  
+
+  
+
+  
+  <meta property="og:site_name" content="scribu.net">
+  <meta property="og:title" content="Front-end Editor">
+  <meta property="og:description" content="{% assign post_list = site.categories.front-end-editor %}
+
+{% include post-list.html %}">
+
+  
+  <meta property="og:image" content="/assets/img/avatar-icon.png">
+  
+
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="/wordpress/front-end-editor/">
+  <link rel="canonical" href="/wordpress/front-end-editor/">
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:site" content="@scribu">
+  <meta name="twitter:creator" content="@scribu">
+
+  <meta property="twitter:title" content="Front-end Editor">
+  <meta property="twitter:description" content="{% assign post_list = site.categories.front-end-editor %}
+
+{% include post-list.html %}">
+
+  
+  <meta name="twitter:image" content="/assets/img/avatar-icon.png">
+  
+
+  
+
+
+  
+
+  
+
+</head>
+
+
+<body>
+
+  
+
+
+  <nav class="navbar navbar-expand-md navbar-light fixed-top navbar-custom top-nav-regular"><a class="navbar-brand" href="">scribu.net</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/archive">Archive</a>
+          </li></ul>
+  </div>
+
+  
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="">
+          <img alt="Navigation bar avatar" class="avatar-img" src="/assets/img/avatar-icon.png" />
+        </a>
+      </div>
+    </div>
+  
+
+</nav>
+
+
+  <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+        <div class="page-heading">
+          <h1>Front-end Editor</h1>
+          
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class=" container-md " role="main">
+  <div class="row">
+    <div class=" col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 ">
+      
+
+      <ul class="resources">
 	<li><a class="button" href="http://wordpress.org/extend/plugins/front-end-editor/">Homepage</a></li>
 	<li><a class="button" href="http://wordpress.org/support/plugin/front-end-editor/">Support</a></li>
 </ul>
 
-<article style="min-height: initial"><strong>Alert:</strong> This plugin is no longer under active development, because I <a href="/blog/left-wordpress.html">left WordPress.</a></article>
+<p class="box-error">This plugin is no longer under active development.</p>
 
 
 
-
+<div id="archive">
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 2.3</h1>
+		
+			
+			<h3 id="y2012">2012</h3>
+			<ul>
+			
+		
 
-	<time datetime="2012-07-09 00:00:00 +0100">July 09, 2012</time>
+		<li >
+			<a href="/wordpress/front-end-editor/fee-2-3.html">Front-end Editor: Version 2.3</a>
+		</li>
 
-	<p class="entry-content">
-		<h3 id="consistent-buttons">Consistent Buttons</h3>
-
-<p>Since the initial <a href="http://scribu.net/wordpress/front-end-editor/fee-2-0.html" title="Version 2.0">2.0 release</a>, the editing UI has gone through constant improvements.</p>
-
-<p><img src="/files/screenshot-23.png" alt="" title="screenshot-2" width="600" height="276" class="alignleft size-full wp-image-9911" /></p>
-
-<p>As you can see in the screenshot above, the Save/Cancel buttons now appears in place of the Edit button. This provides a consistent, easy to reach location and makes the UI more uniform in general.</p>
-
-<!--more-->
-
-<p>As a side-effect, you can have multiple elements open for editing at the same time again.</p>
-
-<h3 id="javascript-api">JavaScript API</h3>
-
-<p>Besides the <a href="https://github.com/scribu/wp-front-end-editor/wiki/Actions-and-filters">PHP hooks</a>, Front-end Editor also has a <a href="https://github.com/scribu/wp-front-end-editor/wiki/Javascript-API">JavaScript API</a>, which you can use to customize the editing experience further.</p>
-
-<h3 id="vulnerability-fix">Vulnerability Fix</h3>
-
-<p>There was a demo file bundled in Aloha Editor which allowed arbitrary file uploads. The offending file has been removed in the current release of Front-end Editor.</p>
-
-<p>Therefore, updating is highly encouraged!</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
+			</ul>
+			<h3 id="y2011">2011</h3>
+			<ul>
+			
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-2-2.html">Front-end Editor: Version 2.2</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 2.2</h1>
+		
 
-	<time datetime="2011-12-24 00:00:00 +0000">December 24, 2011</time>
+		<li >
+			<a href="/wordpress/front-end-editor/fee-2-1.html">Front-end Editor: Version 2.1</a>
+		</li>
 
-	<p class="entry-content">
-		<p><img src="/files/screenshot-22.png" alt="" title="screenshot-2" width="686" height="296" class="size-full wp-image-4875" /></p>
-
-<h3 id="editable-groups">Editable groups</h3>
-
-<p>It’s now possible to create arbitrary groups of editable elements. This opens the door for a lot of possibilities. For example, you can now edit all fields of a post at once, instead of one at a time. Go to the FEE settings page to enable it.</p>
-
-<h3 id="post-creation">Post creation</h3>
-
-<p>One feature that was often requested was the ability to create posts from the front-end, not just to edit them. This is now possible by using the <a href="https://github.com/scribu/wp-front-end-editor/wiki/Creating-posts">fee_inject_dummy_post()</a> template tag.</p>
-
-<h3 id="aloha-020">Aloha 0.20</h3>
-
-<p>This release features the most recent version of Aloha Editor available, 0.20.0-RC9. This fixes the jQuery compatibility issues, as well as a bunch of other bugs. Thanks again to <a href="http://www.jotschi.de/">Jotschi</a> for lending a hand with this.</p>
-
-<p>Thanks to <a href="http://www.appthemes.com/">AppThemes</a> and Jason Buksh for supporting this release financially.</p>
-
-<p>Happy holidays!</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-2-0.html">Front-end Editor: Version 2.0</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 2.1</h1>
+		
 
-	<time datetime="2011-06-01 00:00:00 +0100">June 01, 2011</time>
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-9-3.html">Front-end Editor: Version 1.9.3</a>
+		</li>
 
-	<p class="entry-content">
-		<p><img class="alignnone size-full wp-image-1325" title="screenshot-2" src="/files/screenshot-21.png" alt="" width="686" height="313" /></p>
-
-<p>This version integrates <a href="http://www.aloha-editor.org/">Aloha Editor</a>, a rising star on the wysiwyg editor scene. Unlike other established editors like TinyMCE, it makes the content editable inline, rather than using an iframe, which means that all the theme styles are preserved.</p>
-
-<p>Also, unlike the rich-text editors previously integrated into Front-end Editor, Aloha is being developed by a whole bunch of contributors and is also backed by Gentics, the company that originally wrote and subsequently open-sourced it.</p>
-
-<p><a href="http://www.jotschi.de/">Jotschi</a>, one of the Aloha developers, was working on a similar WordPress plugin; it just made sense for the two of us to combine our efforts. This release wouldn’t have happened without his help.</p>
-
-<p>This is just the beginning. We have a lot of ideas related to Aloha Editor that we haven’t implemented yet. So, try it out and let us know what you think.</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
+			</ul>
+			<h3 id="y2010">2010</h3>
+			<ul>
+			
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-9-2.html">Front-end Editor: Version 1.9.2</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 2.0</h1>
+		
 
-	<time datetime="2011-04-30 00:00:00 +0100">April 30, 2011</time>
+		<li >
+			<a href="/wordpress/front-end-editor/version-1-9.html">Front-end Editor: Version 1.9</a>
+		</li>
 
-	<p class="entry-content">
-		<p>If you’re having trouble seeing the video, try the <a href="http://www.youtube.com/watch?v=va1m5PebKXg">no sound</a> version.</p>
-
-<p>In previous versions, you entered editing mode by double-clicking on the element. This required all sorts of hacks to make single-clicking on the same element to work.</p>
-
-<p>In the new version, there’s a slick overlay with an edit button that you only have to click once.</p>
-
-<p>Also, as you can see in the video, categories – and hierarchical taxonomies, in general – are now editable via a dropdown, instead of the usual auto-suggest field.</p>
-
-<p>Let me know what you think about the new interface in the comments.</p>
-
-<p>For other support questions, please use the <a href="http://wordpress.org/tags/front-end-editor">support forums</a>.</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-8.html">Front-end Editor: Version 1.8</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.9.3</h1>
+		
 
-	<time datetime="2011-03-21 00:00:00 +0000">March 21, 2011</time>
+		<li >
+			<a href="/wordpress/front-end-editor/common-mistakes-in-themes.html">Front-end Editor: Common Mistakes In Themes</a>
+		</li>
 
-	<p class="entry-content">
-		<p>This version uses an even better WYSIWYG editor, namely <a href="http://premiumsoftware.net/cleditor/">CLEditor</a>:</p>
-
-<p><img src="/files/fee-1.9.3.png" alt="rich editing with CLEditor" /></p>
-
-<p>CLEditor is built on top of jQuery, so it’s more light-weight. Also, it has better controls and is easier to extend. nicEdit hasn’t been updated in 2 years.</p>
-
-<p>The localization files are now split in two: CLEditor strings and plugin strings.</p>
-
-<p>This release also includes a number of bugfixes:</p>
-
-<ul>
-  <li>fixed encoding issues with paragraph editing</li>
-  <li>fixed image fields handling</li>
-  <li>fixed typo which made spinner not show</li>
-  <li>check ‘edit_theme_options’ capability instead of ‘edit_themes’</li>
-</ul>
-
-<p>Also take a look at the new <a href="http://github.com/scribu/wp-front-end-editor/wiki">plugin wiki</a>.</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-7.html">Front-end Editor: Version 1.7</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.9.2</h1>
+		
 
-	<time datetime="2010-12-05 00:00:00 +0000">December 05, 2010</time>
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-6.html">Front-end Editor: Version 1.6</a>
+		</li>
 
-	<p class="entry-content">
-		<p>Thought I’d do another release before year’s end. It is focused on improving the existing features rather than adding new stuff.</p>
-
-<p>The tooltip looks sexier now. It resembles the one on the iPhone:</p>
-
-<p><img src="/files/fee-1.9.2-1.png" alt="tooltip" /></p>
-
-<p>When you click a link inside the rich editor, a gmail-like tooltip will appear:</p>
-
-<p><img src="/files/fee-1.9.2-2.png" alt="link tooltip" /></p>
-
-<p>Another usability improvement is limiting the maximum height of the wysiwyg editor to the window height, so that the controls are always visible. This way, you don’t have to constantly scroll up and down from the text you’re editing.</p>
-
-<p>For developers: I’ve moved plugin development to github:</p>
-
-<p><a href="https://github.com/scribu/wp-front-end-editor">https://github.com/scribu/wp-front-end-editor</a></p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
+			</ul>
+			<h3 id="y2009">2009</h3>
+			<ul>
+			
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-5.html">Front-end Editor: Version 1.5</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.9</h1>
+		
 
-	<time datetime="2010-06-19 00:00:00 +0100">June 19, 2010</time>
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-4.html">Front-end Editor: Version 1.4</a>
+		</li>
 
-	<p class="entry-content">
-		<p><a href="http://wordpress.org/development/2010/06/thelonious/">WordPress 3.0</a> is here, and so is a new version of Front-end Editor.</p>
-
-<h3 id="fully-editable-widgets">Fully editable widgets</h3>
-
-<p>Previously, you could only edit widget titles and text widgets. Now you can edit <em>any</em> widget. You will see the same controls as on the widget management screen.</p>
-
-<p><strong>Custom Post Type Support</strong>: Front-end Editor can now handle any post type, not just posts and pages.</p>
-
-<p><strong>Configurable editor buttons</strong>: You can now add or remove buttons to the nicEdit panel from the settings page. Props go to <a href="http://wordpress.org/support/topic/385888">lostingraphics</a>.</p>
-
-<p><strong>Improved Overlay Compatibility</strong>: No matter what overlay script you use to display your images (Lightbox, Shutter etc.), double-clicking on thumbnails will just work.</p>
-
-<p><strong>Editable term descriptions</strong>: You can now edit individual term descriptions, besides titles. See <a href="http://codex.wordpress.org/Template_Tags/category_description">category_description()</a>.</p>
-
-<h3 id="removed-reset-post-date-option">Removed “Reset post date” option</h3>
-
-<p>I removed it because it wasn’t related to front-end editing per-se. It was a business rule that very few users needed to enforce.</p>
-
-<p>If you were one of them, here is some code you can use to reset the post date, each time you edit a published post:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function reset_post_date($post) {
-	if ( 'post' == $post['post_type'] &amp;&amp; 'publish' == $post['post_status'] ) {
-		$post['post_date'] = current_time('mysql');
-		$post['post_date_gmt'] = current_time('mysql', 1);
-	}
-
-	return $post;
-}
-add_filter('wp_insert_post_data', 'reset_post_date');
-</code></pre></div></div>
-
-<p>Just drop it in your theme’s <code class="highlighter-rouge">functions.php</code> file and you’re done.</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-3.html">Front-end Editor: Version 1.3</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.8</h1>
+		
 
-	<time datetime="2010-04-01 00:00:00 +0100">April 01, 2010</time>
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-2.html">Front-end Editor: Version 1.2</a>
+		</li>
 
-	<p class="entry-content">
-		<h3 id="tooltip">Tooltip</h3>
-
-<p><img src="http://img532.imageshack.us/img532/219/screenshot1e.png" border="0" /></p>
-
-<p>The new tooltip appears whenever you hover over an editable area.</p>
-
-<p><a href="http://vernalcreative.com/">Jason G. Lemieux</a> was kind enough to help position it and define it’s appearance.</p>
-
-<p>If you don’t need it, you can disable it from the settings page.</p>
-
-<h3 id="restyled-buttons">Restyled buttons</h3>
-
-<p><img src="http://img256.imageshack.us/img256/23/screenshot2wm.png" border="0" /></p>
-
-<p>This is also Jason’s doing. Aren’t they pretty? :)</p>
-
-<h3 id="extendable-javascript">Extendable JavaScript</h3>
-
-<p>The ability to define your own editable fields was present from the beginning. However, you weren’t able to extend the built-in field types, since they were defined in JavaScript.</p>
-
-<p>Developers now have access to the <code class="highlighter-rouge">FrontEndEditor</code> JavaScript object which contains all the field type definitions, as well as additional data.</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-1.html">Front-end Editor: Version 1.1</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Common Mistakes In Themes</h1>
+		
 
-	<time datetime="2010-02-25 00:00:00 +0000">February 25, 2010</time>
+		<li >
+			<a href="/wordpress/front-end-editor/loading-only-on-certain-pages.html">Front-end Editor: Loading only on certain pages</a>
+		</li>
 
-	<p class="entry-content">
-		<p>Although Front-end Editor tries to be compatible with as many themes as possible, there’s only so much it can do.</p>
-
-<h3 id="no-wp_footer-call">No wp_footer() call</h3>
-
-<p>Lots of plugins, including this one, rely on the <code class="highlighter-rouge">wp_footer()</code> call to include their JavaScript files. Open your theme’s <code class="highlighter-rouge">footer.php</code> file and make sure you have this line somewhere:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">wp_footer</span><span class="p">();</span> <span class="cp">?&gt;</span>
-</code></pre></div></div>
-
-<h3 id="using-custom-versions-of-jquery">Using custom versions of jQuery</h3>
-
-<p>Some themes, for one reason or another, use their own jQuery file. When a new version of WordPress is launched, the bundled jQuery library is also updated, but the theme is stuck using it’s own, outdated version.</p>
-
-<p>View the HTML source and make sure the path to jQuery looks like this: <code class="highlighter-rouge">wp-includes/js/jquery/jquery.js</code>.</p>
-
-<h3 id="using-the_title-in-the-wrong-places">Using the_title() in the wrong places</h3>
-
-<p>A mistake I see in a lot of themes is code like this:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;a title="Permanent Link to &lt;?php the_title(); ?&gt;" href="&lt;?php the_permalink() ?&gt;"&gt;&lt;?php the_title(); ?&gt;&lt;/a&gt;
-</code></pre></div></div>
-
-<p>This causes all sorts of problems. You should use <code class="highlighter-rouge">the_title_attribute()</code> instead:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;a title="Permanent Link to &lt;?php the_title_attribute(); ?&gt;" href="&lt;?php the_permalink() ?&gt;"&gt;&lt;?php the_title(); ?&gt;&lt;/a&gt;
-</code></pre></div></div>
-
-<h3 id="no-id--class-attributes-for-dynamic-sidebars">No id &amp; class attributes for dynamic sidebars</h3>
-
-<p>If you want to have editable widgets, you’ll have to change code like this:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>register_sidebar(array('name' =&gt; 'My Sidebar',
-	'before_widget' =&gt; '',
-	'after_widget' =&gt; '',
-	'before_title' =&gt; '&lt;h4&gt;
-  ',
-  	'after_title' =&gt; '
-&lt;/h4&gt;',
-));
-</code></pre></div></div>
-
-<p>to this:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>register_sidebar(array('name' =&gt; 'My Sidebar',
-	'before_widget' =&gt; '&lt;div id="%1$s" class="widget %2$s"&gt;
-  ',
-  	'after_widget' =&gt; '
-&lt;/div&gt;',
-	'before_title' =&gt; '
-
-&lt;h4&gt;
-  ',
-  	'after_title' =&gt; '
-&lt;/h4&gt;',
-));
-</code></pre></div></div>
-
-<p>The important part is <code class="highlighter-rouge">id="%1$s" class="widget %2$s"</code>.</p>
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-1-0.html">Front-end Editor: Version 1.0</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.7</h1>
+		
 
-	<time datetime="2010-02-18 00:00:00 +0000">February 18, 2010</time>
+		<li >
+			<a href="/wordpress/front-end-editor/fee-0-9.html">Front-end Editor: Version 0.9</a>
+		</li>
 
-	<p class="entry-content">
-		<p>Let’s get right into it:</p>
-
-<h3 id="post-thumbnail-switching">Post thumbnail switching</h3>
-
-<p>If your theme supports <a href="http://markjaquith.wordpress.com/2009/12/23/new-in-wordpress-2-9-post-thumbnail-images/">native thumbnails</a> (introduced in WordPress 2.9), you will be able to change them by double-clicking on them.</p>
-
-<h3 id="editable-options">Editable options</h3>
-
-<p>Similarly to editable_images(), you can now have editable bits of text anywhere in your theme. For example:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">editable_option</span><span class="p">(</span><span class="s1">'blurb'</span><span class="p">);</span> <span class="cp">?&gt;</span>
-
-[...]
-
-Today's mood: 
-
-<span class="cp">&lt;?php</span> <span class="nx">editable_option</span><span class="p">(</span><span class="s1">'mood'</span><span class="p">);</span> <span class="cp">?&gt;</span>
-</code></pre></div></div>
-
-<p>It’s like text widgets, without the widgets. :-)</p>
-
-<h3 id="no-more-autogrow">No more autogrow</h3>
-
-<p>If you’ve been using the basic text editor, you’ve probably had your share of frustration with the autogrow script. After switching from Autogrow to Growfield without much improvement, I’ve decided to stick to a normal textarea with a scrollbar.</p>
-
-<p>The rich editor is not affected by this.</p>
-
-<h3 id="configurable-nicedit">Configurable nicEdit</h3>
-
-<p>I’ve added two buttons to the rich editor panel: font-family and font-color. More importantly, you can now select which buttons you want to use. Just paste this code in your theme’s functions.php:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function configure_fee_nicedit($config) {
-	$config['buttonList'] = array(
-		'bold', 'italic', 'strikethrough',
-		'left','center', 'right',
-	);
-	return $config;
-}
-add_filter('front_end_editor_nicedit', 'configure_fee_nicedit');
-</code></pre></div></div>
-
-<p>See the available <a href="http://nicedit.pbworks.com/Configuration+Options">configuration options</a>.</p>
-
-<h3 id="upgrade-instructions">Upgrade instructions</h3>
-
-<p>If you have custom code written for the plugin, read on:</p>
-
-<p>Renamed hooks:</p>
-
-<p>front_ed_fields -&gt; front_end_editor_fields<br />
-front_ed_allow -&gt; front_end_editor_allow<br />
-front_ed_disable -&gt; front_end_editor_disable</p>
-
-<p>Renamed CSS classes:</p>
-
-<p>.front-ed -&gt; .fee-field<br />
-.front-ed-{filter} -&gt; .fee-filter-{filter}<br />
-.front-ed-container -&gt; .fee-form</p>
-
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-0-8.html">Front-end Editor: Version 0.8</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.6</h1>
+		
 
-	<time datetime="2010-01-01 00:00:00 +0000">January 01, 2010</time>
+		<li >
+			<a href="/wordpress/front-end-editor/fee-0-7.html">Front-end Editor: Version 0.7</a>
+		</li>
 
-	<p class="entry-content">
-		<p>The number of editable elements continues to grow with this version of your favourite inline editor for WordPress:</p>
-
-<p>Besides tags and terms, you can now edit categories as well, using the same interface. They all have autosuggest enabled, to make it easier to work with.</p>
-
-<p>Custom fields with multiple values can also be edited now. Here’s a code example:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
-<span class="cp">&lt;?php</span>
-<span class="nv">$values</span> <span class="o">=</span> <span class="nx">get_editable_post_meta</span><span class="p">(</span><span class="nx">get_the_ID</span><span class="p">(),</span> <span class="s1">'my_key'</span><span class="p">);</span>
-<span class="k">foreach</span> <span class="p">(</span> <span class="nv">$values</span> <span class="k">as</span> <span class="nv">$value</span> <span class="p">)</span>
-	<span class="k">echo</span> <span class="s1">'&lt;li&gt;'</span> <span class="o">.</span> <span class="nv">$value</span> <span class="o">.</span> <span class="s1">'&amp;lt;/li&gt;'</span><span class="p">;</span>
-<span class="cp">?&gt;</span>
-<span class="nt">&lt;/ul&gt;</span>
-</code></pre></div></div>
-
-<p>Finally, you can now edit all widget titles, not just titles of text widgets.</p>
-
-<p>Other enhancements:</p>
-
-<ul>
-  <li>optimized script loading</li>
-  <li>fixed issue with Internet Explorer</li>
-  <li>fixed issue with comment paragraphs</li>
-  <li>fixed issues with the <code class="highlighter-rouge">$post</code> global</li>
-</ul>
-
-	</p>
-
+		
 	
-</article>
-</div>
+		
 
+		
 
+		<li >
+			<a href="/wordpress/front-end-editor/fee-0-6.html">Front-end Editor: Version 0.6</a>
+		</li>
+
+		
 	
+		
 
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.5</h1>
+		
 
-	<time datetime="2009-11-29 00:00:00 +0000">November 29, 2009</time>
+		<li >
+			<a href="/wordpress/front-end-editor/fee-0-5.html">Front-end Editor: Version 0.5</a>
+		</li>
 
-	<p class="entry-content">
-		<p>Straight from the lab, we bring you the latest and greatest in front-end editing:</p>
-
-<h3 id="swap-theme-images">Swap theme images</h3>
-
-<p>Currently, there is no easy way to change an image from your theme. You have to either override the image file through FTP or locate the code in your theme and modify it.</p>
-
-<p>Wouldn’t it be nice if you could just double-click on the image you want to change and then just do it, without leaving the page you’re on?</p>
-
-<p>Good news: now you can, with a little bit of tweaking. To make an image editable, you have to make a one-time edit to your theme.</p>
-
-<!--more-->
-
-<p>I chose the <a href="http://cutline.tubetorial.com/">Cutline</a> theme as an example:</p>
-
-<p>In header.php, I replaced this:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;img src="&lt;?php bloginfo('template_url'); ?&gt;/images/header_1.jpg" width="970" height="140" alt="&lt;?php bloginfo('name'); ?&gt; header image 1" title="&lt;?php bloginfo('name'); ?&gt; header image 1" /&gt;
-</code></pre></div></div>
-
-<p>with this:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">editable_image</span><span class="p">(</span><span class="s1">'header-1'</span><span class="p">,</span> 
-	<span class="nx">get_bloginfo</span><span class="p">(</span><span class="s1">'template_url'</span><span class="p">)</span> <span class="o">.</span> <span class="s1">'/images/header_1.jpg'</span><span class="p">,</span> 
-	<span class="k">array</span><span class="p">(</span><span class="s1">'width'</span> <span class="o">=&gt;</span> <span class="mi">970</span><span class="p">,</span> <span class="s1">'height'</span> <span class="o">=&gt;</span> <span class="mi">140</span><span class="p">,</span> <span class="s1">'alt'</span> <span class="o">=&gt;</span> <span class="nx">get_bloginfo</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)));</span> 
-<span class="cp">?&gt;</span>
-</code></pre></div></div>
-
-<p>The first argument is the image name<br />
-The second argument is the default URL<br />
-The third argument is optional and it’s used for adding extra attributes to the <img /> element.</p>
-
-<p>Now, when I double-click on the header image, the Media Library box pops up. From there, I can choose any image I want to put instead of the current one:</p>
-
-<p><img src="http://img686.imageshack.us/img686/153/screenshot2s.png" alt="image swapping" /></p>
-
-<h3 id="nicedit-is-in-jwysiwyg-is-out">NicEdit is in, jWYSIWYG is out</h3>
-
-<p><a href="http://nicedit.com">NicEdit</a> is a more mature visual editor than <a href="http://code.google.com/p/jwysiwyg">jWYSIWYG</a>, but still lightweight.</p>
-
-<p><img src="http://img686.imageshack.us/img686/6445/screenshot1f.png" alt="visual editing" /></p>
-
-<p>Two important benefits:</p>
-
-<ul>
-  <li><strong>more inline than ever</strong>: when editing the post content, the editor preserves all the styles from your theme, making it even more seamless</li>
-  <li><strong>autogrow for all</strong>: autogrow is native to NicEdit, which means that it should work reliably in all browsers</li>
-</ul>
-
-<h3 id="other-improvements">Other improvements</h3>
-
-<ul>
-  <li>improved single paragraph editing</li>
-  <li>better handling of text widgets</li>
-  <li>compress JS &amp; CSS for faster loading</li>
-  <li>compatibility with Ajaxed WordPress plugin</li>
-  <li>added Estonian translation, by Aivar Luht</li>
-</ul>
-
-<p>If you’re having trouble with the new version or have a feature request, hit the <a href="http://wordpress.org/tags/front-end-editor">support forums</a>.</p>
-
-
-	</p>
-
+		</ul>
 	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.4</h1>
-
-	<time datetime="2009-11-06 00:00:00 +0000">November 06, 2009</time>
-
-	<p class="entry-content">
-		<p>Over the last several weeks, there has been a steady stream of improvements going into Front-end Editor, largely as a result of your feedback. I’m happy to see people are using the plugin in interesting ways.</p>
-
-<p>First of, several users requested a way to allow only certain posts to be editable. This is easily done now, with a few lines of code. See examples <a href="http://wordpress.org/support/topic/321626?replies=20#post-1263527">here</a>.</p>
-
-<p>Secondly, there are two new editable fields: If you’re on a category archive and your theme uses <code class="highlighter-rouge">single_cat_title()</code>, you will be able to edit the category title on the spot. The same goes for tags.</p>
-
-<p>Other improvements:</p>
-
-<ul>
-  <li>added $echo parameter to <code class="highlighter-rouge">editable_post_meta()</code></li>
-  <li>don’t load CSS or JS if the current user can’t edit any of the fields</li>
-  <li>switched from Autogrow to Growfield (fixes IE compatibility)</li>
-  <li>added Georgian translation (thanks to Levani Melikishvili)</li>
-</ul>
-
-<p>Thanks to those who suggested improvements and did beta testing.</p>
-
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.3</h1>
-
-	<time datetime="2009-09-24 00:00:00 +0100">September 24, 2009</time>
-
-	<p class="entry-content">
-		<p>A new release with a lot of small but noticeable improvements:</p>
-
-<h3 id="two-new-editable-fields">Two new editable fields</h3>
-
-<p>In version 1.3, you can also edit your site’s title and description. You won’t go changing those very often, but it’s nice to know you can. :)</p>
-
-<h3 id="skinable-wysiwyg-editor">Skinable WYSIWYG editor</h3>
-
-<p>The rich text editor now respects image alignment. What’s more, you can make the editor window look however you want. Just add your own CSS into a file named <code class="highlighter-rouge">front-end-editor.css</code> and place it in your theme’s directory.</p>
-
-<p>If you’re a JavaScript ninja, you can go even further and tweak it’s behaviour using <a href="http://scribu.net/wordpress/event-pooling-with-wordpress.html">event triggers</a> baked into the new version. See /inc/editor/editor.js.</p>
-
-<h3 id="slug-updating">Slug updating</h3>
-
-<p>When you edit a post, the post’s slug will also be updated, when appropriate. For example, say you have a post titled “My Greatest Post Ever”.</p>
-
-<p>If the slug is the default one -  “my-greatest-post-ever” – and you change the title, the slug will also be updated.</p>
-
-<p>But, if you had previously set the slug to “greatest-post”, it will remain unchanged when you edit the title.</p>
-
-<h3 id="other-improvements">Other improvements</h3>
-
-<ul>
-  <li>option to disable highlighting</li>
-  <li>compatibility with the postThumbs plugin</li>
-  <li>added Polish translation</li>
-  <li>better XHTML markup</li>
-</ul>
-
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.2</h1>
-
-	<time datetime="2009-08-25 00:00:00 +0100">August 25, 2009</time>
-
-	<p class="entry-content">
-		<p>As you might have noticed, a lot of work is going into this plugin:</p>
-
-<p>Version 1.2 adds another editable field – the author description. It works if you have this somewhere in your theme:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>the_author_meta('description');
-</code></pre></div></div>
-
-<p>Or, if you’re on an older version of WordPress:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>the_author_description();
-</code></pre></div></div>
-
-<p>Besides that, several other improvements have been included:</p>
-
-<ul>
-  <li>while hovering over editable field, it will be highlighted</li>
-  <li>added experimental wysiwyg autogrow</li>
-  <li>it should generate valid xHTML</li>
-  <li>html code is cleaned up before saving</li>
-  <li>added Portuguese translation</li>
-</ul>
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.1</h1>
-
-	<time datetime="2009-08-15 00:00:00 +0100">August 15, 2009</time>
-
-	<p class="entry-content">
-		<p>Version 1.1 adds a few usability improvements:</p>
-
-<ul>
-  <li>a spinner is displayed while loading and saving data</li>
-  <li>pressing escape while editing will remove the form</li>
-  <li>pressing enter while editing a text input will submit the form</li>
-</ul>
-
-<p>Also, it allows you to edit custom taxonomies, just like you would edit post tags. I recommend the <a href="http://yoast.com/wordpress/simple-taxonomies/">Simple Taxonomies</a> plugin for creating custom taxonomies.</p>
-
-<p>Here is a code example:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">the_terms</span><span class="p">(</span><span class="nv">$post</span><span class="o">-&gt;</span><span class="na">ID</span><span class="p">,</span> <span class="s1">'mytax'</span><span class="p">);</span> <span class="cp">?&gt;</span>
-</code></pre></div></div>
-
-<p>To make it work in WP 2.8 *, you have to open <code class="highlighter-rouge">wp-includes/category-template.php</code> and find the_terms() function. Then, you have to make it look like this:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function the_terms( $id, $taxonomy, $before = '', $sep = ', ', $after = '' ) {
-    $term_list = get_the_term_list( $id, $taxonomy, $before, $sep, $after );
-
-    if ( is_wp_error( $term_list ) )
-        return false;
-
-    echo apply_filters('the_terms', $term_list, $taxonomy, $before, $sep, $after);
-}
-</code></pre></div></div>
-
-<p>___|_</p>
-<ul>
-  <li>You don’t have to do this if you’re using WordPress 2.9 or newer (see <a href="http://core.trac.wordpress.org/ticket/10600">#10600</a>).</li>
-</ul>
-
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Loading only on certain pages</h1>
-
-	<time datetime="2009-07-07 00:00:00 +0100">July 07, 2009</time>
-
-	<p class="entry-content">
-		<p>Here is a foolproof way to make only parts of your site editable:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function front_editor_disable() {
-	if ( ! is_single() )
-		return true;
-}
-add_filter('front_end_editor_disable', 'front_editor_disable');
-</code></pre></div></div>
-
-<p>Just add that code in your theme’s <em>functions.php</em> file and you’re good to go: the plugin will work only on single posts.</p>
-
-<p>Feel free to replace <code class="highlighter-rouge">is_single()</code> with whatever condition you need.</p>
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 1.0</h1>
-
-	<time datetime="2009-06-14 00:00:00 +0100">June 14, 2009</time>
-
-	<p class="entry-content">
-		<p>The new feature in this release is the possibility of editing a single paragraph in a post, instead of the whole post. If you want to go back to the old behaviour, you can uncheck the new checkbox from the settings page.</p>
-
-<p>Speaking of which, the settings page is now split into two dashboard-like boxes.</p>
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 0.9</h1>
-
-	<time datetime="2009-04-12 00:00:00 +0100">April 12, 2009</time>
-
-	<p class="entry-content">
-		<p>This version adds post meta editable fields. These are a little different from the others. To add a custom field editable meta, you have to add something like this inside <a href="http://codex.wordpress.org/The_Loop">The Loop</a> in you WordPress theme:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="nx">editable_post_meta</span><span class="p">(</span><span class="nv">$post</span><span class="o">-&gt;</span><span class="na">ID</span><span class="p">,</span> <span class="s1">'my_key'</span><span class="p">,</span> <span class="s1">'textarea'</span><span class="p">);</span> <span class="cp">?&gt;</span>
-</code></pre></div></div>
-
-<p>The first argument is the current post id, the second is the custom field key and the third is the type of field you want (input, textarea or rich).</p>
-
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 0.8</h1>
-
-	<time datetime="2009-04-07 00:00:00 +0100">April 07, 2009</time>
-
-	<p class="entry-content">
-		<p><img src="http://img17.imageshack.us/img17/107/wysiwyg.png" alt="Front-end WYSIWYG Editor" /></p>
-
-<p>Version 0.8 includes the <a href="http://code.google.com/p/jwysiwyg/">jWYSIWYG</a> editor for the content. If you don’t like it, you can disable it from the options page.</p>
-
-<p>Also, the plugin is translatable now. See <a href="http://scribu.net/wordpress/front-end-editor/localization.html">Localization</a>.</p>
-
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 0.7</h1>
-
-	<time datetime="2009-04-06 00:00:00 +0100">April 06, 2009</time>
-
-	<p class="entry-content">
-		<p>This version adds a Settings page under Settings -&gt; Front-end Editor. There you can choose which editable fields are active and which aren’t.</p>
-
-<p>Also, double-clicking should work now for Internet Explorer users.</p>
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 0.6</h1>
-
-	<time datetime="2009-04-03 00:00:00 +0100">April 03, 2009</time>
-
-	<p class="entry-content">
-		<p>This version makes it possible to also <strong>edit tags inline</strong>. However, due to a bug* in WordPress, it won’t work on most themes. If you want this feature you will have to make the following modification to your theme:</p>
-
-<p>Replace <code class="highlighter-rouge">the_tags()</code> with <code class="highlighter-rouge">echo get_the_tag_list()</code>.</p>
-
-<p>Some fixes for the autogrow script have also been added. Props <a href="http://www.iphoneclub.nl/">Jean-Paul Horn</a>.</p>
-
-<p>It’s now a lot easier to add new editable fields. I will be writing a post for developers on how to add new editable fields using this plugin.</p>
-
-<p>___|_</p>
-<ul>
-  <li>I’ve submitted a <a href="http://core.trac.wordpress.org/ticket/9436">ticket</a>, so the bug will hopefully be fixed in WP 2.8.</li>
-</ul>
-
-
-	</p>
-
-	
-</article>
-</div>
-
-
-	
-
-	<div class="row">
-<article class="col-9 post">
-	<h1 class="mb-0 mt-1">Front-end Editor: Version 0.5</h1>
-
-	<time datetime="2009-03-30 00:00:00 +0100">March 30, 2009</time>
-
-	<p class="entry-content">
-		<p><img src="http://img9.imageshack.us/img9/8636/fee.png" alt="Front-end Editor in action" /></p>
-
-<p>Front-end Editor is a plugin that lets you edit posts or pages <em>directly</em> from your site. No need to load the admin backend just to correct a typo.</p>
-
-<p>To edit something, <em>just double-click it</em>.</p>
-
-<h4 id="current-features">Current Features</h4>
-
-<ul>
-  <li>edit title or content</li>
-  <li>works for posts and pages</li>
-  <li>should work with any theme</li>
-  <li>lightweight</li>
-</ul>
-
-<p>This is just the first version and more features are still to come. What I have in mind:</p>
-
-<ul>
-  <li>include WYSIWYG editor</li>
-  <li>edit tags and/or categories</li>
-</ul>
-
-
-	</p>
-
-	
-</article>
 </div>
 
 
 
 
+      
 
-	<!-- Footer -->
-	<footer class="footer bg-light">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-					<p class="text-muted small mb-4 mb-lg-0">&copy; Cristi Burcă 2020. All Rights Reserved.</p> </div>
-				<div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-					<ul class="list-inline mb-0">
-						<li class="list-inline-item mr-3">
-							<a href="https://twitter.com/scribu">
-								<i class="fa fa-twitter fa-2x fa-fw"></i>
-							</a>
-						</li>
-						<li class="list-inline-item mr-3">
-							<a href="https://github.com/scribu">
-								<i class="fa fa-github fa-2x fa-fw"></i>
-							</a>
-						</li>
-						<li class="list-inline-item">
-							<a href="https://www.linkedin.com/in/scribu/">
-								<i class="fa fa-linkedin fa-2x fa-fw"></i>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</footer>
+      
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </div>
+  </div>
+</div>
 
-	<script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript">
-		try {
-			var pageTracker = _gat._getTracker("UA-962663-10");
-			pageTracker._trackPageview();
-		} catch(err) {}
-</script>
+
+  <footer>
+  <div class="container-md beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+      <ul class="list-inline text-center footer-links"><li class="list-inline-item">
+    <a href="mailto:mail@scribu.net" title="Email me">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Email me</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://twitter.com/scribu" title="Twitter">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">Twitter</span>
+   </a>
+  </li><li class="list-inline-item">
+    <a href="https://linkedin.com/in/scribu" title="LinkedIn">
+      <span class="fa-stack fa-lg" aria-hidden="true">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+      <span class="sr-only">LinkedIn</span>
+   </a>
+  </li></ul>
+
+      
+      <p class="copyright text-muted">
+      
+        Cristi Burcă
+        &nbsp;&bull;&nbsp;
+      
+      2020
+
+      
+
+      
+      </p>
+      <!-- Please don't remove this, keep my open source work credited :) -->
+      <p class="theme-by text-muted">
+        Powered by
+        <a href="https://beautifuljekyll.com">Beautiful Jekyll</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+    
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+  
+    
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script src="/assets/js/beautifuljekyll.js"></script>
+    
+  
+
+
+
+
+
+
+
+
 
 </body>
 </html>
-
