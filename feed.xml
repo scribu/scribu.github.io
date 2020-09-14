@@ -5,8 +5,8 @@
     <title>scribu.net</title>
     
     
-    <link></link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+    <link>http://scribu.net/</link>
+    <atom:link href="http://scribu.net/feed.xml" rel="self" type="application/rss+xml" />
     
     
       <item>
@@ -16,8 +16,8 @@
           I was never good at making friends, even with people in the same line of work as me. The only way I made friends in the software industry was very obliquely: by contributing to open-source for months and years. Eventually, after interacting with dozens or hundreds of people in public...
         </description>
         <pubDate>Tue, 26 May 2020 02:23:00 +0100</pubDate>
-        <link>/making-friends.html</link>
-        <guid isPermaLink="true">/making-friends.html</guid>
+        <link>http://scribu.net/making-friends.html</link>
+        <guid isPermaLink="true">http://scribu.net/making-friends.html</guid>
       </item>
     
       <item>
@@ -27,8 +27,8 @@
           So you’ve heard that Python now supports that fancy async/await syntax. You want to play with it, but asyncio seems intimidating. Well, someone wrote a simpler alternative to asyncio. It’s called Curio and people are saying good things about it. 1 In this tutorial, I’m going to show you how...
         </description>
         <pubDate>Fri, 11 Nov 2016 00:00:00 +0000</pubDate>
-        <link>/blog/asynchronous-http-requests-in-python-3.5.html</link>
-        <guid isPermaLink="true">/blog/asynchronous-http-requests-in-python-3.5.html</guid>
+        <link>http://scribu.net/blog/asynchronous-http-requests-in-python-3.5.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/asynchronous-http-requests-in-python-3.5.html</guid>
       </item>
     
       <item>
@@ -38,8 +38,8 @@
           Last weekend I participated in the Open Data Day Hackathon in Cluj-Napoca. I was glad to see that there were other people nearby interested in open data. My idea was to make a 3D map of Romania, with each county elevated according to its population. It was really satisfying to...
         </description>
         <pubDate>Mon, 23 Feb 2015 00:00:00 +0000</pubDate>
-        <link>/blog/3d-maps-using-d3-and-three.js.html</link>
-        <guid isPermaLink="true">/blog/3d-maps-using-d3-and-three.js.html</guid>
+        <link>http://scribu.net/blog/3d-maps-using-d3-and-three.js.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/3d-maps-using-d3-and-three.js.html</guid>
       </item>
     
       <item>
@@ -49,8 +49,8 @@
           So I have a custom email address, mail@example.com, which I want to forward to example@gmail.com. Since I use NameCheap as my registrar, I had the option of setting up email forwarding via their UI. Very easy, but with drawbacks: sometimes email just wouldn’t arrive and I had no way of...
         </description>
         <pubDate>Tue, 18 Nov 2014 00:00:00 +0000</pubDate>
-        <link>/blog/properly-forwarding-email-to-gmail.html</link>
-        <guid isPermaLink="true">/blog/properly-forwarding-email-to-gmail.html</guid>
+        <link>http://scribu.net/blog/properly-forwarding-email-to-gmail.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/properly-forwarding-email-to-gmail.html</guid>
       </item>
     
       <item>
@@ -60,8 +60,8 @@
           It seems like most people that follow me on Twitter still think that I’m involved with WordPress. I haven’t done any WordPress-related work in over 6 months and I don’t intend to do any WordPress-related work in the future. I stopped using WordPress at the end of 2012. I stopped...
         </description>
         <pubDate>Tue, 18 Nov 2014 00:00:00 +0000</pubDate>
-        <link>/blog/left-wordpress.html</link>
-        <guid isPermaLink="true">/blog/left-wordpress.html</guid>
+        <link>http://scribu.net/blog/left-wordpress.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/left-wordpress.html</guid>
       </item>
     
       <item>
@@ -71,8 +71,8 @@
           I am afflicted with this disease: In large measure the high casualty rate of knowledge-based industry is the fault of the knowledge-based, and especially the high-tech, entrepreneurs themselves. They tend to be contemptuous of anything that is not “advanced knowledge”, and particularly of anyone who is not a specialist in...
         </description>
         <pubDate>Sat, 28 Jun 2014 00:00:00 +0100</pubDate>
-        <link>/blog/high-tech-folly.html</link>
-        <guid isPermaLink="true">/blog/high-tech-folly.html</guid>
+        <link>http://scribu.net/blog/high-tech-folly.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/high-tech-folly.html</guid>
       </item>
     
       <item>
@@ -82,8 +82,8 @@
           I don’t know about you, but I think Travis CI is the best thing that happened to open-source development since Github. I noticed that my builds seemed to be getting slower lately. Looking at the build history in the regular Travis CI interface wasn’t very conclusive, because you can only...
         </description>
         <pubDate>Thu, 10 Apr 2014 00:00:00 +0100</pubDate>
-        <link>/blog/travis-ci-build-stats.html</link>
-        <guid isPermaLink="true">/blog/travis-ci-build-stats.html</guid>
+        <link>http://scribu.net/blog/travis-ci-build-stats.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/travis-ci-build-stats.html</guid>
       </item>
     
       <item>
@@ -93,8 +93,8 @@
           Implementing single-page web applications that work on all browsers remains a challenge. For the basic task of uploading files, you still need some sort of polyfill or library that adds support for older browsers (read IE 8 and 9, which are still in wide use). In this tutorial I’m going...
         </description>
         <pubDate>Mon, 24 Feb 2014 00:00:00 +0000</pubDate>
-        <link>/blog/cross-browser-uploads-ember-moxie.html</link>
-        <guid isPermaLink="true">/blog/cross-browser-uploads-ember-moxie.html</guid>
+        <link>http://scribu.net/blog/cross-browser-uploads-ember-moxie.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/cross-browser-uploads-ember-moxie.html</guid>
       </item>
     
       <item>
@@ -107,8 +107,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
 
         </description>
         <pubDate>Mon, 27 Jan 2014 00:00:00 +0000</pubDate>
-        <link>/plugin-dependencies/new-maintainer-x-team.html</link>
-        <guid isPermaLink="true">/plugin-dependencies/new-maintainer-x-team.html</guid>
+        <link>http://scribu.net/plugin-dependencies/new-maintainer-x-team.html</link>
+        <guid isPermaLink="true">http://scribu.net/plugin-dependencies/new-maintainer-x-team.html</guid>
       </item>
     
       <item>
@@ -118,8 +118,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           “Where are the people?” the little prince asked, politely. The flower had once seen a caravan passing. “People?” she echoed. “I think there are six or seven of them in existence. I saw them, several years ago. But one never knows where to find them. The wind blows them away....
         </description>
         <pubDate>Sun, 24 Nov 2013 00:00:00 +0000</pubDate>
-        <link>/blog/the-wind-blows-them-away.html</link>
-        <guid isPermaLink="true">/blog/the-wind-blows-them-away.html</guid>
+        <link>http://scribu.net/blog/the-wind-blows-them-away.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/the-wind-blows-them-away.html</guid>
       </item>
     
       <item>
@@ -129,8 +129,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           The PHP world is not known for good unit test coverage. It’s mostly a cultural issue, but there is a technical aspect to it as well. PHPUnit allows you to create mock objects, but that assumes your codebase uses the Depedency Injection pattern. If not, it’s very hard to add...
         </description>
         <pubDate>Fri, 20 Sep 2013 00:00:00 +0100</pubDate>
-        <link>/blog/test-doubles-in-pure-php.html</link>
-        <guid isPermaLink="true">/blog/test-doubles-in-pure-php.html</guid>
+        <link>http://scribu.net/blog/test-doubles-in-pure-php.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/test-doubles-in-pure-php.html</guid>
       </item>
     
       <item>
@@ -140,8 +140,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           Science (from Latin scientia, meaning “knowledge”) is a systematic enterprise that builds and organizes knowledge in the form of testable explanations and predictions about the universe. Most people, whether religious or not, agree that the scientific method, as described above, is a Good Thing. Unfortunately, since the nineteenth century, the...
         </description>
         <pubDate>Fri, 13 Sep 2013 00:00:00 +0100</pubDate>
-        <link>/blog/the-martin-luther-of-science.html</link>
-        <guid isPermaLink="true">/blog/the-martin-luther-of-science.html</guid>
+        <link>http://scribu.net/blog/the-martin-luther-of-science.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/the-martin-luther-of-science.html</guid>
       </item>
     
       <item>
@@ -151,8 +151,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           It’s a well known fact that, in English, the way a word is spelled can have little or no relationship to the way it’s pronounced. As a native speaker of Romanian, which is a phonetic language, I find the pronunciation of single vowels particularly confusing. To illustrate, here’s a completely...
         </description>
         <pubDate>Sat, 24 Aug 2013 00:00:00 +0100</pubDate>
-        <link>/blog/pronouncing-english-vowels.html</link>
-        <guid isPermaLink="true">/blog/pronouncing-english-vowels.html</guid>
+        <link>http://scribu.net/blog/pronouncing-english-vowels.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/pronouncing-english-vowels.html</guid>
       </item>
     
       <item>
@@ -162,8 +162,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           A Mathematician’s Lament is this poignant essay 1 from a few years ago that I just discovered. I highly recommend you go read it now, because I’m going to give spoilers. In the introduction, the author makes the case that mathematics is a misunderstood art form, where the medium is...
         </description>
         <pubDate>Mon, 12 Aug 2013 00:00:00 +0100</pubDate>
-        <link>/blog/math-is-not-important-its-fun.html</link>
-        <guid isPermaLink="true">/blog/math-is-not-important-its-fun.html</guid>
+        <link>http://scribu.net/blog/math-is-not-important-its-fun.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/math-is-not-important-its-fun.html</guid>
       </item>
     
       <item>
@@ -173,8 +173,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           I was recently assigned to work on a node.js project — a first, for me. I discovered that it comes with a neat CLI debugger built in, which is very handy when diving into an unknown codebase. However, when inspecting a variable, it doesn’t show me its type; only its...
         </description>
         <pubDate>Mon, 15 Jul 2013 00:00:00 +0100</pubDate>
-        <link>/blog/object-introspection.html</link>
-        <guid isPermaLink="true">/blog/object-introspection.html</guid>
+        <link>http://scribu.net/blog/object-introspection.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/object-introspection.html</guid>
       </item>
     
       <item>
@@ -184,8 +184,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           When we are debating an issue, loyalty means giving me your honest opinion, whether you think I’ll like it or not. Disagreement, at this stage, stimulates me. But once a decision has been made, the debate ends. From that point on, loyalty means executing the decision as if it were...
         </description>
         <pubDate>Sat, 15 Jun 2013 00:00:00 +0100</pubDate>
-        <link>/blog/colin-powell-on-loyalty.html</link>
-        <guid isPermaLink="true">/blog/colin-powell-on-loyalty.html</guid>
+        <link>http://scribu.net/blog/colin-powell-on-loyalty.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/colin-powell-on-loyalty.html</guid>
       </item>
     
       <item>
@@ -195,8 +195,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           There were some improvements commited to the development version of the plugin for a while and I thought I’d do a quick release, to get them in the hands of users. With version 1.6, P2P development will effectively be entering hibernation mode. I won’t be working on any new features...
         </description>
         <pubDate>Fri, 10 May 2013 00:00:00 +0100</pubDate>
-        <link>/wordpress/posts-to-posts/version-1-6.html</link>
-        <guid isPermaLink="true">/wordpress/posts-to-posts/version-1-6.html</guid>
+        <link>http://scribu.net/wordpress/posts-to-posts/version-1-6.html</link>
+        <guid isPermaLink="true">http://scribu.net/wordpress/posts-to-posts/version-1-6.html</guid>
       </item>
     
       <item>
@@ -206,8 +206,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           In PHP, array keys can be either numbers or strings, whereas in Ruby associative arrays are a separate data type, called a hash. Here’s a cheatsheet for various foreach variants, translated into idiomatic Ruby: Looping over a numeric array (PHP) &amp;lt;?php $items = array( 'orange', 'pear', 'banana' ); # without...
         </description>
         <pubDate>Tue, 07 May 2013 00:00:00 +0100</pubDate>
-        <link>/blog/ruby-equivalents-to-php-foreach.html</link>
-        <guid isPermaLink="true">/blog/ruby-equivalents-to-php-foreach.html</guid>
+        <link>http://scribu.net/blog/ruby-equivalents-to-php-foreach.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/ruby-equivalents-to-php-foreach.html</guid>
       </item>
     
       <item>
@@ -217,8 +217,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           To pragmatists the GPL is important as a tool, rather than as an end in itself. Its main value is not as a weapon against `hoarding’, but as a tool for encouraging software sharing and the growth of bazaar-mode development communities. The pragmatist values having good tools and toys more...
         </description>
         <pubDate>Sat, 13 Apr 2013 00:00:00 +0100</pubDate>
-        <link>/blog/open-source-pragmatism.html</link>
-        <guid isPermaLink="true">/blog/open-source-pragmatism.html</guid>
+        <link>http://scribu.net/blog/open-source-pragmatism.html</link>
+        <guid isPermaLink="true">http://scribu.net/blog/open-source-pragmatism.html</guid>
       </item>
     
       <item>
@@ -228,8 +228,8 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
           When I started developing WordPress plugins, most people asking questions in the support forums seemed like hobbyists building sites for themselves. Since then, I’ve noticed two trends that irk me. Freelancers Nowadays, there seem to be a lot more people that get paid to build WordPress sites for others. There’s...
         </description>
         <pubDate>Wed, 10 Apr 2013 00:00:00 +0100</pubDate>
-        <link>/wordpress/on-plugin-support.html</link>
-        <guid isPermaLink="true">/wordpress/on-plugin-support.html</guid>
+        <link>http://scribu.net/wordpress/on-plugin-support.html</link>
+        <guid isPermaLink="true">http://scribu.net/wordpress/on-plugin-support.html</guid>
       </item>
     
   </channel>
