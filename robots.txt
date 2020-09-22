@@ -1,1 +1,1 @@
-Sitemap: http://scribu.net/sitemap.xml
+Sitemap: https://scribu.net/sitemap.xml
