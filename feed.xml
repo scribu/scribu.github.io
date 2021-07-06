@@ -10,17 +10,6 @@
     
     
       <item>
-        <title>Twitter Polls vs. Science</title>
-        <description>
-          
-          Say you make a quick poll on Twitter and you only get 7 answers, because you’re not even internet-famous: Statement: People rarely look back at their notes because they believe old notes are not relevant anymore. Either the world has changed or they have changed.&amp;mdash; scribu (@scribu) September 20, 2020...
-        </description>
-        <pubDate>Tue, 22 Sep 2020 00:00:00 +0100</pubDate>
-        <link>https://scribu.net/twitter-poll-analysis.html</link>
-        <guid isPermaLink="true">https://scribu.net/twitter-poll-analysis.html</guid>
-      </item>
-    
-      <item>
         <title>Making Friends With Other Techies</title>
         <description>
           
@@ -230,6 +219,17 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
         <pubDate>Sat, 13 Apr 2013 00:00:00 +0100</pubDate>
         <link>https://scribu.net/blog/open-source-pragmatism.html</link>
         <guid isPermaLink="true">https://scribu.net/blog/open-source-pragmatism.html</guid>
+      </item>
+    
+      <item>
+        <title>On Plugin Support</title>
+        <description>
+          
+          When I started developing WordPress plugins, most people asking questions in the support forums seemed like hobbyists building sites for themselves. Since then, I’ve noticed two trends that irk me. Freelancers Nowadays, there seem to be a lot more people that get paid to build WordPress sites for others. There’s...
+        </description>
+        <pubDate>Wed, 10 Apr 2013 00:00:00 +0100</pubDate>
+        <link>https://scribu.net/wordpress/on-plugin-support.html</link>
+        <guid isPermaLink="true">https://scribu.net/wordpress/on-plugin-support.html</guid>
       </item>
     
   </channel>
