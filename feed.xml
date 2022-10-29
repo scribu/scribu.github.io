@@ -10,17 +10,6 @@
     
     
       <item>
-        <title>Making Friends With Other Techies</title>
-        <description>
-          
-          I was never good at making friends, even with people in the same line of work as me. The only way I made friends in the software industry was very obliquely: by contributing to open-source for months and years. Eventually, after interacting with dozens or hundreds of people in public...
-        </description>
-        <pubDate>Tue, 26 May 2020 02:23:00 +0100</pubDate>
-        <link>https://scribu.net/making-friends.html</link>
-        <guid isPermaLink="true">https://scribu.net/making-friends.html</guid>
-      </item>
-    
-      <item>
         <title>Asynchronous HTTP Requests in Python 3.5+</title>
         <description>
           
@@ -230,6 +219,17 @@ The official Github repository is now https://github.com/x-team/wp-plugin-depend
         <pubDate>Wed, 10 Apr 2013 00:00:00 +0100</pubDate>
         <link>https://scribu.net/wordpress/on-plugin-support.html</link>
         <guid isPermaLink="true">https://scribu.net/wordpress/on-plugin-support.html</guid>
+      </item>
+    
+      <item>
+        <title>Yay Data Portability</title>
+        <description>
+          
+          In the following post, I will attempt to chronicle how I came to believe that having your content in a portable format is more valuable than having an open source project to manipulate that content. I accidentally jump-started my programming career by working on an open-source project (WordPress) and I...
+        </description>
+        <pubDate>Mon, 01 Apr 2013 00:00:00 +0100</pubDate>
+        <link>https://scribu.net/blog/yay-data-portability.html</link>
+        <guid isPermaLink="true">https://scribu.net/blog/yay-data-portability.html</guid>
       </item>
     
   </channel>
