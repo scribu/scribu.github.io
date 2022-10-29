@@ -12,8 +12,6 @@
   <title>Conditional Script Loading Revisited</title>
 
   
-  <meta name="author" content="Cristi Burcă">
-  
 
   <meta name="description" content="In 2010 I wrote a tutorial for loading JavaScript using the WordPress API. The main problem was how to enqueue a script only when needed; for example, when a certain shortcode was present on the page. Since WordPress 3.3, you can skip all the Yoda acrobatics; just call wp_enqueue_script() inside...">
 
@@ -94,7 +92,7 @@
 
   
   <meta property="og:type" content="article">
-  <meta property="og:article:author" content="Cristi Burcă">
+  <meta property="og:article:author" content="false">
   <meta property="og:article:published_time" content="2012-01-14T00:00:00+00:00">
   <meta property="og:url" content="https://scribu.net/wordpress/conditional-script-loading-revisited.html">
   <link rel="canonical" href="https://scribu.net/wordpress/conditional-script-loading-revisited.html">
@@ -308,9 +306,6 @@ function my_shortcode_handler($atts) {
 
       
       <p class="copyright text-muted">
-      
-        Cristi Burcă
-        &nbsp;&bull;&nbsp;
       
       2022
 
